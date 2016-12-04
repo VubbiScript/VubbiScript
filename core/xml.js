@@ -88,7 +88,7 @@ Blockly.Xml.blockToDom = function(block, statement_list) {
     if (mutation && (mutation.hasChildNodes() || mutation.hasAttributes())) {
       element.appendChild(mutation);
       if (mutation !== undefined && mutation != null
-            && (block.type.indexOf('Controls_if') !== -1 || block.type.indexOf('Controls_wait_for') !== -1 || block.type.indexOf('Controls_wait') !== -1)) {
+                    && (block.type == 'unityControls_wait_for')) {
          //  && (block.type == 'robControls_if' || block.type == 'robControls_ifElse' || block.type == 'robControls_wait_for' || block.type == 'robControls_wait')) {
          element.appendChild(repetitions);
          repe = true;
@@ -273,7 +273,7 @@ Blockly.Xml.cloneShadow_ = function(shadow) {
 Blockly.Xml.domToText = function(dom) {
   var oSerializer = new XMLSerializer();
   var text = oSerializer.serializeToString(dom);
-  text = text.replace('http://www.w3.org/1999/xhtml', 'http://de.fhg.iais.roberta.blockly');
+    text = text.replace(' xmlns="http://www.w3.org/1999/xhtml"', '');
   return text
 };
 
@@ -304,7 +304,6 @@ Blockly.Xml.domToPrettyText = function(dom) {
   // E.g. <foo></foo>
   var text = lines.join('\n');
   text = text.replace(/(<(\w+)\b[^>]*>[^\n]*)\n *<\/\2>/g, '$1</$2>');
-  text = text.replace('http://www.w3.org/1999/xhtml', 'http://de.fhg.iais.roberta.blockly');
   // Trim leading blank line.
   return text.replace(/^\n/, '');
 };

@@ -1129,3 +1129,44 @@ Blockly.Msg.PROCEDURES_IFRETURN_TOOLTIP = 'If a value is true, then return a sec
 Blockly.Msg.PROCEDURES_IFRETURN_HELPURL = 'http://c2.com/cgi/wiki?GuardClause';
 /// warning - This appears if the user tries to use this block outside of a function definition.
 Blockly.Msg.PROCEDURES_IFRETURN_WARNING = 'Warning: This block may be used only within a function definition.';
+
+
+
+//
+// New strings for Scratchity
+// (Some are based on the strings for "Open Roberta")
+//
+Blockly.Msg.VARIABLES_GET_ITEM = Blockly.Msg.VARIABLES_DEFAULT_NAME;
+Blockly.Msg.VARIABLES_TYPE_NUMBER = 'Number';
+Blockly.Msg.VARIABLES_TYPE_BOOLEAN = 'Boolean';
+Blockly.Msg.VARIABLES_TYPE_STRING = 'String';
+Blockly.Msg.VARIABLES_TYPE_COLOUR = 'Colour';
+Blockly.Msg.VARIABLES_TYPE_CONNECTION = 'Connection';
+Blockly.Msg.VARIABLES_TYPE_ARRAY_NUMBER = 'List Number';
+Blockly.Msg.VARIABLES_TYPE_ARRAY_STRING = 'List String';
+Blockly.Msg.VARIABLES_TYPE_ARRAY_BOOLEAN = 'List Boolean';
+Blockly.Msg.VARIABLES_TYPE_ARRAY_COLOUR = 'List Colour';
+Blockly.Msg.VARIABLES_TYPE_ARRAY_CONNECTION = 'List Connection';
+Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE = 'doSomething';
+Blockly.Msg.PROCEDURES_VARIABLES_ERROR = 'Error: This block may be used only within the "';
+Blockly.Msg.PROCEDURES_VARIABLES_LOOP_ERROR = 'Error: This block may be used only within a loop which declares ';
+Blockly.Msg.PROCEDURES_TITLE = '" procedure';
+Blockly.Msg.TOOLBOX_ACTION = 'Action';
+Blockly.Msg.TOOLBOX_COMMUNICATION = 'Messages';
+Blockly.Msg.TOOLBOX_SENSOR = 'Sensors';
+Blockly.Msg.TOOLBOX_CONTROL = 'Control';
+Blockly.Msg.TOOLBOX_LOGIC = 'Logic';
+Blockly.Msg.TOOLBOX_MATH = 'Math';
+Blockly.Msg.TOOLBOX_TEXT = 'Text';
+Blockly.Msg.TOOLBOX_LIST = 'Lists';
+Blockly.Msg.TOOLBOX_COLOUR = 'Colours';
+Blockly.Msg.TOOLBOX_VARIABLE = 'Variables';
+Blockly.Msg.TOOLBOX_PROCEDURE = 'Functions';
+Blockly.Msg.TOOLBOX_WAIT = 'Wait';
+Blockly.Msg.TOOLBOX_LOOP = 'Loops';
+Blockly.Msg.TOOLBOX_DECISION = 'Decisions';
+Blockly.Msg.TOOLBOX_LIGHT = 'Lights';
+Blockly.Msg.TOOLBOX_SOUND = 'Sounds';
+Blockly.Msg.TOOLBOX_DISPLAY = 'Display';
+Blockly.Msg.TOOLBOX_DRIVE = 'Drive';
+Blockly.Msg.TOOLBOX_MOVE = 'Move';

@@ -83,13 +83,7 @@ def main():
     (_, filename) = os.path.split(arg_file)
     target_lang = filename[:filename.index('.')]
     if target_lang not in ('qqq', 'keys', 'synonyms'):
-      blockly_defs = read_json_file(os.path.join(os.curdir, arg_file))
-      if os.path.exists(os.path.join(os.curdir, 'robMsg', 'json', filename)):
-        roberta_defs = read_json_file(os.path.join(os.curdir, 'robMsg', 'json', filename))
-        target_defs = {key: value for (key, value) in (roberta_defs.items() + blockly_defs.items())}
-        print('Merged Open Roberta keys:  ' + filename);
-      else:
-        target_defs = blockly_defs
+      target_defs = read_json_file(os.path.join(os.curdir, arg_file))
 
       # Verify that keys are 'ascii'
       bad_keys = [key for key in target_defs if not string_is_ascii(key)]

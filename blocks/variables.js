@@ -115,7 +115,7 @@ Blockly.Blocks['variables_get'] = {
       var legal = false;
       var block = this;
       do {
-        if (block.type == 'robProcedures_defnoreturn' || block.type == 'robProcedures_defreturn') {
+        if (block.type == 'unityProcedures_defnoreturn' || block.type == 'unityProcedures_defreturn') {
           if (block.getFieldValue('NAME') == procedure) {
             legal = true;
             break;
@@ -244,7 +244,7 @@ Blockly.Blocks['variables_set'] = {
   customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
 };
 
-Blockly.Blocks['robGlobalVariables_declare'] = {
+Blockly.Blocks['unityGlobalVariables_declare'] = {
   /**
    * Block for variable decaration.
    * @this Blockly.Block
@@ -291,12 +291,15 @@ Blockly.Blocks['robGlobalVariables_declare'] = {
         [Blockly.Msg.VARIABLES_TYPE_NUMBER, 'Number'],
         [Blockly.Msg.VARIABLES_TYPE_BOOLEAN, 'Boolean'],
         [Blockly.Msg.VARIABLES_TYPE_STRING, 'String'],
-        [Blockly.Msg.VARIABLES_TYPE_COLOUR, 'Colour'],
-        [Blockly.Msg.VARIABLES_TYPE_CONNECTION, 'Connection' ],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_NUMBER, 'Array_Number'],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_BOOLEAN, 'Array_Boolean'],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_STRING, 'Array_String'],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_CONNECTION, 'Array_Connection']
+      ["GameObject", 'GameObject'],// TODO JEPE vertaal
+      ["Vector3", 'Vector3'],
+      ["Sprite", 'Sprite'],
+      [Blockly.Msg.VARIABLES_TYPE_ARRAY_NUMBER, 'List_Number'],
+      //[Blockly.Msg.VARIABLES_TYPE_ARRAY_BOOLEAN, 'List_Boolean'],
+      [Blockly.Msg.VARIABLES_TYPE_ARRAY_STRING, 'List_String'],
+      //["List GameObject", 'List_GameObject'],
+      //["List Vector3", 'List_Vector3'],
+      //["List Sprite", 'List_Sprite']
         ], function(option) {
             if (option && this.sourceBlock_.getFieldValue('TYPE') !== option) {
               this.sourceBlock_.updateType(option);
@@ -315,7 +318,7 @@ Blockly.Blocks['robGlobalVariables_declare'] = {
          setCheck('Number');
     this.setPreviousStatement(true, 'declaration_only');
     //this.setTooltip(Blockly.Msg.VARIABLES_GLOBAL_DECLARE_TOOLTIP);
-    this.setMutatorMinus(new Blockly.MutatorMinus(['robGlobalVariables_declare']));
+    this.setMutatorMinus(new Blockly.MutatorMinus(['unityGlobalVariables_declare']));
     this.setMovable(false);
     this.setDeletable(false);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
@@ -422,7 +425,7 @@ Blockly.Blocks['robGlobalVariables_declare'] = {
       var parent = this.getParent();
       var nextBlock = this.getNextBlock();
       this.unplug(true, true);
-      if (!!parent && (parent.type.indexOf('Controls_start') !== -1) && !nextBlock) {
+      if (!!parent && parent.type == 'unityControls_classConfig' && !nextBlock) {
         parent.updateShape_(num);
       } else if (!!parent && !nextBlock) {
         parent.setNext(false);
@@ -442,22 +445,20 @@ Blockly.Blocks['robGlobalVariables_declare'] = {
         block = this.workspace.newBlock('text');
       } else if (option === 'Boolean') {
         block = this.workspace.newBlock('logic_boolean');
-      } else if (option.substr(0, 5) === 'Array') {
-        block = this.workspace.newBlock('robLists_create_with');
-        block.setFieldValue(option.substr(6), 'LIST_TYPE');
-      } else if (option === 'Colour') {
-        block = this.workspace.newBlock('robColour_picker');
+      } else if (option.substr(0, 5) === 'List_') {
+        block = this.workspace.newBlock('unityLists_create_with');
+        block.setFieldValue(option.substr(5), 'LIST_TYPE');
+      } else if (option === 'GameObject' || option === 'Sprite') {
       } else if (option === 'Image') {
         block = this.workspace.newBlock('mbedImage_get_image');
-      } else if (option === 'Connection') {
         block = this.workspace.newBlock('logic_null');
       }
       var value = this.getInput('VALUE');
       if (block) {
         block.initSvg();
         block.render();
-        if (option.substr(0, 5) === 'Array') {
-          block.updateType_(option.substr(6));
+        if (option.substr(0, 5) === 'List_') {
+          block.updateType_(option.substr(5));
         }
         value.connection.connect(block.outputConnection);
       }
@@ -471,7 +472,7 @@ Blockly.Blocks['robGlobalVariables_declare'] = {
   customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
 };
 
-Blockly.Blocks['robLocalVariables_declare'] = {
+Blockly.Blocks['unityLocalVariables_declare'] = {
   /**
    * Block for variable decaration.
    * @this Blockly.Block
@@ -518,10 +519,10 @@ Blockly.Blocks['robLocalVariables_declare'] = {
         [Blockly.Msg.VARIABLES_TYPE_STRING, 'String'],
         [Blockly.Msg.VARIABLES_TYPE_COLOUR, 'Colour'],
         [Blockly.Msg.VARIABLES_TYPE_CONNECTION, 'Connection' ],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_NUMBER, 'Array_Number'],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_BOOLEAN, 'Array_Boolean'],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_STRING, 'Array_String'],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_CONNECTION, 'Array_Connection']
+      [Blockly.Msg.VARIABLES_TYPE_ARRAY_NUMBER, 'List_Number'],
+      [Blockly.Msg.VARIABLES_TYPE_ARRAY_BOOLEAN, 'List_Boolean'],
+      [Blockly.Msg.VARIABLES_TYPE_ARRAY_STRING, 'List_String'],
+      [Blockly.Msg.VARIABLES_TYPE_ARRAY_CONNECTION, 'List_Connection']
       ], function(option) {
           if (option && this.sourceBlock_.getFieldValue('TYPE') !== option) {
             this.sourceBlock_.updateType(option);
@@ -551,7 +552,7 @@ Blockly.Blocks['robLocalVariables_declare'] = {
    * inconsistent as a result of the XML loading.
    * @this Blockly.Block
    */
-  validate: Blockly.Blocks['robGlobalVariables_declare'].validate,
+  validate: Blockly.Blocks['unityGlobalVariables_declare'].validate,
   /**
    * Obtain a valid name for the variable.
    * Merge runs of whitespace.  Strip leading and trailing whitespace.
@@ -561,13 +562,13 @@ Blockly.Blocks['robLocalVariables_declare'] = {
    * @private
    * @this Blockly.Block
    */
-  validateName: Blockly.Blocks['robGlobalVariables_declare'].validateName,
+  validateName: Blockly.Blocks['unityGlobalVariables_declare'].validateName,
   /**
    * Create XML to represent variable declaration insides.
    * @return {Element} XML storage element.
    * @this Blockly.Block
    */
-  mutationToDom: Blockly.Blocks['robGlobalVariables_declare'].mutationToDom,
+  mutationToDom: Blockly.Blocks['unityGlobalVariables_declare'].mutationToDom,
   /**
    * Parse XML to restore variable declarations.
    * @param {!Element} xmlElement XML storage element.
@@ -585,7 +586,7 @@ Blockly.Blocks['robLocalVariables_declare'] = {
    * @param {Element} XML storage element.
    * @this Blockly.Block
    */
-  setNext: Blockly.Blocks['robGlobalVariables_declare'].setNext,
+  setNext: Blockly.Blocks['unityGlobalVariables_declare'].setNext,
   getType: function() {
     return this.declarationType_;
   },
@@ -620,7 +621,7 @@ Blockly.Blocks['robLocalVariables_declare'] = {
       var parent = this.getParent();
       var nextBlock = this.getNextBlock();
       this.unplug(true, true);
-      if (!!parent && (parent.type == 'robProcedures_defnoreturn' || parent.type == 'robProcedures_defreturn') && !nextBlock) {
+      if (!!parent && (parent.type == 'unityProcedures_defnoreturn' || parent.type == 'unityProcedures_defreturn') && !nextBlock) {
         parent.updateShape_(num);
       } else if (!!parent && !nextBlock) {
         parent.setNextStatement(false);

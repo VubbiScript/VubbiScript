@@ -382,13 +382,13 @@ Blockly.Variables.getProcedureName = function(name) {
     if (func) {
       if (Blockly.Names.equals(name, blocks[i].getFieldValue('VAR'))) {
         // special case controls_for loop, variable declaration is implicied.
-        if (blocks[i].type == 'robControls_for' || blocks[i].type == 'robControls_forEach') {
+        if (blocks[i].type == 'unityControls_for' || blocks[i].type == 'unityControls_forEach') {
           return blocks[i].id;
         }
         var surroundParent = blocks[i].getSurroundParent();
         if (surroundParent && (surroundParent.type == 'robProcedures_defnoreturn' || surroundParent.type == 'robProcedures_defreturn')) {
           return surroundParent.getFieldValue('NAME');
-        } else if (surroundParent && (surroundParent.type == 'robControls_start' || surroundParent.type == 'robControls_start_ardu')) {
+        } else if (surroundParent && (surroundParent.type == 'unityControls_classConfig')) {
           return 'global';
         }
       }
@@ -464,11 +464,11 @@ Blockly.Variables.allGlobalVariables = function() {
   var variableList = [];
   for (var i = 0; i < topBlocks.length; i++) {
     var block = topBlocks[i];
-    if (block.type.indexOf('Controls_start') !== -1) {
+    if (block.type === 'unityControls_classConfig') {
       var descendants = block.getDescendants();
       if (descendants) {
         variable: for (var i = 1; i < descendants.length; i++) {
-          if (descendants[i].getVarDecl && descendants[i].type === 'robGlobalVariables_declare') {
+          if (descendants[i].getVarDecl && descendants[i].type === 'unityGlobalVariables_declare') {
             variableList.push(descendants[i].getVarDecl()[0]);
           } else {
             if (!descendants[i].getParent())
@@ -494,7 +494,7 @@ Blockly.Variables.allLocalVariables = function() {
       var descendants = block.getDescendants();
       if (descendants) {
         for (var j = 1; j < descendants.length; j++) {
-         if (descendants[j].getVarDecl && descendants[j].type == 'robLocalVariables_declare') {
+         if (descendants[j].getVarDecl && descendants[j].type == 'unityLocalVariables_declare') {
              variableList.push(descendants[j].getVarDecl()[0]);
           } 
         }
@@ -513,7 +513,7 @@ Blockly.Variables.allLoopVariables = function() {
   var variableList = [];
   for (var i = 0; i < allBlocks.length; i++) {
     var block = allBlocks[i];
-    if ((block.type == 'robControls_for' || block.type == 'robControls_forEach') && block.getVarDecl) {
+    if ((block.type == 'unityControls_for' || block.type == 'unityControls_forEach') && block.getVarDecl) {
       variableList.push( block.getVarDecl()[0] );
     }
   }
