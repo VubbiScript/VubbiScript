@@ -1,0 +1,64 @@
+.pagecontainer {
+  position:absolute;
+  top:50;
+  bottom:0;
+  right:0;
+  left:0;
+}
+
+#notificationcontainer {
+    position: absolute;
+    top:10;
+    left:0px;
+    right:0px;
+    margin-left:auto;
+    margin-right: auto;
+    width:400px;
+    z-index: 10;
+}
+
+.filenamedropdown .filename {
+    color: black;
+    font-weight: bold;
+}
+
+.filenamedropdown > .dropdown-menu {
+    width:350px;
+    padding:10px;
+}
+
+.filemenu-btn {
+    text-align:center;
+}
+
+.filemenu-btn:hover {
+    text-decoration: none;
+}
+
+a {
+    cursor: pointer;
+}
+
+#filelistcontainer.list-group {
+    margin-bottom: 0px;
+    margin-top: 15px;
+}
+
+#buzyindicator {
+    margin-top:13px;
+    margin-bottom:0px;
+    width:150px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.btn-deletefile {
+    float:right;
+    margin-right: -15px;
+    margin-top: -4px;
+}
+
+
+.blocklyToolboxDiv {
+  top: 0px !important;
+}

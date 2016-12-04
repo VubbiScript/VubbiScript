@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <title>Scratchity</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.css"/>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Scratchity</a>
+        </div>
+          
+        <ul class="nav navbar-nav">
+            
+            <li class="dropdown filenamedropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span id="filenamedisplay" class="filename">naamloos bestand</span>
+                    
+                    <span class="caret"></span>
+                </a>
+                <div class="dropdown-menu">
+                    
+                    <div>
+                        <a id="button_new" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Maak nieuw Script</a>
+                    </div>
+                    
+                    <div id="filelistcontainer" class="list-group">
+                        
+                    </div>
+                </div>
+            </li>
+            <li><a id="button_save"><span class="glyphicon glyphicon-floppy-save"></span> Sla op</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+            
+              <div id="buzyindicator" class="progress">
+                <div class="progress-bar progress-bar-striped active buzyindicatorstate" style="width: 100%">Loading...</div>
+              </div>
+            
+            </li>
+        </ul>
+      </div>
+    </nav>
+    
+    <div id="notificationcontainer"></div>
+
+    <div class="pagecontainer">
+      <!-- HERE WE WILL PUT BLOCKLY -->
+    </div>
+
+    <!-- scripts section -->
+    <script src="js/lib/require.js"></script>
+    <script src="js/init.js"></script>
+  </body>
+</html>

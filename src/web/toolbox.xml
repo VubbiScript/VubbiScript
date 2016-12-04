@@ -1,0 +1,312 @@
+<toolbox>
+    <category name="Basis" svg="true">
+    
+          <block type="unity_me"></block>
+          
+          <block type="unityEvents_start"></block>
+          <block type="unityEvents_update"></block>
+          <block type="unityInput_key"></block>
+          
+          <block type="unityRender_setLook">
+            <value name="WHO"><block type="unity_me"></block></value>
+          </block>
+            
+          <block type="unityEvents_mouse"></block>
+        
+        <category_moved name="Basis" svg="true">
+        </category_moved>
+        
+        
+        
+        
+        <category_moved name="Berichten">
+          <block type="unityGeneral_msgSend"></block>
+          <block type="unityGeneral_msgReceive"></block>
+          <!--<block type="unityGeneral_msgSendWithArg"></block>
+          <block type="unityGeneral_msgReceiveWithArg"></block>-->
+        </category_moved>
+    </category>
+    
+    
+        
+    <category name="Positie" svg="true">
+      <block type="unityTransform_jumpto">
+        <value name="WHO"><block type="unity_me"></block></value>
+      </block>
+      <block type="unityTransform_move">
+        <value name="WHO"><block type="unity_me"></block></value>
+        <value name="DELTA"><block type="unityVector_make">
+          <value name="X"><block type="math_number"/></value>
+          <value name="Y"><block type="math_number"/></value>
+          <value name="Z"><block type="math_number"/></value>
+        </block></value>
+      </block>
+      <block type="unityTransform_position">
+        <value name="WHO"><block type="unity_me"></block></value>
+      </block>
+      <!--<block type="unityVector_angle"></block>-->
+      
+      <category name="Raycast (experimenteel)">
+        <block type="unityRaycast_raycast">
+          <value name="ORIGIN">              
+            <block type="unityTransform_position">
+              <value name="WHO"><block type="unity_me"></block></value>
+            </block>
+          </value>
+          <value name="DIRECTION">
+            <block type="unityVector_make">
+              <value name="X"><block type="math_number"><field name="NUM">0</field></block></value>
+              <value name="Y"><block type="math_number"><field name="NUM">-1</field></block></value>
+              <value name="Z"></value>
+            </block>
+          </value>
+          <value name="MAXDIST">
+            <block type="math_number"><field name="NUM">1</field></block>
+          </value>
+        </block>
+        <!--<block type="unityRaycast_circlecast">
+          <value name="ORIGIN">              
+            <block type="unityTransform_position">
+              <value name="WHO"><block type="unity_me"></block></value>
+            </block>
+          </value>
+          <value name="RADIUS">
+            <block type="math_number"><field name="NUM">1</field></block>
+          </value>
+          <value name="DIRECTION">
+            <block type="unityVector_make">
+              <value name="X"><block type="math_number"><field name="NUM">0</field></block></value>
+              <value name="Y"><block type="math_number"><field name="NUM">-1</field></value>
+              <value name="Z"></value>
+            </block>
+          </value>
+          <value name="MAXDIST">
+            <block type="math_number"><field name="NUM">1</field></block>
+          </value>
+        </block>-->
+        <block type="unityRaycast_gameobject"></block>
+        <block type="unityRaycast_distance"></block>
+        <block type="unityRaycast_point"></block>
+        <block type="unityRaycast_normal"></block>
+      </category>
+      
+    </category>
+        
+    <category name="Vallen, botsen, rollen" svg="true">
+      <!-- TODO: add a lot more blocks here! -->
+      <!-- + waarschuwing: rigidbody nodig! -->
+      
+      <note>Om deze blokken te laten werken heeft het object dat dit script heeft een RidgidBody2D en een soort Collidor2D nodig!</note>
+      
+      <block type="unityEvents_collision"></block>
+      <block type="unityPhysics_collOther"></block>
+      <block type="unityPhysics_collDirection"></block>
+      <block type="unityPhysics_collSpeed"></block>
+        
+      <block type="unityPhysics_angularSpeed">
+        <value name="WHO"><block type="unity_me"/></value>  
+      </block>
+        
+      <block type="unityPhysics_velocity">
+        <value name="WHO"><block type="unity_me"/></value>  
+      </block>
+        
+      <block type="unityPhysics_push">
+        <value name="WHO"><block type="unity_me"/></value>  
+      </block>
+        
+      <block type="unityPhysics_torque">
+        <value name="WHO"><block type="unity_me"/></value>  
+      </block>
+    </category>
+    
+    <category name="Clonen" svg="true">
+      <block type="unityGeneral_destroy">
+        <value name="WHO"><block type="unity_me"></block></value>
+      </block>
+      <block type="unityGeneral_create">
+        <value name="WHO"><block type="unity_me"></block></value>
+      </block>
+      <block type="unityGeneral_createGet">
+        <value name="WHO"><block type="unity_me"></block></value>
+      </block>
+    </category>
+
+    <category name="Controle" svg="true">
+        <block type="unityControls_if" />
+        <block type="unityControls_ifElse" />
+        
+        <!-- Unity Messages => moved here -->
+        <block type="unityGeneral_msgSend"></block>
+        <block type="unityGeneral_msgReceive"></block>
+        <!--<block type="unityGeneral_msgSendWithArg"></block>
+        <block type="unityGeneral_msgReceiveWithArg"></block>-->
+        
+        
+        <category_temp name="TOOLBOX_DECISION" svg="true">
+          <!-- moved out of the category ^^^ -->
+        </category_temp>
+        <category_temp name="TOOLBOX_LOOP" svg="true">
+            <!--<block type="robControls_loopForever" />-->
+            <block type="controls_repeat_ext">
+                <value name="TIMES">
+                    <block type="math_number">
+                        <field name="NUM">10</field>
+                    </block>
+                </value>
+            </block>
+            <!--<block type="controls_whileUntil" />-->
+            <block type="unityControls_for">
+                <value name="FROM">
+                    <block type="math_number">
+                        <field name="NUM">1</field>
+                    </block>
+                </value>
+                <value name="TO">
+                    <block type="math_number">
+                        <field name="NUM">10</field>
+                    </block>
+                </value>
+                <value name="BY">
+                    <block type="math_number">
+                        <field name="NUM">1</field>
+                    </block>
+                </value>
+            </block>
+            <block type="unityControls_forEach" />
+            <block type="controls_flow_statements" />
+        </category_temp>
+    </category>
+        
+    <category name="Tijd" svg="true">
+      <block type="unityTime_levelload"></block>
+      <block type="unityTime_delta"></block>
+    </category>
+    <!--
+    <category name="TOOLBOX_WAIT" svg="true">
+        <block type="robControls_wait"></block>
+        <block type="robControls_wait_time">
+            <value name="WAIT">
+                <block type="math_number">
+                    <field name="NUM">500</field>
+                </block>
+            </value>
+        </block>
+        <block type="robControls_wait_for">
+            <value name="WAIT0">
+                <block type="logic_compare">
+                    <value name="A">
+                        <block type="robSensors_getSample"></block>
+                    </value>
+                    <value name="B">
+                        <block type="logic_boolean"></block>
+                    </value>
+                </block>
+            </value>
+        </block>
+    </category>
+    -->
+    <category name="Logica" svg="true"><!-- WAS KEY: TOOLBOX_LOGIC -->
+        <block type="logic_compare" />
+        <block type="logic_operation" />
+        <block type="logic_negate" />
+        <block type="logic_boolean" />
+        <block type="logic_null" />
+        <block type="logic_ternary" />
+    </category>
+    <category name="Wiskunde" svg="true">
+        <block type="math_number" />
+        <block type="math_arithmetic" />
+        <!--<block type="math_single" />-->
+        <!--<block type="math_trig" />-->
+        <!--<block type="math_constant" />-->
+        <!--<block type="math_number_property" />-->
+        
+        <!-- TEMPORARY DISABLED: -->
+        <!--<block type="robMath_change">
+            <value name="DELTA">
+                <block type="math_number">
+                    <field name="NUM">1</field>
+                </block>
+            </value>
+        </block>-->
+        <block type="math_round" />
+        <!--<block type="math_on_list" />-->
+        <block type="math_modulo" />
+        <block type="math_constrain">
+            <value name="LOW">
+                <block type="math_number">
+                    <field name="NUM">1</field>
+                </block>
+            </value>
+            <value name="HIGH">
+                <block type="math_number">
+                    <field name="NUM">100</field>
+                </block>
+            </value>
+        </block>
+        <block type="math_random_int">
+            <value name="FROM">
+                <block type="math_number">
+                    <field name="NUM">1</field>
+                </block>
+            </value>
+            <value name="TO">
+                <block type="math_number">
+                    <field name="NUM">100</field>
+                </block>
+            </value>
+        </block>
+        <block type="math_random_float" />
+        
+      <block type="unityVector_make"></block>
+      <block type="unityVector_x"></block>
+      <block type="unityVector_y"></block>
+      <block type="unityVector_z"></block>
+      <block type="unityVector_length"></block>
+    </category>
+    <category_moved name="TOOLBOX_VECTOR3" svg="true">
+    </category_moved>
+    <category name="Tekst" svg="true">
+        <block type="text" />
+        <block type="unityText_join" />
+        <block type="unityText_append"></block>
+        
+        <block type="unityUI_text">
+          <value name="TEXT"><block type="text"><field name="TEXT">Score: 10</field></block></value>
+        </block>
+          
+        <block type="unityGeneral_log"></block>
+    </category>
+    <category_temp name="TOOLBOX_LIST" svg="true">
+        <block type="unityLists_create_with">
+            <mutation items="0" list_type="Number"></mutation>
+        </block>
+        <block type="unityLists_create_with">
+            <value name="ADD0">
+                <block type="math_number"></block>
+            </value>
+            <value name="ADD1">
+                <block type="math_number"></block>
+            </value>
+            <value name="ADD2">
+                <block type="math_number"></block>
+            </value>
+        </block>Lists
+        <!--<block type="robLists_repeat">
+            <value name="NUM">
+                <block type="math_number">
+                    <field name="NUM">5</field>
+                </block>
+            </value>
+        </block>-->
+        <block type="robLists_length" />
+        <block type="robLists_isEmpty" />
+        <block type="robLists_indexOf"></block>
+        <block type="robLists_getIndex"></block>
+        <block type="robLists_setIndex"></block>
+        <block type="robLists_getSublist"></block>
+    </category_temp>
+    <category name="Variablen" custom="VARIABLE" svg="true" />
+    <!--<category name="TOOLBOX_PROCEDURE" custom="PROCEDURE" svg="true" />-->
+</toolbox>
