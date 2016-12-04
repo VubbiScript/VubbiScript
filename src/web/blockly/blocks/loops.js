@@ -279,10 +279,10 @@ Blockly.Blocks['controls_flow_statements'] = {
    * Blockly.Blocks['controls_flow_statements'].LOOP_TYPES.push('custom_loop');
    */
   LOOP_TYPES: ['controls_repeat', 'controls_repeat_ext', 'controls_forEach',
-      'controls_for', 'controls_whileUntil',  'robControls_forEach', 'robControls_for', 'robControls_loopForever']
+      'controls_for', 'controls_whileUntil',  'unityControls_forEach', 'unityControls_for', 'unityControls_loopForever']
 };
 
-Blockly.Blocks['robControls_for'] = {
+Blockly.Blocks['unityControls_for'] = {
   /**
    * Block for 'for' loop. Roberta version.
    * @this Blockly.Block
@@ -416,7 +416,7 @@ Blockly.Blocks['robControls_for'] = {
   }
 };
 
-Blockly.Blocks['robControls_forEach'] = {
+Blockly.Blocks['unityControls_forEach'] = {
   /**
    * Block for 'for each' loop. Roberta version.
    * @this Blockly.Block
@@ -491,7 +491,7 @@ Blockly.Blocks['robControls_forEach'] = {
    * @private
    * @this Blockly.Block
    */
-  validateName: Blockly.Blocks['robControls_for'].validateName,
+  validateName: Blockly.Blocks['unityControls_for'].validateName,
     /**
    * Create XML to represent list inputs.
    * @return {Element} XML storage element.
@@ -548,5 +548,5 @@ Blockly.Blocks['robControls_forEach'] = {
         this.getInput('LIST').connection.setCheck('Array_' + this.listType_);
         Blockly.Variables.updateType(this.getFieldValue('VAR'), option);
   },
-  customContextMenu : Blockly.Blocks['robControls_for'].customContextMenu
+  customContextMenu : Blockly.Blocks['unityControls_for'].customContextMenu
 };

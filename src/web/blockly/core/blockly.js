@@ -62,6 +62,7 @@ var CLOSURE_DEFINES = {'goog.DEBUG': false};
  * The main workspace most recently used.
  * Set by Blockly.WorkspaceSvg.prototype.markFocused
  * @type {Blockly.Workspace}
+Blockly.CAT_UNITY_RGB = "#8FA402";
  */
 Blockly.mainWorkspace = null;
 

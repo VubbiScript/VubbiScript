@@ -179,24 +179,24 @@ Blockly.RobControls.prototype.createDom = function() {
   this.simVisible_ = false;
   var control = this;  
   this.svgGroup_ = Blockly.createSvgElement('g', {'class': 'blocklyButtons'}, null);
-  this.runOnBrick = this.createButton_(this.PATH_RUNONBRICK_, 0, 0, Blockly.Msg.MENU_START_BRICK);
-  this.runOnBrick.setAttribute("id", "runInSim");
-  this.runInSim = this.createButton_(this.PATH_RUNINSIM_, 1, 0, Blockly.Msg.MENU_START_SIM);
-  this.simStop = this.createButton_(this.PATH_SIMSTOP_, 1, 0, Blockly.Msg.MENU_SIM_STOP);
+//  this.runOnBrick = this.createButton_(this.PATH_RUNONBRICK_, 0, 0, Blockly.Msg.MENU_START_BRICK);
+//  this.runOnBrick.setAttribute("id", "runInSim");
+//  this.runInSim = this.createButton_(this.PATH_RUNINSIM_, 1, 0, Blockly.Msg.MENU_START_SIM);
+//  this.simStop = this.createButton_(this.PATH_SIMSTOP_, 1, 0, Blockly.Msg.MENU_SIM_STOP);
 //  this.simStep = this.createButton_(this.PATH_SIMSTEP_, 1, 1);
 //  this.simForward = this.createButton_(this.PATH_SIMFORWARD_, 1, 2);
 //  this.simPause = this.createButton_(this.PATH_SIMPAUSE_, 1, 2);
-  this.runInSim.setAttribute("id", "runInSim");
-  this.simStop.setAttribute("id", "simStop");
-  this.simStop.setAttribute('class', 'robButtonHidden');
+//  this.runInSim.setAttribute("id", "runInSim");
+//  this.simStop.setAttribute("id", "simStop");
+//  this.simStop.setAttribute('class', 'robButtonHidden');
 //  this.simForward.setAttribute("id", "simForward");
 //  this.simForward.setAttribute('class', 'robButtonHidden');
 //  this.simStep.setAttribute("id", "simStep");
 //  this.simStep.setAttribute('class', 'robButtonHidden');
 //  this.simPause.setAttribute("id", "simPause");
 //  this.simPause.setAttribute('class', 'robButtonHidden');
-  this.saveProgram = this.createButton_(this.PATH_SAVEPROGRAM_, 2, 0, Blockly.Msg.MENU_SAVE);
-  this.saveProgram.setAttribute("id", "saveProgram");
+//  this.saveProgram = this.createButton_(this.PATH_SAVEPROGRAM_, 2, 0, Blockly.Msg.MENU_SAVE);
+//  this.saveProgram.setAttribute("id", "saveProgram");
    
   if (this.zoom_) {
     this.zoomVisible_ = false;

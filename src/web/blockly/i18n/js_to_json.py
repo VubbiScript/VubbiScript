@@ -53,7 +53,30 @@ _INPUT_DEF_PATTERN = re.compile("""Blockly.Msg.(\w*)\s*=\s*'([^']*)';?$""")
 _INPUT_SYN_PATTERN = re.compile(
     """Blockly.Msg.(\w*)\s*=\s*Blockly.Msg.(\w*);""")
 
-def transform(results, synonyms, description, infile):
+def main():
+  # Set up argument parser.
+  parser = argparse.ArgumentParser(description='Create translation files.')
+  parser.add_argument(
+      '--author',
+      default='Ellen Spertus <ellen.spertus@gmail.com>',
+      help='name and email address of contact for translators')
+  parser.add_argument('--lang', default='en',
+                      help='ISO 639-1 source language code')
+  parser.add_argument('--output_dir', default='json',
+                      help='relative directory for output files')
+  parser.add_argument('--input_file', default='messages.js',
+                      help='input file')
+  parser.add_argument('--quiet', action='store_true', default=False,
+                      help='only display warnings, not routine info')
+  args = parser.parse_args()
+  if (not args.output_dir.endswith(os.path.sep)):
+    args.output_dir += os.path.sep
+
+  # Read and parse input file.
+  results = []
+  synonyms = {}
+  description = ''
+  infile = codecs.open(args.input_file, 'r', 'utf-8')
   for line in infile:
     if line.startswith('///'):
       if description:
@@ -79,40 +102,7 @@ def transform(results, synonyms, description, infile):
                   format(match.group(1)))
             description = ''
           synonyms[match.group(1)] = match.group(2)
-
-def main():
-  # Set up argument parser.
-  parser = argparse.ArgumentParser(description='Create translation files.')
-  parser.add_argument(
-      '--author',
-      default='Ellen Spertus <ellen.spertus@gmail.com>',
-      help='name and email address of contact for translators')
-  parser.add_argument('--lang', default='en',
-                      help='ISO 639-1 source language code')
-  parser.add_argument('--output_dir', default='json',
-                      help='relative directory for output files')
-  parser.add_argument('--input_file', default='messages.js',
-                      help='input file')
-  parser.add_argument('--robInput_file', default='robMessages.js',
-                      help='robInput file')
-  parser.add_argument('--quiet', action='store_true', default=False,
-                      help='only display warnings, not routine info')
-  args = parser.parse_args()
-  if (not args.output_dir.endswith(os.path.sep)):
-    args.output_dir += os.path.sep
-
-  # Read and parse input file.
-  results = []
-  synonyms = {}
-  description = ''
-  infile = codecs.open(args.input_file, 'r', 'utf-8')
-  transform(results, synonyms, description, infile)
   infile.close()
-  if os.path.exists(args.robInput_file):
-    print('Merged Open Roberta messages');
-    infile = codecs.open(args.robInput_file, 'r', 'utf-8')
-    transform(results, synonyms, description, infile)
-    infile.close()
 
   # Create <lang_file>.json, keys.json, and qqq.json.
   write_files(args.author, args.lang, args.output_dir, results, False)
