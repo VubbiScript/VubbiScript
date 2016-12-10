@@ -1,0 +1,42 @@
+
+#
+# Ignores for Unity
+#
+
+#
+# Only ignore csproj & sln files inside src/unity-project
+#
+/src/unity-project/*.csproj
+/src/unity-project/*.sln
+
+# =============== #
+# Unity generated #
+# =============== #
+Temp/
+Library/
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+ExportedObj/
+obj/
+*.svd
+*.userprefs
+*.pidb
+*.suo
+*.user
+*.unityproj
+*.booproj
+
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Source: https://forum.unity3d.com/threads/unity-and-git.141420/
