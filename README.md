@@ -13,10 +13,12 @@
 
 1. Do a git clone
 2. Clone the submodules
-   
-       git submodules init
-       git submodules update
-   
+
+   ```
+   git submodules init
+   git submodules update
+   ```
+
    (or have a look at http://stackoverflow.com/questions/3796927/how-to-git-clone-including-submodules)
 3. Open the Unity project located in src/unity-project
 
