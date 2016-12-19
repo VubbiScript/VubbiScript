@@ -24,7 +24,7 @@ Closure library - use newer version:
 
 ## How this repository was made:
 
-Blockly is submitted with the git subtree command. (there is a separate repository for blockly in scratch)
+Blockly is submitted with the git subtree command. (there is a separate repository for blockly also)
 
     git subtree add --prefix=src/web/blockly --squash "--message=Adding blockly (with git subtree) into project. See also 'blockly-scratchity' project." https://github.com/jeroenpx/blockly-scratchity.git 6e66d4191267935e142251fe641f0aeef6c1c01a
 
@@ -50,3 +50,7 @@ For the closure library a submodule was used:
 (see also https://chrisjean.com/git-submodules-adding-using-removing-and-updating/)
 
     git submodule add https://github.com/google/closure-library src/web/closure-library
+
+Ace is submitted with the git subtree command.  (there is a separate repository for ace also)
+
+    git subtree add --prefix=src/web/ace --squash "--message=Adding ace (with git subtree) into project." https://github.com/jeroenpx/ace.git master
