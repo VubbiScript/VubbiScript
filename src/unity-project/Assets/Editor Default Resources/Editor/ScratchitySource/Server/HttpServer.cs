@@ -35,7 +35,6 @@ namespace scratchity
 			this.srv = srv;                   
 		}
 
-
 		private string streamReadLine() {
 			int next_char;
 			string data = "";
@@ -43,12 +42,13 @@ namespace scratchity
 				next_char = inputStream.ReadByte();
 				if (next_char == '\n') { break; }
 				if (next_char == '\r') { continue; }
-				if (next_char == -1) { ServerLog.LogInfo ("Got sleepy!");Thread.Sleep(1); continue; };
+				if (next_char == -1) { return null; };
 				data += Convert.ToChar(next_char);
 			}            
 			return data;
 		}
-		public void process() {                        
+
+		public void process() {
 			// we can't use a StreamReader for input, because it buffers up extra data on us inside it's
 			// "processed" view of the world, and we want the data raw after the headers
 			inputStream = new BufferedStream(socket.GetStream());
@@ -56,25 +56,38 @@ namespace scratchity
 			// we probably shouldn't be using a streamwriter for all output from handlers either
 			outputStream = new StreamWriter(new BufferedStream(socket.GetStream()));
 			try {
-				parseRequest();
-				readHeaders();
-				if (http_method.Equals("GET")) {
-					handleGETRequest();
-				} else if (http_method.Equals("POST")) {
-					handlePOSTRequest();
+				// Keep processing requests from the browser (keep alive)
+				while(true) {
+					parseRequest();
+					readHeaders();
+					if (http_method.Equals("GET")) {
+						handleGETRequest();
+					} else if (http_method.Equals("POST")) {
+						handlePOSTRequest();
+					}
+					outputStream.Flush();
+				}
+			} catch (EndOfStreamException eose) {
+				if (eose.Message == "EOS_BROWSER") {
+					return;
 				}
 			} catch (Exception e) {
 				ServerLog.Log ("Exception: " + e.ToString ());
 				writeFailure();
+				outputStream.Flush();
+			} finally {
+				// bs.Flush(); // flush any remaining output
+				inputStream = null; outputStream = null; // bs = null;            
+				socket.Close();
 			}
-			outputStream.Flush();
-			// bs.Flush(); // flush any remaining output
-			inputStream = null; outputStream = null; // bs = null;            
-			socket.Close();             
 		}
 
 		public void parseRequest() {
 			String request = streamReadLine();
+			if (request == null) {
+				// Connection closed by browser
+				throw new EndOfStreamException("EOS_BROWSER");
+			}
 			string[] tokens = request.Split(' ');
 			if (tokens.Length != 3) {
 				throw new Exception("invalid http request line");
