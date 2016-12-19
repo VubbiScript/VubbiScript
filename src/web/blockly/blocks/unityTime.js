@@ -11,7 +11,7 @@ goog.require('Blockly.Blocks');
 Blockly.Blocks['unityTime_levelload'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("tijd sinds start van het level");
+        .appendField(Blockly.Msg.UNITY_TIME_LEVELLOAD_TITLE);
     this.setOutput(true, "Number");
     this.setColour(Blockly.CAT_MATH_RGB);
     this.setTooltip('');
@@ -22,7 +22,7 @@ Blockly.Blocks['unityTime_levelload'] = {
 Blockly.Blocks['unityTime_delta'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("delta tijd");
+        .appendField(Blockly.Msg.UNITY_TIME_DELTA_TITLE);
     this.setOutput(true, "Number");
     this.setColour(Blockly.CAT_MATH_RGB);
     this.setTooltip('');

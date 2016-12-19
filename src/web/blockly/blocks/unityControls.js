@@ -47,15 +47,18 @@ Blockly.Blocks['unityControls_classConfig'] = {
      */
 
     init : function() {
+        this.PROPERTY_NOHAT = true;
+        this.PROPERTY_GROUPS_GLOBAL_VARS = true;
+        this.PROPERTY_VALID_ROOT = true;
         this.setColour(Blockly.CAT_ACTIVITY_RGB);
         this.appendDummyInput().
-             appendField("geheugen");// JEPE TODO Translate // Blockly.Msg.START_PROGRAM
+             appendField(Blockly.Msg.UNITY_MEMORY_TITLE);
         this.declare_ = false;
         this.setPreviousStatement(false);
         this.setNextStatement(false);
         this.setDeletable(false);
-        this.setMutatorPlus(new Blockly.MutatorPlus([ 'unityControls_classConfig' ]));// JEPE TODO MutatorPlus does not seem to care about it's first arg
-        this.setTooltip("Het geheugen van dit script.");// JEPE TODO Translate // Blockly.Msg.START_TOOLTIP
+        this.setMutatorPlus(new Blockly.MutatorPlus([ 'unityControls_classConfig' ]));
+        this.setTooltip(Blockly.Msg.UNITY_MEMORY_TOOLTIP);
     },
     /**
      * Create XML to represent whether a statement list of variable declarations
@@ -88,6 +91,12 @@ Blockly.Blocks['unityControls_classConfig'] = {
         }
     },
     /**
+     * Add a new typed global => called from other places!!
+     */
+    addNewGlobal : function(name, type) {
+      this.updateShape_(1, name, type);
+    },
+    /**
      * Update the shape according, if declarations exists.
      * 
      * @param {Number}
@@ -95,7 +104,7 @@ Blockly.Blocks['unityControls_classConfig'] = {
      *            declaration.
      * @this Blockly.Block
      */
-    updateShape_ : function(num) {
+    updateShape_ : function(num, opt_name, opt_type) {
         if (num == 1) {
             if (!this.declare_) {
                 this.appendStatementInput('ST');
@@ -106,11 +115,16 @@ Blockly.Blocks['unityControls_classConfig'] = {
             var vd = this.workspace.newBlock('unityGlobalVariables_declare');
             vd.initSvg();
             vd.render();
-            var value = vd.getInput('VALUE');
-            var block = this.workspace.newBlock('math_number');
-            block.initSvg();
-            block.render();  
-            value.connection.connect(block.outputConnection);
+            // Set the type correctly... (including default block)
+            if(opt_type) {
+              vd.changeVariableType(opt_type);
+            }
+            // Change the initial variable name (note: assumes this variable name is not used yet!)
+            if(opt_name) {
+              vd.setFieldValue(opt_name, 'VAR');
+            }
+            
+            // Add the block at the end
             var connection;
             if (this.getInput('ST').connection.targetConnection) {
                 var block = this.getInput('ST').connection.targetConnection.sourceBlock_;

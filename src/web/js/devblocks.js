@@ -15,11 +15,16 @@ define([
     "../blockly/blocks/text",
     "../blockly/blocks/unityControls",
     "../blockly/blocks/unityEvents",
+    "../blockly/blocks/unitySendMessages",
+    "../blockly/blocks/unityRaycast",
     "../blockly/blocks/unityGeneral",
     "../blockly/blocks/unityInput",
-    "../blockly/blocks/unityPhysics",
+    "../blockly/blocks/unityMove",
     "../blockly/blocks/unityRender",
     "../blockly/blocks/unityTime",
+    "../blockly/blocks/unityVector",
+    "../blockly/blocks/unityObjects",
+    "../blockly/blocks/unityDetect",
     "../blockly/blocks/variables",
     ], function(){
     // When developing, this file loads all the blocks by using the non-optimized files

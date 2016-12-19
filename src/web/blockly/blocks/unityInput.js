@@ -35,126 +35,131 @@ var buttons = [
     ["X", "X"], // 'x' key.
     ["Y", "Y"], // 'y' key.
     ["Z", "Z"], // 'z' key.
-    ["Mouse0", "Mouse0"], // First (primary) mouse button.
-    ["Mouse1", "Mouse1"], // Second (secondary) mouse button.
-    ["Mouse2", "Mouse2"], // Third mouse button.
-    ["UpArrow", "UpArrow"], // Up arrow key.
-    ["DownArrow", "DownArrow"], // Down arrow key.
-    ["RightArrow", "RightArrow"], // Right arrow key.
-    ["LeftArrow", "LeftArrow"], // Left arrow key.
-    ["Backspace", "Backspace"], // The backspace key.
-    ["Space", "Space"], // Space key.
-    ["Return", "Return"], // Return key.
-    ["Tab", "Tab"], // The tab key.
-    ["Escape", "Escape"], // Escape key.
-    ["Keypad0", "Keypad0"], // Numeric keypad 0.
-    ["Keypad1", "Keypad1"], // Numeric keypad 1.
-    ["Keypad2", "Keypad2"], // Numeric keypad 2.
-    ["Keypad3", "Keypad3"], // Numeric keypad 3.
-    ["Keypad4", "Keypad4"], // Numeric keypad 4.
-    ["Keypad5", "Keypad5"], // Numeric keypad 5.
-    ["Keypad6", "Keypad6"], // Numeric keypad 6.
-    ["Keypad7", "Keypad7"], // Numeric keypad 7.
-    ["Keypad8", "Keypad8"], // Numeric keypad 8.
-    ["Keypad9", "Keypad9"], // Numeric keypad 9.
-    ["KeypadPeriod", "KeypadPeriod"], // Numeric keypad '.'.
-    ["KeypadDivide", "KeypadDivide"], // Numeric keypad '/'.
-    ["KeypadMultiply", "KeypadMultiply"], // Numeric keypad '*'.
-    ["KeypadMinus", "KeypadMinus"], // Numeric keypad '-'.
-    ["KeypadPlus", "KeypadPlus"], // Numeric keypad '+'.
-    ["KeypadEnter", "KeypadEnter"], // Numeric keypad enter.
-    ["KeypadEquals", "KeypadEquals"], // Numeric keypad '='.
-    ["F1", "F1"], // F1 function key.
-    ["F2", "F2"], // F2 function key.
-    ["F3", "F3"], // F3 function key.
-    ["F4", "F4"], // F4 function key.
-    ["F5", "F5"], // F5 function key.
-    ["F6", "F6"], // F6 function key.
-    ["F7", "F7"], // F7 function key.
-    ["F8", "F8"], // F8 function key.
-    ["F9", "F9"], // F9 function key.
-    ["F10", "F10"], // F10 function key.
-    ["F11", "F11"], // F11 function key.
-    ["F12", "F12"], // F12 function key.
-    ["F13", "F13"], // F13 function key.
-    ["F14", "F14"], // F14 function key.
-    ["F15", "F15"], // F15 function key.
-    ["Alpha0", "Alpha0"], // The '0' key on the top of the alphanumeric keyboard.
-    ["Alpha1", "Alpha1"], // The '1' key on the top of the alphanumeric keyboard.
-    ["Alpha2", "Alpha2"], // The '2' key on the top of the alphanumeric keyboard.
-    ["Alpha3", "Alpha3"], // The '3' key on the top of the alphanumeric keyboard.
-    ["Alpha4", "Alpha4"], // The '4' key on the top of the alphanumeric keyboard.
-    ["Alpha5", "Alpha5"], // The '5' key on the top of the alphanumeric keyboard.
-    ["Alpha6", "Alpha6"], // The '6' key on the top of the alphanumeric keyboard.
-    ["Alpha7", "Alpha7"], // The '7' key on the top of the alphanumeric keyboard.
-    ["Alpha8", "Alpha8"], // The '8' key on the top of the alphanumeric keyboard.
-    ["Alpha9", "Alpha9"], // The '9' key on the top of the alphanumeric keyboard.
-    ["Delete", "Delete"], // The forward delete key.
-    ["Clear", "Clear"], // The Clear key.
-    ["Pause", "Pause"], // Pause on PC machines.
-    ["Insert", "Insert"], // Insert key key.
-    ["Home", "Home"], // Home key.
-    ["End", "End"], // End key.
-    ["PageUp", "PageUp"], // Page up.
-    ["PageDown", "PageDown"], // Page down.
-    ["Exclaim", "Exclaim"], // Exclamation mark key '!'.
-    ["DoubleQuote", "DoubleQuote"], // Double quote key '"'.
-    ["Hash", "Hash"], // Hash key '#'.
-    ["Dollar", "Dollar"], // Dollar sign key '$'.
-    ["Ampersand", "Ampersand"], // Ampersand key '&'.
-    ["Quote", "Quote"], // Quote key '.
-    ["LeftParen", "LeftParen"], // Left Parenthesis key '('.
-    ["RightParen", "RightParen"], // Right Parenthesis key ')'.
-    ["Asterisk", "Asterisk"], // Asterisk key '*'.
-    ["Plus", "Plus"], // Plus key '+'.
-    ["Comma", "Comma"], // Comma ',' key.
-    ["Minus", "Minus"], // Minus '-' key.
-    ["Period", "Period"], // Period '.' key.
-    ["Slash", "Slash"], // Slash '/' key.
-    ["Colon", "Colon"], // Colon ':' key.
-    ["Semicolon", "Semicolon"], // Semicolon ';' key.
-    ["Less", "Less"], // Less than '<' key.
-    ["Equals", "Equals"], // Equals '=' key.
-    ["Greater", "Greater"], // Greater than '>' key.
-    ["Question", "Question"], // Question mark '?' key.
-    ["At", "At"], // At key '@'.
-    ["LeftBracket", "LeftBracket"], // Left square bracket key '['.
-    ["Backslash", "Backslash"], // Backslash key '\'.
-    ["RightBracket", "RightBracket"], // Right square bracket key ']'.
-    ["Caret", "Caret"], // Caret key '^'.
-    ["Underscore", "Underscore"], // Underscore '_' key.
-    ["BackQuote", "BackQuote"], // Back quote key '`'.
-    ["Numlock", "Numlock"], // Numlock key.
-    ["CapsLock", "CapsLock"], // Capslock key.
-    ["ScrollLock", "ScrollLock"], // Scroll lock key.
-    ["RightShift", "RightShift"], // Right shift key.
-    ["LeftShift", "LeftShift"], // Left shift key.
-    ["RightControl", "RightControl"], // Right Control key.
-    ["LeftControl", "LeftControl"], // Left Control key.
-    ["RightAlt", "RightAlt"], // Right Alt key.
-    ["LeftAlt", "LeftAlt"], // Left Alt key.
-    ["LeftCommand", "LeftCommand"], // Left Command key.
-    ["LeftApple", "LeftApple"], // Left Command key.
-    ["LeftWindows", "LeftWindows"], // Left Windows key.
-    ["RightCommand", "RightCommand"], // Right Command key.
-    ["RightApple", "RightApple"], // Right Command key.
-    ["RightWindows", "RightWindows"], // Right Windows key.
-    ["AltGr", "AltGr"], // Alt Gr key.
-    ["Help", "Help"], // Help key.
-    ["Print", "Print"], // Print key.
-    ["SysReq", "SysReq"], // Sys Req key.
-    ["Break", "Break"], // Break key.
-    ["Menu", "Menu"] // Menu key.
+    [Blockly.Msg.UNITY_KEYCODE_Mouse0, "Mouse0"], // First (primary) mouse button.
+    [Blockly.Msg.UNITY_KEYCODE_Mouse1, "Mouse1"], // Second (secondary) mouse button.
+    [Blockly.Msg.UNITY_KEYCODE_Mouse2, "Mouse2"], // Third mouse button.
+    [Blockly.Msg.UNITY_KEYCODE_UpArrow, "UpArrow"], // Up arrow key.
+    [Blockly.Msg.UNITY_KEYCODE_DownArrow, "DownArrow"], // Down arrow key.
+    [Blockly.Msg.UNITY_KEYCODE_RightArrow, "RightArrow"], // Right arrow key.
+    [Blockly.Msg.UNITY_KEYCODE_LeftArrow, "LeftArrow"], // Left arrow key.
+    [Blockly.Msg.UNITY_KEYCODE_Backspace, "Backspace"], // The backspace key.
+    [Blockly.Msg.UNITY_KEYCODE_Space, "Space"], // Space key.
+    [Blockly.Msg.UNITY_KEYCODE_Return, "Return"], // Return key.
+    [Blockly.Msg.UNITY_KEYCODE_Tab, "Tab"], // The tab key.
+    [Blockly.Msg.UNITY_KEYCODE_Escape, "Escape"], // Escape key.
+    [Blockly.Msg.UNITY_KEYCODE_Alpha0, "Alpha0"], // The '0' key on the top of the alphanumeric keyboard.
+    [Blockly.Msg.UNITY_KEYCODE_Alpha1, "Alpha1"], // The '1' key on the top of the alphanumeric keyboard.
+    [Blockly.Msg.UNITY_KEYCODE_Alpha2, "Alpha2"], // The '2' key on the top of the alphanumeric keyboard.
+    [Blockly.Msg.UNITY_KEYCODE_Alpha3, "Alpha3"], // The '3' key on the top of the alphanumeric keyboard.
+    [Blockly.Msg.UNITY_KEYCODE_Alpha4, "Alpha4"], // The '4' key on the top of the alphanumeric keyboard.
+    [Blockly.Msg.UNITY_KEYCODE_Alpha5, "Alpha5"], // The '5' key on the top of the alphanumeric keyboard.
+    [Blockly.Msg.UNITY_KEYCODE_Alpha6, "Alpha6"], // The '6' key on the top of the alphanumeric keyboard.
+    [Blockly.Msg.UNITY_KEYCODE_Alpha7, "Alpha7"], // The '7' key on the top of the alphanumeric keyboard.
+    [Blockly.Msg.UNITY_KEYCODE_Alpha8, "Alpha8"], // The '8' key on the top of the alphanumeric keyboard.
+    [Blockly.Msg.UNITY_KEYCODE_Alpha9, "Alpha9"], // The '9' key on the top of the alphanumeric keyboard.
+    [Blockly.Msg.UNITY_KEYCODE_Keypad0, "Keypad0"], // Numeric keypad 0.
+    [Blockly.Msg.UNITY_KEYCODE_Keypad1, "Keypad1"], // Numeric keypad 1.
+    [Blockly.Msg.UNITY_KEYCODE_Keypad2, "Keypad2"], // Numeric keypad 2.
+    [Blockly.Msg.UNITY_KEYCODE_Keypad3, "Keypad3"], // Numeric keypad 3.
+    [Blockly.Msg.UNITY_KEYCODE_Keypad4, "Keypad4"], // Numeric keypad 4.
+    [Blockly.Msg.UNITY_KEYCODE_Keypad5, "Keypad5"], // Numeric keypad 5.
+    [Blockly.Msg.UNITY_KEYCODE_Keypad6, "Keypad6"], // Numeric keypad 6.
+    [Blockly.Msg.UNITY_KEYCODE_Keypad7, "Keypad7"], // Numeric keypad 7.
+    [Blockly.Msg.UNITY_KEYCODE_Keypad8, "Keypad8"], // Numeric keypad 8.
+    [Blockly.Msg.UNITY_KEYCODE_Keypad9, "Keypad9"], // Numeric keypad 9.
+    [Blockly.Msg.UNITY_KEYCODE_KeypadPeriod, "KeypadPeriod"], // Numeric keypad '.'.
+    [Blockly.Msg.UNITY_KEYCODE_KeypadDivide, "KeypadDivide"], // Numeric keypad '/'.
+    [Blockly.Msg.UNITY_KEYCODE_KeypadMultiply, "KeypadMultiply"], // Numeric keypad '*'.
+    [Blockly.Msg.UNITY_KEYCODE_KeypadMinus, "KeypadMinus"], // Numeric keypad '-'.
+    [Blockly.Msg.UNITY_KEYCODE_KeypadPlus, "KeypadPlus"], // Numeric keypad '+'.
+    [Blockly.Msg.UNITY_KEYCODE_KeypadEnter, "KeypadEnter"], // Numeric keypad enter.
+    [Blockly.Msg.UNITY_KEYCODE_KeypadEquals, "KeypadEquals"], // Numeric keypad '='.
+    [Blockly.Msg.UNITY_KEYCODE_F1, "F1"], // F1 function key.
+    [Blockly.Msg.UNITY_KEYCODE_F2, "F2"], // F2 function key.
+    [Blockly.Msg.UNITY_KEYCODE_F3, "F3"], // F3 function key.
+    [Blockly.Msg.UNITY_KEYCODE_F4, "F4"], // F4 function key.
+    [Blockly.Msg.UNITY_KEYCODE_F5, "F5"], // F5 function key.
+    [Blockly.Msg.UNITY_KEYCODE_F6, "F6"], // F6 function key.
+    [Blockly.Msg.UNITY_KEYCODE_F7, "F7"], // F7 function key.
+    [Blockly.Msg.UNITY_KEYCODE_F8, "F8"], // F8 function key.
+    [Blockly.Msg.UNITY_KEYCODE_F9, "F9"], // F9 function key.
+    [Blockly.Msg.UNITY_KEYCODE_F10, "F10"], // F10 function key.
+    [Blockly.Msg.UNITY_KEYCODE_F11, "F11"], // F11 function key.
+    [Blockly.Msg.UNITY_KEYCODE_F12, "F12"], // F12 function key.
+    [Blockly.Msg.UNITY_KEYCODE_F13, "F13"], // F13 function key.
+    [Blockly.Msg.UNITY_KEYCODE_F14, "F14"], // F14 function key.
+    [Blockly.Msg.UNITY_KEYCODE_F15, "F15"], // F15 function key.
+    [Blockly.Msg.UNITY_KEYCODE_Delete, "Delete"], // The forward delete key.
+    [Blockly.Msg.UNITY_KEYCODE_Clear, "Clear"], // The Clear key.
+    [Blockly.Msg.UNITY_KEYCODE_Pause, "Pause"], // Pause on PC machines.
+    [Blockly.Msg.UNITY_KEYCODE_Insert, "Insert"], // Insert key key.
+    [Blockly.Msg.UNITY_KEYCODE_Home, "Home"], // Home key.
+    [Blockly.Msg.UNITY_KEYCODE_End, "End"], // End key.
+    [Blockly.Msg.UNITY_KEYCODE_PageUp, "PageUp"], // Page up.
+    [Blockly.Msg.UNITY_KEYCODE_PageDown, "PageDown"], // Page down.
+    [Blockly.Msg.UNITY_KEYCODE_Exclaim, "Exclaim"], // Exclamation mark key '!'.
+    [Blockly.Msg.UNITY_KEYCODE_DoubleQuote, "DoubleQuote"], // Double quote key '"'.
+    [Blockly.Msg.UNITY_KEYCODE_Hash, "Hash"], // Hash key '#'.
+    [Blockly.Msg.UNITY_KEYCODE_Dollar, "Dollar"], // Dollar sign key '$'.
+    [Blockly.Msg.UNITY_KEYCODE_Ampersand, "Ampersand"], // Ampersand key '&'.
+    [Blockly.Msg.UNITY_KEYCODE_Quote, "Quote"], // Quote key '.
+    [Blockly.Msg.UNITY_KEYCODE_LeftParen, "LeftParen"], // Left Parenthesis key '('.
+    [Blockly.Msg.UNITY_KEYCODE_RightParen, "RightParen"], // Right Parenthesis key ')'.
+    [Blockly.Msg.UNITY_KEYCODE_Asterisk, "Asterisk"], // Asterisk key '*'.
+    [Blockly.Msg.UNITY_KEYCODE_Plus, "Plus"], // Plus key '+'.
+    [Blockly.Msg.UNITY_KEYCODE_Comma, "Comma"], // Comma ',' key.
+    [Blockly.Msg.UNITY_KEYCODE_Minus, "Minus"], // Minus '-' key.
+    [Blockly.Msg.UNITY_KEYCODE_Period, "Period"], // Period '.' key.
+    [Blockly.Msg.UNITY_KEYCODE_Slash, "Slash"], // Slash '/' key.
+    [Blockly.Msg.UNITY_KEYCODE_Colon, "Colon"], // Colon ':' key.
+    [Blockly.Msg.UNITY_KEYCODE_Semicolon, "Semicolon"], // Semicolon ';' key.
+    [Blockly.Msg.UNITY_KEYCODE_Less, "Less"], // Less than '<' key.
+    [Blockly.Msg.UNITY_KEYCODE_Equals, "Equals"], // Equals '=' key.
+    [Blockly.Msg.UNITY_KEYCODE_Greater, "Greater"], // Greater than '>' key.
+    [Blockly.Msg.UNITY_KEYCODE_Question, "Question"], // Question mark '?' key.
+    [Blockly.Msg.UNITY_KEYCODE_At, "At"], // At key '@'.
+    [Blockly.Msg.UNITY_KEYCODE_LeftBracket, "LeftBracket"], // Left square bracket key '['.
+    [Blockly.Msg.UNITY_KEYCODE_Backslash, "Backslash"], // Backslash key '\'.
+    [Blockly.Msg.UNITY_KEYCODE_RightBracket, "RightBracket"], // Right square bracket key ']'.
+    [Blockly.Msg.UNITY_KEYCODE_Caret, "Caret"], // Caret key '^'.
+    [Blockly.Msg.UNITY_KEYCODE_Underscore, "Underscore"], // Underscore '_' key.
+    [Blockly.Msg.UNITY_KEYCODE_BackQuote, "BackQuote"], // Back quote key '`'.
+    [Blockly.Msg.UNITY_KEYCODE_Numlock, "Numlock"], // Numlock key.
+    [Blockly.Msg.UNITY_KEYCODE_CapsLock, "CapsLock"], // Capslock key.
+    [Blockly.Msg.UNITY_KEYCODE_ScrollLock, "ScrollLock"], // Scroll lock key.
+    [Blockly.Msg.UNITY_KEYCODE_RightShift, "RightShift"], // Right shift key.
+    [Blockly.Msg.UNITY_KEYCODE_LeftShift, "LeftShift"], // Left shift key.
+    [Blockly.Msg.UNITY_KEYCODE_RightControl, "RightControl"], // Right Control key.
+    [Blockly.Msg.UNITY_KEYCODE_LeftControl, "LeftControl"], // Left Control key.
+    [Blockly.Msg.UNITY_KEYCODE_RightAlt, "RightAlt"], // Right Alt key.
+    [Blockly.Msg.UNITY_KEYCODE_LeftAlt, "LeftAlt"], // Left Alt key.
+    [Blockly.Msg.UNITY_KEYCODE_LeftCommand, "LeftCommand"], // Left Command key.
+    [Blockly.Msg.UNITY_KEYCODE_LeftApple, "LeftApple"], // Left Command key.
+    [Blockly.Msg.UNITY_KEYCODE_LeftWindows, "LeftWindows"], // Left Windows key.
+    [Blockly.Msg.UNITY_KEYCODE_RightCommand, "RightCommand"], // Right Command key.
+    [Blockly.Msg.UNITY_KEYCODE_RightApple, "RightApple"], // Right Command key.
+    [Blockly.Msg.UNITY_KEYCODE_RightWindows, "RightWindows"], // Right Windows key.
+    [Blockly.Msg.UNITY_KEYCODE_AltGr, "AltGr"], // Alt Gr key.
+    [Blockly.Msg.UNITY_KEYCODE_Help, "Help"], // Help key.
+    [Blockly.Msg.UNITY_KEYCODE_Print, "Print"], // Print key.
+    [Blockly.Msg.UNITY_KEYCODE_SysReq, "SysReq"], // Sys Req key.
+    [Blockly.Msg.UNITY_KEYCODE_Break, "Break"], // Break key.
+    [Blockly.Msg.UNITY_KEYCODE_Menu, "Menu"] // Menu key.
 ];
 
 Blockly.Blocks['unityInput_key'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("knop")
+        .appendField(Blockly.Msg.UNITY_INPUT_GETKEY_TITLE_1)
         .appendField(new Blockly.FieldDropdown(buttons), "KEY")
-        .appendField(new Blockly.FieldDropdown([["net ingedrukt", "Down"], ["net losgelaten", "Up"], ["nog steeds ingedrukt", ""]]), "PRESSED");
+        .appendField(new Blockly.FieldDropdown([
+          [Blockly.Msg.UNITY_INPUT_GETKEY_OPT_DOWN, "Down"], 
+          [Blockly.Msg.UNITY_INPUT_GETKEY_OPT_UP, "Up"], 
+          [Blockly.Msg.UNITY_INPUT_GETKEY_OPT_STAY, ""]
+        ]), "PRESSED")
+        .appendField(Blockly.Msg.UNITY_INPUT_GETKEY_TITLE_2);
     this.setOutput(true, "Boolean");
-    this.setColour(Blockly.CAT_LOGIC_RGB);
+    this.setColour(Blockly.CAT_DETECT_RGB);
     this.setTooltip('');
     //this.setHelpUrl('http://www.example.com/');
   }

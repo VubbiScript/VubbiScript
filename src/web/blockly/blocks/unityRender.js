@@ -13,10 +13,10 @@ Blockly.Blocks['unityRender_setLook'] = {
   init: function() {
     this.appendValueInput("WHO")
         .setCheck("GameObject")
-        .appendField("Zet uiterlijk van");
+        .appendField(Blockly.Msg.UNITY_RENDER_SETSPRITE_TITLE_1);
     this.appendValueInput("SPRITE")
         .setCheck("Sprite")
-        .appendField("op");
+        .appendField(Blockly.Msg.UNITY_RENDER_SETSPRITE_TITLE_2);
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
