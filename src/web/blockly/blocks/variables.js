@@ -250,63 +250,16 @@ Blockly.Blocks['unityGlobalVariables_declare'] = {
    * @this Blockly.Block
    */
   init: function() {
+    this.PROPERTY_DECLARES_GLOBAL_VAR = true;
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
     this.setColour(Blockly.CAT_ACTIVITY_RGB);
-    var declType;
-    if (this.workspace.device === 'calliope') {
-      declType = new Blockly.FieldDropdown([
-        [Blockly.Msg.VARIABLES_TYPE_NUMBER, 'Number'],
-        [Blockly.Msg.VARIABLES_TYPE_BOOLEAN, 'Boolean'],
-        [Blockly.Msg.VARIABLES_TYPE_STRING, 'String'],
-        [Blockly.Msg.VARIABLES_TYPE_COLOUR, 'Colour'],
-        [Blockly.Msg.VARIABLES_TYPE_IMAGE, 'Image' ],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_NUMBER, 'Array_Number'],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_BOOLEAN, 'Array_Boolean'],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_STRING, 'Array_String'],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_IMAGE, 'Array_Image' ]
-      ], function(option) {
-        if (option && this.sourceBlock_.getFieldValue('TYPE') !== option) {
-          this.sourceBlock_.updateType(option);
-          this.sourceBlock_.updateShape_(0, option);
-        } 
-      });
-    } else if (this.workspace.device === 'microbit') {
-      declType = new Blockly.FieldDropdown([
-        [Blockly.Msg.VARIABLES_TYPE_NUMBER, 'Number'],
-        [Blockly.Msg.VARIABLES_TYPE_BOOLEAN, 'Boolean'],
-        [Blockly.Msg.VARIABLES_TYPE_STRING, 'String'],
-        [Blockly.Msg.VARIABLES_TYPE_IMAGE, 'Image' ],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_NUMBER, 'Array_Number'],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_BOOLEAN, 'Array_Boolean'],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_STRING, 'Array_String'],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_IMAGE, 'Array_Image' ]
-      ], function(option) {
-          if (option && this.sourceBlock_.getFieldValue('TYPE') !== option) {
-            this.sourceBlock_.updateType(option);
-            this.sourceBlock_.updateShape_(0, option);
-          }
-        });
-    } else {
-      declType = new Blockly.FieldDropdown([
-        [Blockly.Msg.VARIABLES_TYPE_NUMBER, 'Number'],
-        [Blockly.Msg.VARIABLES_TYPE_BOOLEAN, 'Boolean'],
-        [Blockly.Msg.VARIABLES_TYPE_STRING, 'String'],
-      ["GameObject", 'GameObject'],// TODO JEPE vertaal
-      ["Vector3", 'Vector3'],
-      ["Sprite", 'Sprite'],
-      [Blockly.Msg.VARIABLES_TYPE_ARRAY_NUMBER, 'List_Number'],
-      //[Blockly.Msg.VARIABLES_TYPE_ARRAY_BOOLEAN, 'List_Boolean'],
-      [Blockly.Msg.VARIABLES_TYPE_ARRAY_STRING, 'List_String'],
-      //["List GameObject", 'List_GameObject'],
-      //["List Vector3", 'List_Vector3'],
-      //["List Sprite", 'List_Sprite']
-        ], function(option) {
-            if (option && this.sourceBlock_.getFieldValue('TYPE') !== option) {
-              this.sourceBlock_.updateType(option);
-              this.sourceBlock_.updateShape_(0, option);
-          }
-      });
-    }
+    var declType = new Blockly.FieldDropdown(Blockly.DataTypes.getTypes(this.workspace), goog.bind(function(option) {
+        if (option && this.getFieldValue('TYPE') !== option) {
+            this.updateType(option);
+            this.updateShape_(0, option);
+        }
+    }, this));
+      
     var name = Blockly.Variables.findLegalName(Blockly.Msg.VARIABLES_DEFAULT_NAME, this);
     this.nameOld = name;
     var nameField = new Blockly.FieldTextInput(name, this.validateName);
@@ -314,8 +267,7 @@ Blockly.Blocks['unityGlobalVariables_declare'] = {
          appendField(Blockly.Msg.VARIABLES_TITLE).
          appendField(nameField, 'VAR').appendField(':').
          appendField(declType, 'TYPE').
-         appendField(Blockly.RTL ? '\u2192' : '\u2190').
-         setCheck('Number');
+         appendField(Blockly.RTL ? '\u2192' : '\u2190');
     this.setPreviousStatement(true, 'declaration_only');
     //this.setTooltip(Blockly.Msg.VARIABLES_GLOBAL_DECLARE_TOOLTIP);
     this.setMutatorMinus(new Blockly.MutatorMinus(['unityGlobalVariables_declare']));
@@ -327,6 +279,19 @@ Blockly.Blocks['unityGlobalVariables_declare'] = {
     this.nextStatement_ = false;
     this.setNextStatement(false);
     //this.setHelp(new Blockly.Help(Blockly.Msg.VARIABLE_GLOBAL_HELP));
+    
+    // Make sure the initial block is shown correctly
+    this.updateShape_(0, 'Number');
+  },
+  /**
+   * Change the required variable type
+   */
+  changeVariableType: function(option) {
+    if (option && this.getFieldValue('TYPE') !== option) {
+        this.setFieldValue(option, 'TYPE');
+        this.updateType(option);
+        this.updateShape_(0, option);
+    }
   },
   /**
    * Initialization of the block has completed, clean up anything that may be
@@ -437,22 +402,8 @@ Blockly.Blocks['unityGlobalVariables_declare'] = {
       if (this.getInputTargetBlock('VALUE')) {
         this.getInputTargetBlock('VALUE').dispose();
       }
-      var block = null;
       this.getInput('VALUE').setCheck(option);
-      if (option === 'Number') {
-        block = this.workspace.newBlock('math_number');
-      } else if (option === 'String') {
-        block = this.workspace.newBlock('text');
-      } else if (option === 'Boolean') {
-        block = this.workspace.newBlock('logic_boolean');
-      } else if (option.substr(0, 5) === 'List_') {
-        block = this.workspace.newBlock('unityLists_create_with');
-        block.setFieldValue(option.substr(5), 'LIST_TYPE');
-      } else if (option === 'GameObject' || option === 'Sprite') {
-      } else if (option === 'Image') {
-        block = this.workspace.newBlock('mbedImage_get_image');
-        block = this.workspace.newBlock('logic_null');
-      }
+      var block = Blockly.DataTypes.getDefaultBlock(this.workspace, option);
       var value = this.getInput('VALUE');
       if (block) {
         block.initSvg();
@@ -480,55 +431,11 @@ Blockly.Blocks['unityLocalVariables_declare'] = {
   init: function() {
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
     this.setColour(Blockly.CAT_PROCEDURE_RGB);
-    var declType;
-    if (this.workspace.device === 'calliope') {
-      declType = new Blockly.FieldDropdown([
-        [Blockly.Msg.VARIABLES_TYPE_NUMBER, 'Number'],
-        [Blockly.Msg.VARIABLES_TYPE_BOOLEAN, 'Boolean'],
-        [Blockly.Msg.VARIABLES_TYPE_STRING, 'String'],
-        [Blockly.Msg.VARIABLES_TYPE_COLOUR, 'Colour'],
-        [Blockly.Msg.VARIABLES_TYPE_IMAGE, 'Image' ],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_NUMBER, 'Array_Number'],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_BOOLEAN, 'Array_Boolean'],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_STRING, 'Array_String'],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_IMAGE, 'Array_Image' ],
-      ], function(option) {
+    var declType = new Blockly.FieldDropdown(Blockly.DataTypes.getTypes(this.workspace), function(option) {
         if (option && this.sourceBlock_.getFieldValue('TYPE') !== option) {
-          this.sourceBlock_.updateType(option);
+            this.sourceBlock_.updateType(option);
         }
-      });
-    } else if (this.workspace.device === 'microbit') {
-      declType = new Blockly.FieldDropdown([
-        [Blockly.Msg.VARIABLES_TYPE_NUMBER, 'Number'],
-        [Blockly.Msg.VARIABLES_TYPE_BOOLEAN, 'Boolean'],
-        [Blockly.Msg.VARIABLES_TYPE_STRING, 'String'],
-        [Blockly.Msg.VARIABLES_TYPE_IMAGE, 'Image' ],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_NUMBER, 'Array_Number'],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_BOOLEAN, 'Array_Boolean'],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_STRING, 'Array_String'],
-        [Blockly.Msg.VARIABLES_TYPE_ARRAY_IMAGE, 'Array_Image' ],
-      ], function(option) {
-          if (option && this.sourceBlock_.getFieldValue('TYPE') !== option) {
-            this.sourceBlock_.updateType(option);
-          }
-        });
-    } else {
-      declType = new Blockly.FieldDropdown([
-        [Blockly.Msg.VARIABLES_TYPE_NUMBER, 'Number'],
-        [Blockly.Msg.VARIABLES_TYPE_BOOLEAN, 'Boolean'],
-        [Blockly.Msg.VARIABLES_TYPE_STRING, 'String'],
-        [Blockly.Msg.VARIABLES_TYPE_COLOUR, 'Colour'],
-        [Blockly.Msg.VARIABLES_TYPE_CONNECTION, 'Connection' ],
-      [Blockly.Msg.VARIABLES_TYPE_ARRAY_NUMBER, 'List_Number'],
-      [Blockly.Msg.VARIABLES_TYPE_ARRAY_BOOLEAN, 'List_Boolean'],
-      [Blockly.Msg.VARIABLES_TYPE_ARRAY_STRING, 'List_String'],
-      [Blockly.Msg.VARIABLES_TYPE_ARRAY_CONNECTION, 'List_Connection']
-      ], function(option) {
-          if (option && this.sourceBlock_.getFieldValue('TYPE') !== option) {
-            this.sourceBlock_.updateType(option);
-          }
-        });
-    }
+    });
     var name = Blockly.Variables.findLegalName('x', this);
     this.nameOld = name;
     var nameField = new Blockly.FieldTextInput(name, this.validateName);

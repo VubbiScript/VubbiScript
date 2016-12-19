@@ -57,8 +57,13 @@ define([
                 scaleSpeed : 1.1
             },
             variableDeclaration : true,
+            // Note: behavior changed! Now, this will look for a property "PROPERTY_VALID_ROOT" in the block.
+            // (instead of having to provide a list of names)
+            checkInTask : true,
             robControls:true// JEPE NOTE: I should probably rename this to something else?
         });
+      
+        this.blocklyWorkspace.addChangeListener(Blockly.Events.disableOrphans);
         
         this.initProgram();
     };

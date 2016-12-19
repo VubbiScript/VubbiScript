@@ -456,29 +456,73 @@ Blockly.Variables.allVariables = function(root) {
 };
 
 /**
- * Find all user-created global variables.
- * @return {!Array.<string>} Array of variable names.
+ * Find the group block defining global variables
  */
-Blockly.Variables.allGlobalVariables = function() {
+Blockly.Variables.findGlobalVariableGroupBlock_ = function () {
   var topBlocks = Blockly.getMainWorkspace().getTopBlocks(true);
-  var variableList = [];
   for (var i = 0; i < topBlocks.length; i++) {
     var block = topBlocks[i];
-    if (block.type === 'unityControls_classConfig') {
-      var descendants = block.getDescendants();
-      if (descendants) {
-        variable: for (var i = 1; i < descendants.length; i++) {
-          if (descendants[i].getVarDecl && descendants[i].type === 'unityGlobalVariables_declare') {
-            variableList.push(descendants[i].getVarDecl()[0]);
-          } else {
-            if (!descendants[i].getParent())
-              break variable;
-          }
+    if (block.PROPERTY_GROUPS_GLOBAL_VARS) {
+      return block;
+    }
+  }
+  return null;
+};
+
+/**
+ * Find the blocks defining global variables
+ */
+Blockly.Variables.findGlobalVariableDeclareBlocks_ = function () {
+  var block = Blockly.Variables.findGlobalVariableGroupBlock_();
+  var declareblocks = [];
+  var descendants = block.getDescendants();
+  if (descendants) {
+    for (var i = 1; i < descendants.length; i++) {
+      if (descendants[i].getVarDecl && descendants[i].PROPERTY_DECLARES_GLOBAL_VAR) {
+        declareblocks.push(descendants[i]);
+      } else {
+        if (!descendants[i].getParent()) {
+          break;
         }
       }
     }
   }
+  return declareblocks;
+};
+
+/**
+ * Find all user-created global variables.
+ * @return {!Array.<string>} Array of variable names.
+ */
+Blockly.Variables.allGlobalVariables = function () {
+  var variableList = [];
+  var declareblocks = Blockly.Variables.findGlobalVariableDeclareBlocks_();
+  for (var i = 0; i < declareblocks.length; i++) {
+    variableList.push(declareblocks[i].getVarDecl()[0]);
+  }
   return variableList;
+};
+
+
+/**
+ * Find all user-created global variables.
+ * @return {!Array.<Array<string>>} Array of variable names with type.
+ */
+Blockly.Variables.allGlobalVariablesWithType = function () {
+  var variableList = [];
+  var declareblocks = Blockly.Variables.findGlobalVariableDeclareBlocks_();
+  for (var i = 0; i < declareblocks.length; i++) {
+    variableList.push([declareblocks[i].getVarDecl()[0], declareblocks[i].getType()]);
+  }
+  return variableList;
+};
+
+/**
+ * Add a new global variable
+ */
+Blockly.Variables.addNewTypedGlobalVariable = function (name, type) {
+  var globalsblock = this.findGlobalVariableGroupBlock_();
+  globalsblock.addNewGlobal(name, type);
 };
 
 /**

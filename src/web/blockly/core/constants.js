@@ -68,10 +68,12 @@ Blockly.HSV_VALUE = 0.65;
  * The rgb value for block colours in logic category.
  */
 Blockly.CAT_LOGIC_RGB = "#33B8CA";
+Blockly.CAT_MOVE_RGB = "#33B8CA";
 /**
  * The rgb value for block colours in vector3 category.
  */
 Blockly.CAT_VECTOR3_RGB = "#EBC300";
+Blockly.CAT_VECTOR_RGB = "#EBC300";
 /**
  * The rgb value for block colours in lists category.
  */
@@ -87,7 +89,8 @@ Blockly.CAT_PROCEDURE_RGB = "#179C7D";
 /**
  * The rgb value for block colours in actions category.
  */
-Blockly.CAT_ACTION_RGB = "#F29400";// JEPE: Available color!
+Blockly.CAT_ACTION_RGB = "#F29400";
+Blockly.CAT_EVENTS_RGB = "#F29400";// color for TOOLBOX_EVENTS
 /**
  * The rgb value for block colours in activity category.
  */
@@ -101,6 +104,7 @@ Blockly.CAT_CONTROL_RGB = "#EB6A0A";
  */
 Blockly.CAT_SENSOR_RGB = "#8FA402";
 Blockly.CAT_UNITY_RGB = "#8FA402";
+Blockly.CAT_OBJECTS_RGB = "#8FA402";
 /**
  * The rgb value for block colours in text category.
  */
@@ -112,7 +116,8 @@ Blockly.CAT_VARIABLE_RGB = "#9085BA";
 /**
  * The rgb value for block colours in communication category.
  */
-Blockly.CAT_COMMUNICATION_RGB = "#FF69B4";// JEPE: Available color!
+Blockly.CAT_COMMUNICATION_RGB = "#FF69B4";
+Blockly.CAT_DETECT_RGB = "#FF69B4";
 /**
  * The rgb value for block colours in communication category.
  */
@@ -123,27 +128,16 @@ Blockly.CAT_IMAGE_RGB = "#DF01D7";
  * @const
  */
 Blockly.CAT_ICON = [];
-Blockly.CAT_ICON['brick'] = 'roberta';
-Blockly.CAT_ICON['TOOLBOX_ACTION'] = 'action';
-Blockly.CAT_ICON['TOOLBOX_MOVE'] = 'move';
-Blockly.CAT_ICON['TOOLBOX_DRIVE'] = 'steering_wheel';
-Blockly.CAT_ICON['TOOLBOX_DISPLAY'] = 'message-typing';
-Blockly.CAT_ICON['TOOLBOX_SOUND'] = 'volume-up';
-Blockly.CAT_ICON['TOOLBOX_LIGHT'] = 'led';
-Blockly.CAT_ICON['TOOLBOX_SENSOR'] = 'sensor';
-Blockly.CAT_ICON['TOOLBOX_CONTROL'] = 'flow-children';
-Blockly.CAT_ICON['TOOLBOX_DECISION'] = 'flow-merge';
-Blockly.CAT_ICON['TOOLBOX_WAIT'] = 'wait';
-Blockly.CAT_ICON['TOOLBOX_LOOP'] = 'loop';
-Blockly.CAT_ICON['TOOLBOX_LOGIC'] = 'logic';
-Blockly.CAT_ICON['TOOLBOX_MATH'] = 'math';
-Blockly.CAT_ICON['TOOLBOX_TEXT'] = 'sort-alphabetically-outline';
-Blockly.CAT_ICON['TOOLBOX_LIST'] = 'th-small-outline';
-Blockly.CAT_ICON['TOOLBOX_COLOUR'] = 'brush';
-Blockly.CAT_ICON['TOOLBOX_VARIABLE'] = 'variable';
-Blockly.CAT_ICON['TOOLBOX_PROCEDURE'] = 'plus-outline';
-Blockly.CAT_ICON['TOOLBOX_COMMUNICATION'] = 'messages';
-Blockly.CAT_ICON['TOOLBOX_IMAGE'] = 'image';
+Blockly.CAT_ICON['TOOLBOX_EVENTS'] = 'glyphicon glyphicon-flash';
+Blockly.CAT_ICON['TOOLBOX_VARIABLE'] = 'glyphicon glyphicon-tasks';
+Blockly.CAT_ICON['TOOLBOX_CONTROL'] = 'glyphicon glyphicon-random';
+Blockly.CAT_ICON['TOOLBOX_DETECT'] = 'glyphicon glyphicon-eye-open';
+Blockly.CAT_ICON['TOOLBOX_MOVE'] = 'glyphicon glyphicon-move';
+Blockly.CAT_ICON['TOOLBOX_VECTOR'] = 'glyphicon glyphicon-screenshot';
+Blockly.CAT_ICON['TOOLBOX_MATH'] = 'glyphicon glyphicon-plus';
+Blockly.CAT_ICON['TOOLBOX_OBJECTS'] = 'glyphicon glyphicon-certificate';
+Blockly.CAT_ICON['TOOLBOX_TEXT'] = 'glyphicon glyphicon-text-color';
+Blockly.CAT_ICON['TOOLBOX_OTHER'] = 'glyphicon glyphicon-option-horizontal';
 
 /**
  * Sprited icons and images.
@@ -251,11 +245,11 @@ Blockly.OPPOSITE_TYPE[Blockly.PREVIOUS_STATEMENT] = Blockly.NEXT_STATEMENT;
 Blockly.DATA_TYPE = [];
 Blockly.DATA_TYPE['Number'] = "#005A94";
 Blockly.DATA_TYPE['String'] = "#BACC1E";
-Blockly.DATA_TYPE['Boolean'] = "#33B8CA";
+Blockly.DATA_TYPE['Boolean'] = "#EB6A0A";// was #33B8CA
 Blockly.DATA_TYPE['Sprite'] = "#FF69B4";
 Blockly.DATA_TYPE['GameObject'] = "#8FA402";
 Blockly.DATA_TYPE['Vector3'] = "#EBC300";
-Blockly.DATA_TYPE['Image'] = "#DF01D7";
+//Blockly.DATA_TYPE['Image'] = "#DF01D7";
 //Blockly.DATA_TYPE['Actor'] = "#F29400";
 Blockly.DATA_TYPE['List_Number'] = "#39378B";
 Blockly.DATA_TYPE['List_String'] = "#39378B";

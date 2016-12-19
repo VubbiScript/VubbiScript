@@ -75,12 +75,19 @@ Blockly.BlockSvg.CORNER_RADIUS = 2;
  * Do blocks with no previous or output connections have a 'hat' on top?
  * @const
  */
-Blockly.BlockSvg.START_HAT = false;
+Blockly.BlockSvg.START_HAT = true;
+/**
+ * Height of the top hat.
+ * @const
+ */
+Blockly.BlockSvg.START_HAT_HEIGHT = 15;
 /**
  * Path of the top hat's curve.
  * @const
  */
-Blockly.BlockSvg.START_HAT_PATH = 'c 30,-15 70,-15 100,0';
+Blockly.BlockSvg.START_HAT_PATH = 'c 30,-' +
+    Blockly.BlockSvg.START_HAT_HEIGHT + ' 70,-' +
+    Blockly.BlockSvg.START_HAT_HEIGHT + ' 100,0';
 /**
  * Path of the top hat's curve's highlight in LTR.
  * @const
@@ -508,7 +515,7 @@ Blockly.BlockSvg.prototype.renderDraw_ = function(iconWidth, inputRows) {
       if (prevBlock && prevBlock.getNextBlock() == this) {
         this.squareTopLeftCorner_ = true;
        }
-    } else if (Blockly.BlockSvg.START_HAT) {
+    } else if (Blockly.BlockSvg.START_HAT && !this.PROPERTY_NOHAT) {
       // No output or previous connection.
       this.squareTopLeftCorner_ = true;
       this.startHat_ = true;

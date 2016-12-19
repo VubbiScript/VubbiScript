@@ -32,16 +32,17 @@ goog.require('Blockly.Events');
 goog.require('Blockly.FieldAngle');
 goog.require('Blockly.FieldNote');
 goog.require('Blockly.FieldCheckbox');
-goog.require('Blockly.FieldColour');
+//goog.require('Blockly.FieldColour');
 // Date picker commented out since it increases footprint by 60%.
 // Add it only if you need it.
 //goog.require('Blockly.FieldDate');
 goog.require('Blockly.FieldDropdown');
-goog.require('Blockly.FieldDropdownImage');
+//goog.require('Blockly.FieldDropdownImage');
 goog.require('Blockly.FieldImage');
 goog.require('Blockly.FieldTextInput');
 goog.require('Blockly.FieldNumber');
 goog.require('Blockly.FieldVariable');
+goog.require('Blockly.FieldTypedVariable');
 goog.require('Blockly.Generator');
 goog.require('Blockly.Msg');
 goog.require('Blockly.Procedures');
@@ -53,6 +54,10 @@ goog.require('Blockly.inject');
 goog.require('Blockly.utils');
 goog.require('goog.color');
 goog.require('goog.userAgent');
+
+// New Scratchity dependencies:
+goog.require('Blockly.DataTypes');
+goog.require('Blockly.OutputMutatingBlock');
 
 
 // Turn off debugging when compiled.

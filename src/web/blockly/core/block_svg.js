@@ -651,14 +651,7 @@ Blockly.BlockSvg.prototype.onMouseUp_ = function(e) {
 // Check if this block is part of a task or event if desired
   if (Blockly.getMainWorkspace().checkInTask && Blockly.selected) {
     var rootBlock = this.getRootBlock();
-    var inTask = false;
-    var validRoots = Blockly.getMainWorkspace().checkInTask;
-    for (var i = 0; i < validRoots.length; i++) {
-      if (rootBlock.type.indexOf(validRoots[i]) >= 0) {
-        inTask = true;
-        break;
-      }
-    }
+    var inTask = !!rootBlock.PROPERTY_VALID_ROOT;
     var descendants = rootBlock.getDescendants();
     for (var j = 0; j < descendants.length; j++) {
       descendants[j].setInTask(inTask);

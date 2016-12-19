@@ -410,8 +410,8 @@ Blockly.Toolbox.prototype.addColour_ = function(opt_tree, opt_sub) {
           child.getLabelElement().className += " blocklyTreeSub";
         } 
         var iconClassName = Blockly.CAT_ICON[child.name];
-        child.setIconClass('toolboxIcon typcn typcn-' + iconClassName);
-        child.setExpandedIconClass('toolboxIcon typcn typcn-' + iconClassName);
+        child.setIconClass('toolboxIcon ' + iconClassName);
+        child.setExpandedIconClass('toolboxIcon ' + iconClassName);
         element.style['background-color']= child.hexColour;
         if (this.workspace_.RTL) {
           child.getAfterLabelElement().style.float="left";
