@@ -1,7 +1,7 @@
 {
 	"@metadata": {
 		"author": "Ellen Spertus <ellen.spertus@gmail.com>",
-		"lastupdated": "2016-12-19 22:48:54.113000",
+		"lastupdated": "2016-12-20 21:29:34.017000",
 		"locale": "en",
 		"messagedocumentation" : "qqq"
 	},
@@ -513,6 +513,10 @@
 	"UNITY_TIME_LEVELLOAD_TITLE": "tijd sinds start van het level",
 	"UNITY_TIME_DELTA_TITLE": "delta tijd",
 	"TOOLBOX_OTHER": "Andere...",
+	"TOOLBOX_MORE": "Meer blokjes",
+	"UNITY_CODE_BLOCK_TITLE": "nieuw blokje",
+	"UNITY_CODE_BLOCK_DEFAULT_NAME": "mijn actie",
+	"UNITY_CODE_BLOCK_DEFAULT_CODE": "print({QUOTE}Hallo C# code wereld!{QUOTE});",
 	"UNITY_PARAMOUTPUT_TITLE_1": "onthou",
 	"UNITY_PARAMOUTPUT_TITLE_2": "in",
 	"UNITY_PARAMOUTPUT_EXECUTE_TITLE": "en doe",
