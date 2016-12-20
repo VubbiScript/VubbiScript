@@ -62,3 +62,36 @@ a {
 .blocklyToolboxDiv {
   top: 0px !important;
 }
+
+/*
+ * Bootstrap overrides...
+ * Do not collapse navbar
+ */
+.navbar-collapse.collapse {
+  display: block!important;
+}
+
+.navbar-nav>li, .navbar-nav {
+  float: left !important;
+}
+
+.navbar-nav.navbar-right:last-child {
+  margin-right: -15px !important;
+}
+
+.navbar-right {
+  float: right!important;
+}
+
+.navbar-nav {
+  margin: 0px !important;
+}
+
+.navbar-header {
+  float:left !important;
+}
+
+.navbar-nav > li > a {
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+}

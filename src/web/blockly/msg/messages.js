@@ -1302,7 +1302,8 @@ Blockly.Msg.TOOLBOX_OTHER = 'Andere...';
 Blockly.Msg.TOOLBOX_MORE = 'Meer blokjes';
 Blockly.Msg.UNITY_CODE_BLOCK_TITLE = 'nieuw blokje';
 Blockly.Msg.UNITY_CODE_BLOCK_DEFAULT_NAME = 'mijn actie';
-Blockly.Msg.UNITY_CODE_BLOCK_DEFAULT_CODE = 'print({QUOTE}Hallo C# code wereld!{QUOTE});';// Supports special characters: {NEWLINE} & {QUOTE}
+// Supports special characters: {NEWLINE} & {QUOTE}
+Blockly.Msg.UNITY_CODE_BLOCK_DEFAULT_CODE = 'print({QUOTE}Hallo C# code wereld!{QUOTE});';
 
 
 // Andere

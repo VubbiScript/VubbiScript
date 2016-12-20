@@ -119,8 +119,6 @@ Blockly.OutputMutatingBlock.createParamBlock = function(parenttype, init, option
                     parent.setNext(false);
                 }
                 this.dispose();
-            } else if (num == 0) {
-                // TODO: change !
             }
         },
         contextMenuType_: 'variables_get',
