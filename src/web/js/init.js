@@ -14,7 +14,8 @@ var reqconfig = {
     "blockly": "../blockly/blockly_compressed",
     "blocks": "devblocks",
     "blockly_lang_en": "../blockly/msg/js/en",
-    "blockly_lang_nl": "../blockly/msg/js/nl"
+    "blockly_lang_nl": "../blockly/msg/js/nl",
+    "ace": "../ace/lib/ace"
   },
   shim: {
     'bootstrap': {
@@ -25,6 +26,7 @@ var reqconfig = {
         exports: '_'
     },
     'blockly': {
+        deps: ['ace/ace'],
         exports: 'Blockly'
     },
     'blockly_lang_en': {

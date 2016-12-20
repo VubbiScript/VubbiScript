@@ -1298,6 +1298,14 @@ Blockly.Msg.UNITY_TIME_DELTA_TITLE = 'delta tijd';
 
 Blockly.Msg.TOOLBOX_OTHER = 'Andere...';
 
+// Meer blokjes
+Blockly.Msg.TOOLBOX_MORE = 'Meer blokjes';
+Blockly.Msg.UNITY_CODE_BLOCK_TITLE = 'nieuw blokje';
+Blockly.Msg.UNITY_CODE_BLOCK_DEFAULT_NAME = 'mijn actie';
+Blockly.Msg.UNITY_CODE_BLOCK_DEFAULT_CODE = 'print({QUOTE}Hallo C# code wereld!{QUOTE});';// Supports special characters: {NEWLINE} & {QUOTE}
+
+
+// Andere
 Blockly.Msg.UNITY_PARAMOUTPUT_TITLE_1 = 'onthou';
 Blockly.Msg.UNITY_PARAMOUTPUT_TITLE_2 = 'in';
 Blockly.Msg.UNITY_PARAMOUTPUT_EXECUTE_TITLE = 'en doe';

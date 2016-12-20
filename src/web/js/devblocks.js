@@ -25,6 +25,7 @@ define([
     "../blockly/blocks/unityVector",
     "../blockly/blocks/unityObjects",
     "../blockly/blocks/unityDetect",
+    "../blockly/blocks/unityCode",
     "../blockly/blocks/variables",
     ], function(){
     // When developing, this file loads all the blocks by using the non-optimized files

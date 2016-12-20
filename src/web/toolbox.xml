@@ -308,6 +308,7 @@
         </block>
       
         <!-- TODO: add particle system controls here??? -->
+
     </category>
   
     <category_temp name="TOOLBOX_LIST" svg="true">
@@ -340,4 +341,6 @@
         <block type="robLists_getSublist"></block>
     </category_temp>
     <!--<category name="TOOLBOX_PROCEDURE" custom="PROCEDURE" svg="true" />-->
+  
+  <category name="TOOLBOX_MORE" custom="CODEBLOCKS" svg="true"></category>
 </toolbox>

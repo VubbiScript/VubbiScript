@@ -10,7 +10,9 @@ define([
     // load some other objects used in this application
     "./Workspace",
     "./Connection",
-    "./Notifications"
+    "./Notifications",
+    
+    "ace/ace"
     ], function(
         $,
         _,
@@ -20,8 +22,14 @@ define([
         lang,
         Workspace,
         Connection,
-        Notifications
+        Notifications,
+        ace
 ){
+    // store ace in a global (accessed that way from blockly => field_code.js)
+    // (? Can we load ace using closure ???)
+    window.ace = ace;
+    // Also preload ace theme & mode
+    ace.require(["ace/theme/xcode", "ace/mode/csharp"]);
     
     /**
      * Util function - convert a name entered by the user to camelcase. (for cs file naming)

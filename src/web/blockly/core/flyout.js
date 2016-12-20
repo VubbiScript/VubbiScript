@@ -543,6 +543,10 @@ Blockly.Flyout.prototype.show = function(xmlList, opt_colour) {
     // Special category for procedures.
     xmlList =
         Blockly.Procedures.flyoutCategory(this.workspace_.targetWorkspace);
+  } else if (xmlList == Blockly.EditableCodeBlocks.NAME_TYPE) {
+    // Special category for "editable code blocks".
+    xmlList =
+        Blockly.EditableCodeBlocks.flyoutCategory(this.workspace_.targetWorkspace);
   }
 
   this.svgGroup_.style.display = 'block';

@@ -123,6 +123,9 @@ Blockly.CAT_DETECT_RGB = "#FF69B4";
  */
 Blockly.CAT_IMAGE_RGB = "#DF01D7";
 
+
+Blockly.CAT_MORE_RGB = "#68bce8";
+
 /**
  * Lookup table for icon - categories.
  * @const
@@ -138,6 +141,7 @@ Blockly.CAT_ICON['TOOLBOX_MATH'] = 'glyphicon glyphicon-plus';
 Blockly.CAT_ICON['TOOLBOX_OBJECTS'] = 'glyphicon glyphicon-certificate';
 Blockly.CAT_ICON['TOOLBOX_TEXT'] = 'glyphicon glyphicon-text-color';
 Blockly.CAT_ICON['TOOLBOX_OTHER'] = 'glyphicon glyphicon-option-horizontal';
+Blockly.CAT_ICON['TOOLBOX_MORE'] = 'glyphicon glyphicon-console';
 
 /**
  * Sprited icons and images.

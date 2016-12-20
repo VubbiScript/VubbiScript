@@ -899,5 +899,18 @@ Blockly.Css.CONTENT = [
     'padding: 0;',
   '}',
 
+  
+  /* STYLING for the field_code block */
+  '.code-field-editor {',
+    'height:100%;',
+    'width:100%;',
+    'background-color:white;',
+  '}',
+  
+  '.blocklyCode {',
+    'font-family: \'Monaco\', \'Menlo\', \'Ubuntu Mono\', \'Consolas\', \'source-code-pro\', \'Droid Sans Mono\', monospace;',
+    'white-space: pre-wrap',
+  '}',
+  
   ''
 ];
