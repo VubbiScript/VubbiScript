@@ -289,7 +289,6 @@ Blockly.Toolbox.prototype.populate_ = function(newTree) {
   rootOut.removeChildren();  // Delete any existing content.
   rootOut.blocks = [];
   var hasColours = false;
-  var hasSvg = false;
   function syncTrees(treeIn, treeOut, pathToMedia) {
     var lastElement = null;
     for (var i = 0, childIn; childIn = treeIn.childNodes[i]; i++) {
@@ -316,6 +315,10 @@ Blockly.Toolbox.prototype.populate_ = function(newTree) {
             syncTrees(childIn, childOut, pathToMedia);
           }
           var colour = childIn.getAttribute('colour');
+          if (colour === "const") {
+            var rgbName = 'CAT_' + childIn.getAttribute('name').toUpperCase().replace('TOOLBOX_','') + '_RGB';
+            colour = Blockly[rgbName];
+          }
           if (goog.isString(colour)) {
             if (colour.match(/^#[0-9a-fA-F]{6}$/)) {
               childOut.hexColour = colour;
@@ -324,19 +327,11 @@ Blockly.Toolbox.prototype.populate_ = function(newTree) {
             }
             hasColours = true;
           } else {
-            childOut.hexColour = '';
+            childOut.hexColour = '#57e';
           }
-          var svg = childIn.getAttribute('svg');
-          if (svg) {
-            var rgbName = 'CAT_' + childIn.getAttribute('name').toUpperCase().replace('TOOLBOX_','') + '_RGB';
-            var colour = Blockly[rgbName];
-            if (colour) {
-              childOut.hexColour = colour;
-            } else {
-              childOut.hexColour = '#57e';
-            }
-            hasSvg = true;
-          }
+          // also store a more white color (for the flyout)
+          childOut.lighthexColour = goog.color.rgbArrayToHex(goog.color.lighten(goog.color.hexToRgb(childOut.hexColour), 0.6));
+          
           if (childIn.getAttribute('expanded') == 'true') {
             if (childOut.blocks.length) {
               rootOut.setSelectedItem(childOut);
@@ -379,7 +374,6 @@ Blockly.Toolbox.prototype.populate_ = function(newTree) {
   }
   syncTrees(newTree, this.tree_, this.workspace_.options.pathToMedia);
   this.hasColours_ = hasColours;
-  this.hasSvg_ = hasSvg;
 
   if (rootOut.blocks.length) {
     throw 'Toolbox cannot have both blocks and categories in the root level.';
@@ -404,29 +398,6 @@ Blockly.Toolbox.prototype.addColour_ = function(opt_tree, opt_sub) {
     if (element) {
       if (this.hasColours_) {
         var border = '8px solid ' + (child.hexColour || '#ddd'); 
-      } else if (this.hasSvg_ && element.className === "blocklyTreeRow") {        
-        if (opt_sub) {
-          child.hexColour = currentColour; 
-          child.getLabelElement().className += " blocklyTreeSub";
-        } 
-        var iconClassName = Blockly.CAT_ICON[child.name];
-        child.setIconClass('toolboxIcon ' + iconClassName);
-        child.setExpandedIconClass('toolboxIcon ' + iconClassName);
-        element.style['background-color']= child.hexColour;
-        if (this.workspace_.RTL) {
-          child.getAfterLabelElement().style.float="left";
-          element.style['padding-right']="0";
-          if (opt_sub) {
-            element.style['margin-right']="20px";
-          }
-        } else {
-          child.getAfterLabelElement().style.float="right";
-          element.style['padding-left']="0";
-          if (opt_sub) {
-            element.style['margin-left']="20px";
-          }
-        }
-        var border = 'none';
       } else {
         var border = 'none';
       }
@@ -549,27 +520,18 @@ Blockly.Toolbox.TreeControl.prototype.setSelectedItem = function(node) {
   }
   goog.ui.tree.TreeControl.prototype.setSelectedItem.call(this, node);
   if (toolbox.lastCategory_) {
-    if (!this.toolbox_.hasSvg_) {
-      toolbox.lastCategory_.getRowElement().style.backgroundColor = '';
-    } else {
-      var html = toolbox.lastCategory_.getAfterLabelHtml().replace('blocklyConSelected', 'blocklyCon');
-      toolbox.lastCategory_.setAfterLabelSafeHtml(goog.html.SafeHtml.from(html));
-    }
+    toolbox.lastCategory_.getRowElement().style.backgroundColor = '';
   }
   if (node) {
-    if (!this.toolbox_.hasSvg_) {
-      var hexColour = node.hexColour || '#57e';
-      node.getRowElement().style.backgroundColor = hexColour;
-    } else if (node.blocks && node.blocks.length) {
-      node.getRowElement().className +=' selected';
-    }
+    var hexColour = node.hexColour || '#57e';
+    node.getRowElement().style.backgroundColor = hexColour;
     toolbox.addColour_(node, true);
   }
   
   var oldNode = this.getSelectedItem();
 
  if (node && node.blocks && node.blocks.length) {
-    toolbox.flyout_.show(node.blocks, this.toolbox_.hasSvg_ ? node.hexColour : null);
+    toolbox.flyout_.show(node.blocks, node.lighthexColour);
     // Scroll the flyout to the top if the category has changed.
     if (toolbox.lastCategory_ != node) {
       toolbox.flyout_.scrollToStart();

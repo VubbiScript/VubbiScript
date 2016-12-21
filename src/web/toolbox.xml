@@ -1,5 +1,5 @@
 <toolbox>
-    <category name="TOOLBOX_EVENTS" svg="true">
+    <category name="TOOLBOX_EVENTS" colour="const">
         
         <note>Unity werkt met frames.</note>
         
@@ -32,9 +32,9 @@
         <block type="unityEvents_trigger"></block>
     </category>
   
-    <category name="TOOLBOX_VARIABLE" custom="VARIABLE" svg="true" />
+    <category name="TOOLBOX_VARIABLE" custom="VARIABLE" colour="const" />
   
-  <category name="TOOLBOX_CONTROL" svg="true">
+  <category name="TOOLBOX_CONTROL" colour="const">
     <block type="unityControls_if" />
     <block type="unityControls_ifElse" />
     
@@ -45,7 +45,7 @@
     <block type="logic_ternary" />
   </category>
   
-  <category name="TOOLBOX_DETECT" svg="true">
+  <category name="TOOLBOX_DETECT" colour="const">
     
       <!-- Knop ingedrukt? -->
       <block type="unityInput_key">
@@ -95,7 +95,7 @@
       </block>-->
   </category>
   
-  <category name="TOOLBOX_MOVE" svg="true">
+  <category name="TOOLBOX_MOVE" colour="const">
     
     <!-- non-physic based -->
     
@@ -135,10 +135,10 @@
   </category>
 
 
-    <category_temp name="TOOLBOX_DECISION" svg="true">
+    <category_temp name="TOOLBOX_DECISION" colour="const">
       <!-- moved out of the category ^^^ -->
     </category_temp>
-    <category_temp name="TOOLBOX_LOOP" svg="true">
+    <category_temp name="TOOLBOX_LOOP" colour="const">
         <!--<block type="robControls_loopForever" />-->
         <block type="controls_repeat_ext">
             <value name="TIMES">
@@ -169,7 +169,7 @@
         <block type="controls_flow_statements" />
     </category_temp>
     <!--
-    <category name="TOOLBOX_WAIT" svg="true">
+    <category name="TOOLBOX_WAIT" colour="const">
         <block type="robControls_wait"></block>
         <block type="robControls_wait_time">
             <value name="WAIT">
@@ -192,7 +192,7 @@
         </block>
     </category>
     -->
-    <category name="TOOLBOX_VECTOR" svg="true">
+    <category name="TOOLBOX_VECTOR" colour="const">
       <block type="unityVector_make">
         <value name="X"><block type="math_number"/></value>
         <value name="Y"><block type="math_number"/></value>
@@ -206,7 +206,7 @@
       
       <block type="unityVector_pick"></block>
     </category>
-    <category name="TOOLBOX_MATH" svg="true">
+    <category name="TOOLBOX_MATH" colour="const">
         <block type="math_number" />
         <block type="math_arithmetic" />
         <!--<block type="math_single" />-->
@@ -252,7 +252,7 @@
         <block type="math_random_float" />
     </category>
     
-    <category name="TOOLBOX_OBJECTS" svg="true">
+    <category name="TOOLBOX_OBJECTS" colour="const">
       <block type="unity_me"></block>
       
       <block type="logic_null" />
@@ -282,7 +282,7 @@
       </block>
     </category>
   
-    <category name="TOOLBOX_TEXT" svg="true">
+    <category name="TOOLBOX_TEXT" colour="const">
         <block type="text" />
         <block type="unityText_join" />
         <block type="unityText_append"></block>
@@ -294,7 +294,7 @@
         <block type="unityGeneral_log"></block>
     </category>
     
-    <category name="TOOLBOX_OTHER" svg="true">
+    <category name="TOOLBOX_OTHER" colour="const">
       
         <block type="unityTime_levelload"></block>
         <block type="unityTime_delta"></block>
@@ -311,7 +311,7 @@
 
     </category>
   
-    <category_temp name="TOOLBOX_LIST" svg="true">
+    <category_temp name="TOOLBOX_LIST" colour="const">
         <block type="unityLists_create_with">
             <mutation items="0" list_type="Number"></mutation>
         </block>
@@ -340,7 +340,7 @@
         <block type="robLists_setIndex"></block>
         <block type="robLists_getSublist"></block>
     </category_temp>
-    <!--<category name="TOOLBOX_PROCEDURE" custom="PROCEDURE" svg="true" />-->
+    <!--<category name="TOOLBOX_PROCEDURE" custom="PROCEDURE" colour="const" />-->
   
-  <category name="TOOLBOX_MORE" custom="CODEBLOCKS" svg="true"></category>
+  <category name="TOOLBOX_MORE" custom="CODEBLOCKS" colour="const"></category>
 </toolbox>
