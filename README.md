@@ -9,7 +9,12 @@
 
 > \- Jeroen Penninck
 
-## How to get the code & try it out (in development mode)
+## How to try it out?
+The latest build can be found in the bin folder. Once imported in a Unity project, you will find it under "Window/Scratchity Code Editor".
+
+Note: currently in Dutch only(!) + works with 2D physics only.
+
+## How to try it out in development mode?
 
 1. Do a git clone
 2. Clone the submodules
@@ -22,12 +27,8 @@
    (or have a look at http://stackoverflow.com/questions/3796927/how-to-git-clone-including-submodules)
 3. Open the Unity project located in src/unity-project
 
-## Building Scratchity and making an "installer"
+You do not need the "buildscripts" folder unless you really want to make a "unitypackage" which you can distribute.
 
-(coming soon)
-
-## Current State
-
-Work in progress.
+## Interested in helping?
 
 Interested people (for helping with development or testing/using the program) should send me a mail. My email can be found at my website http://jeroenp.awardspace.com/.
