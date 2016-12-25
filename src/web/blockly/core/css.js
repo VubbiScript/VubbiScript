@@ -836,7 +836,6 @@ Blockly.Css.CONTENT = [
   '.code-field-editor {',
     'height:100%;',
     'width:100%;',
-    'background-color:white;',
   '}',
   
   '.blocklyCode {',
