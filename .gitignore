@@ -40,3 +40,13 @@ ehthumbs.db
 Thumbs.db
 
 # Source: https://forum.unity3d.com/threads/unity-and-git.141420/
+
+#
+# Ignore build output
+#
+/buildscripts/BuildCSharpCode/ScratchityBuild/bin
+/buildscripts/BuildCSharpCode/ScratchityBuild/obj
+/buildscripts/temp
+/buildscripts/tools
+/buildscripts/.dotnet
+/buildscripts/unity-project-auto-package-build/Assets

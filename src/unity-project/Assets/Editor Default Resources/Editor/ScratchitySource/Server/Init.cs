@@ -8,6 +8,8 @@ using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
+using System.Linq;
+
 namespace scratchity
 {
 	[InitializeOnLoad]
@@ -20,6 +22,23 @@ namespace scratchity
 		/// 
 		/// </summary>
 		static Init () {
+
+			//
+			// Check command line arguments...
+			//
+			string commandlinebuildkeyword = "+exportscratchityunitypackage";
+			if(System.Environment.GetCommandLineArgs().Contains(commandlinebuildkeyword)){
+				// So, we need to do a build instead of running the code...
+				string[] cargs = System.Environment.GetCommandLineArgs ();
+				string outputdir = null;
+				for (int i = 0; i < cargs.Length; i++) {
+					if (cargs [i] == commandlinebuildkeyword) {
+						outputdir = cargs [i + 1];
+					}
+				}
+				AssetDatabase.ExportPackage("Assets/Editor Default Resources/Editor/Scratchity", outputdir, ExportPackageOptions.Recurse);
+				return;// DO NOT CONTINUE... Exit Unity now...
+			}
 
 			//
 			// Server Configuration

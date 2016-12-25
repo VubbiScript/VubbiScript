@@ -212,6 +212,8 @@ namespace scratchity
 					ServerLog.LogInfo ("Listening!");
 					TcpClient s = listener.AcceptTcpClient();
 					ServerLog.LogInfo ("Client accepted!");
+					s.ReceiveTimeout = 1000;// After 1 seconds, time out the read operation!!!
+					// Why? Because as long as the operation is waiting, this thread is in "native code" and Unity cannot go to "play" mode or reload the scripts!
 					HttpProcessor processor = new HttpProcessor(s, this);
 					Thread thread = new Thread(new ThreadStart(processor.process));
 					thread.Start();
