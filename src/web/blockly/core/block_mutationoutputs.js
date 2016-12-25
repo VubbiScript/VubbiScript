@@ -26,14 +26,15 @@ Blockly.OutputMutatingBlock.createParamBlock = function(parenttype, init, option
                 requiredtypes[opt.val] = opt.type;
             }
             
-            var selectWhatOptions = goog.bind(function(option) {
+            this.varDropdown_ = new Blockly.FieldTypedVariable(options[0].type, undefined, options[0].proposedname);
+            
+            this.selectWhatOptions_ = goog.bind(function(option) {
                 this.declarationType_ = requiredtypes[option];
                 this.varDropdown_.setRequiredType(requiredtypes[option], proposednames[option]);
                 this.updateShape_(0, option);
             }, this);
             
-            this.whatDropdown_ = new Blockly.FieldDropdown(dropdownopts, selectWhatOptions);
-            this.varDropdown_ = new Blockly.FieldTypedVariable(options[0].type, undefined, options[0].proposedname);
+            this.whatDropdown_ = new Blockly.FieldDropdown(dropdownopts, undefined, this.selectWhatOptions_);
 
             this.appendDummyInput()
                 .appendField(Blockly.Msg.UNITY_PARAMOUTPUT_TITLE_1)
@@ -51,6 +52,8 @@ Blockly.OutputMutatingBlock.createParamBlock = function(parenttype, init, option
             // We store these two things:
             this.declarationType_ = 'Number';
             this.nextStatement_ = false;
+          
+            this.selectWhatOptions_(this.getFieldValue('WHAT'));
         
             this.setNextStatement(false);
             //this.setHelp(new Blockly.Help(Blockly.Msg.VARIABLE_GLOBAL_HELP));
@@ -63,12 +66,10 @@ Blockly.OutputMutatingBlock.createParamBlock = function(parenttype, init, option
          * @this Blockly.Block
          */
         mutationToDom: function() {
-            if (this.nextStatement_ === undefined || this.declarationType_ === undefined) {
-                return false;
-            }
             var container = document.createElement('mutation');
+            if (this.nextStatement_ !== undefined) {
                 container.setAttribute('next', this.nextStatement_);
-                container.setAttribute('declaration_type', this.declarationType_);
+            }
             return container;
         },
         /**
@@ -80,10 +81,6 @@ Blockly.OutputMutatingBlock.createParamBlock = function(parenttype, init, option
             this.nextStatement_ = xmlElement.getAttribute('next') == 'true';
             if (this.nextStatement_) {
                 this.setNext(this.nextStatement_);
-            }
-            this.declarationType_ = xmlElement.getAttribute('declaration_type');
-            if (this.declarationType_) {
-                this.getInput('VALUE').setCheck(this.declarationType_);
             }
         },
         setNext: function(next) {
@@ -121,10 +118,10 @@ Blockly.OutputMutatingBlock.createParamBlock = function(parenttype, init, option
                 this.dispose();
             }
         },
-        contextMenuType_: 'variables_get',
         /*
          * COPIED FROM variables.js !!
          */
+        contextMenuType_: 'variables_get',
         customContextMenu: function(options) {
             var option = {enabled: true};
             var name = this.getFieldValue('VAR');
@@ -165,21 +162,23 @@ Blockly.OutputMutatingBlock.createBlock = function(childtype, init, putBeforeInp
         domToMutation : function(xmlElement) {
             this.declare_ = (xmlElement.getAttribute('declare') != 'false');
             if (this.declare_) {
-                this.appendStatementInput('ST');
-                this.getInput('ST').connection.setCheck('parameteroutput_only');
+                this.addOutputsArea_();
+            }
+        },
+        addOutputsArea_ : function() {
+            this.appendStatementInput('OUTPUTS');
+            // making sure only declarations can connect to the statement list
+            this.getInput('OUTPUTS').connection.setCheck('parameteroutput_only');
+            this.appendDummyInput('EXECNOTE').appendField(Blockly.Msg.UNITY_PARAMOUTPUT_EXECUTE_TITLE);
+            if(putBeforeInputName) {
+                this.moveInputBefore('OUTPUTS', putBeforeInputName);
+                this.moveInputBefore('EXECNOTE', putBeforeInputName);
             }
         },
         updateShape_ : function(num) {
             if (num == 1) {
                 if (!this.declare_) {
-                    this.appendStatementInput('OUTPUTS');
-                    // making sure only declarations can connect to the statement list
-                    this.getInput('OUTPUTS').connection.setCheck('parameteroutput_only');
-                    this.appendDummyInput('EXECNOTE').appendField(Blockly.Msg.UNITY_PARAMOUTPUT_EXECUTE_TITLE);
-                    if(putBeforeInputName) {
-                        this.moveInputBefore('OUTPUTS', putBeforeInputName);
-                        this.moveInputBefore('EXECNOTE', putBeforeInputName);
-                    }
+                    this.addOutputsArea_();
                     this.declare_ = true;
                 }
                 var vd = this.workspace.newBlock(childtype);

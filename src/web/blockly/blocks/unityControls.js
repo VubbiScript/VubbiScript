@@ -115,6 +115,7 @@ Blockly.Blocks['unityControls_classConfig'] = {
             var vd = this.workspace.newBlock('unityGlobalVariables_declare');
             vd.initSvg();
             vd.render();
+            vd.initDefaultBlock();
             // Set the type correctly... (including default block)
             if(opt_type) {
               vd.changeVariableType(opt_type);

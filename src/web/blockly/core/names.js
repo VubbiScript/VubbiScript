@@ -33,9 +33,12 @@ goog.provide('Blockly.Names');
  *     illegal for use as names in a language (e.g. 'new,if,this,...').
  * @param {string=} opt_variablePrefix Some languages need a '$' or a namespace
  *     before all variable names.
+ * @param {Object<string, Function>} opt_namingConventions Convert to correct 
+ *     "camel casing" (map of type of variable to function which does the conversion).
+ *     This function will be called on the "safe name".
  * @constructor
  */
-Blockly.Names = function(reservedWords, opt_variablePrefix) {
+Blockly.Names = function(reservedWords, opt_variablePrefix, opt_namingConventions) {
   this.variablePrefix_ = opt_variablePrefix || '';
   this.reservedDict_ = Object.create(null);
   if (reservedWords) {
@@ -44,6 +47,7 @@ Blockly.Names = function(reservedWords, opt_variablePrefix) {
       this.reservedDict_[splitWords[i]] = true;
     }
   }
+  this.namingConventions_ = opt_namingConventions || {};
   this.reset();
 };
 
@@ -95,6 +99,10 @@ Blockly.Names.prototype.getName = function(name, type) {
  */
 Blockly.Names.prototype.getDistinctName = function(name, type) {
   var safeName = this.safeName_(name);
+  if(this.namingConventions_.hasOwnProperty(type)) {
+    safeName = this.namingConventions_[type](safeName);
+  }
+  
   var i = '';
   while (this.dbReverse_[safeName + i] ||
          (safeName + i) in this.reservedDict_) {

@@ -553,12 +553,12 @@ Blockly.Blocks['unityControls_ifElse'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setMutatorPlus(new Blockly.MutatorPlus(this));
-    this.elseIfCount_ = 0;
+    this.elseifCount_ = 0;
     this.elseCount_ = 1;
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
     this.setTooltip(function() {
-      if (thisBlock.elseIfCount_ === 0) {
+      if (thisBlock.elseifCount_ === 0) {
         return Blockly.Msg.CONTROLS_IF_TOOLTIP_2;
       } else {
         return Blockly.Msg.CONTROLS_IF_TOOLTIP_4;
@@ -566,12 +566,12 @@ Blockly.Blocks['unityControls_ifElse'] = {
     });
   },
   mutationToDom : function() {
-    if (!this.elseIfCount_ && !this.elseCount_) {
+    if (!this.elseifCount_ && !this.elseCount_) {
       return null;
     }
     var container = document.createElement('mutation');
-      if (this.elseIfCount_) {
-        container.setAttribute('elseIf', this.elseIfCount_);
+      if (this.elseifCount_) {
+        container.setAttribute('elseIf', this.elseifCount_);
       }
       if (this.elseCount_) {
         container.setAttribute('else', 1);
@@ -585,15 +585,15 @@ Blockly.Blocks['unityControls_ifElse'] = {
    */
   domToMutation : function(xmlElement) {
     if (xmlElement.hasAttribute('elseif')) {
-      this.elseIfCount_ = parseInt(xmlElement.getAttribute('elseif'), 10);
+      this.elseifCount_ = parseInt(xmlElement.getAttribute('elseif'), 10);
     }
     this.removeInput('ELSE');
-    for (var x = 1; x <= this.elseIfCount_; x++) {
+    for (var x = 1; x <= this.elseifCount_; x++) {
       this.appendValueInput('IF' + x).appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF).setCheck('Boolean');
       this.appendStatementInput('DO' + x).appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
     }
     this.appendStatementInput('ELSE').appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
-    if (this.elseIfCount_ >= 1) {
+    if (this.elseifCount_ >= 1) {
       this.setMutatorMinus(new Blockly.MutatorMinus(this));
     }
   },
@@ -605,27 +605,27 @@ Blockly.Blocks['unityControls_ifElse'] = {
   updateShape_ : function(num) {
     Blockly.dragMode_ = Blockly.DRAG_NONE;
     if (num == 1) {
-      this.elseIfCount_++;
+      this.elseifCount_++;
       this.removeInput('ELSE');
-      this.appendValueInput('IF' + this.elseIfCount_).appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF).setCheck('Boolean');
-      this.appendStatementInput('DO' + this.elseIfCount_).appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+      this.appendValueInput('IF' + this.elseifCount_).appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF).setCheck('Boolean');
+      this.appendStatementInput('DO' + this.elseifCount_).appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
       this.appendStatementInput('ELSE').appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
     } else if (num == 0) {
-      this.elseIfCount_ = 0;
+      this.elseifCount_ = 0;
     } else if (num == -1) {
-      var target = this.getInputTargetBlock('IF' + this.elseIfCount_);
+      var target = this.getInputTargetBlock('IF' + this.elseifCount_);
       if (target) {
         target.unplug(false);
         target.bumpNeighbours_();
       }
       this.removeInput('ELSE');
-      this.removeInput('DO' + this.elseIfCount_);
-      this.removeInput('IF' + this.elseIfCount_);
+      this.removeInput('DO' + this.elseifCount_);
+      this.removeInput('IF' + this.elseifCount_);
       this.appendStatementInput('ELSE').appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
-      this.elseIfCount_--;
+      this.elseifCount_--;
     }
-    if (this.elseIfCount_ >= 1) {
-      if (this.elseIfCount_ == 1) {
+    if (this.elseifCount_ >= 1) {
+      if (this.elseifCount_ == 1) {
         this.setMutatorMinus(new Blockly.MutatorMinus(this));
         this.render();
       }
@@ -649,11 +649,11 @@ Blockly.Blocks['unityControls_if'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setMutatorPlus(new Blockly.MutatorPlus(this));
-    this.elseIfCount_ = 0;
+    this.elseifCount_ = 0;
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
     this.setTooltip(function() {
-      if (thisBlock.elseIfCount_ === 0) {
+      if (thisBlock.elseifCount_ === 0) {
         return Blockly.Msg.CONTROLS_IF_TOOLTIP_1;
       } else {
         return Blockly.Msg.CONTROLS_IF_TOOLTIP_3;
@@ -661,12 +661,12 @@ Blockly.Blocks['unityControls_if'] = {
     });
   },
   mutationToDom : function() {
-    if (!this.elseIfCount_) {
+    if (!this.elseifCount_) {
       return null;
     }
     var container = document.createElement('mutation');
-    if (this.elseIfCount_) {
-      container.setAttribute('elseIf', this.elseIfCount_);
+    if (this.elseifCount_) {
+      container.setAttribute('elseIf', this.elseifCount_);
     }
     return container;
   },
@@ -676,12 +676,12 @@ Blockly.Blocks['unityControls_if'] = {
    * @this Blockly.Block
    */
   domToMutation : function(xmlElement) {
-    this.elseIfCount_ = parseInt(xmlElement.getAttribute('elseif'), 10);
-    for (var x = 1; x <= this.elseIfCount_; x++) {
+    this.elseifCount_ = parseInt(xmlElement.getAttribute('elseif'), 10);
+    for (var x = 1; x <= this.elseifCount_; x++) {
       this.appendValueInput('IF' + x).appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF).setCheck('Boolean');
       this.appendStatementInput('DO' + x).appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
     }
-    if (this.elseIfCount_ >= 1) {
+    if (this.elseifCount_ >= 1) {
       this.setMutatorMinus(new Blockly.MutatorMinus(this));
     }
   },
@@ -693,21 +693,21 @@ Blockly.Blocks['unityControls_if'] = {
   updateShape_ : function(num) {
     Blockly.dragMode_ = Blockly.DRAG_NONE;
     if (num == 1) {
-      this.elseIfCount_++;
-      this.appendValueInput('IF' + this.elseIfCount_).appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF).setCheck('Boolean');
-      this.appendStatementInput('DO' + this.elseIfCount_).appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+      this.elseifCount_++;
+      this.appendValueInput('IF' + this.elseifCount_).appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF).setCheck('Boolean');
+      this.appendStatementInput('DO' + this.elseifCount_).appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
     } else if (num == -1) {
-      var target = this.getInputTargetBlock('IF' + this.elseIfCount_);
+      var target = this.getInputTargetBlock('IF' + this.elseifCount_);
       if (target) {
         target.unplug();
         target.bumpNeighbours_();     
       }
-      this.removeInput('DO' + this.elseIfCount_);
-      this.removeInput('IF' + this.elseIfCount_);
-      this.elseIfCount_--;
+      this.removeInput('DO' + this.elseifCount_);
+      this.removeInput('IF' + this.elseifCount_);
+      this.elseifCount_--;
     }
-    if (this.elseIfCount_ >= 1) {
-      if (this.elseIfCount_ == 1) {
+    if (this.elseifCount_ >= 1) {
+      if (this.elseifCount_ == 1) {
         this.setMutatorMinus(new Blockly.MutatorMinus(this));
         this.render();
       }

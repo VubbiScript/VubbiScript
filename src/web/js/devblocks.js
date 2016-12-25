@@ -1,4 +1,6 @@
 define([
+  
+    // All the blocks...
     "../blockly/blocks/lists",
     "../blockly/blocks/logic",
     "../blockly/blocks/loops",
@@ -27,6 +29,29 @@ define([
     "../blockly/blocks/unityDetect",
     "../blockly/blocks/unityCode",
     "../blockly/blocks/variables",
+  
+    // The code generation
+    "../blockly/generators/csharp",
+    //"../blockly/generators/csharp/lists",
+    "../blockly/generators/csharp/logic",
+    //"../blockly/generators/csharp/loops",
+    "../blockly/generators/csharp/math",
+    "../blockly/generators/csharp/text",
+    //"../blockly/generators/csharp/variables",
+    "../blockly/generators/csharp/unityControls",
+    "../blockly/generators/csharp/unityEvents",
+    "../blockly/generators/csharp/unitySendMessages",
+    "../blockly/generators/csharp/unityRaycast",
+    "../blockly/generators/csharp/unityGeneral",
+    "../blockly/generators/csharp/unityInput",
+    "../blockly/generators/csharp/unityMove",
+    "../blockly/generators/csharp/unityRender",
+    "../blockly/generators/csharp/unityTime",
+    "../blockly/generators/csharp/unityVector",
+    "../blockly/generators/csharp/unityObjects",
+    "../blockly/generators/csharp/unityDetect",
+    "../blockly/generators/csharp/unityCode",
+    "../blockly/generators/csharp/variables",
     ], function(){
     // When developing, this file loads all the blocks by using the non-optimized files
     // That way you can get immediate feedback about whether a block works or not

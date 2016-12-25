@@ -749,8 +749,7 @@ Blockly.Blocks['unityText_append'] = {
     this.setHelpUrl(Blockly.Msg.TEXT_APPEND_HELPURL);
     this.setColour(Blockly.CAT_TEXT_RGB);
     this.setInputsInline(true);
-    this.appendValueInput('VAR').appendField(Blockly.Msg.TEXT_APPEND_TO).setCheck('String');
-    this.appendValueInput('TEXT').appendField(Blockly.Msg.TEXT_APPEND_APPENDTEXT);
+    this.appendValueInput('TEXT').appendField(Blockly.Msg.TEXT_APPEND_TO).appendField(new Blockly.FieldTypedVariable('String', undefined, Blockly.Msg.TEXT_APPEND_TO_VARNAME_DEFAULT), 'VAR').appendField(Blockly.Msg.TEXT_APPEND_APPENDTEXT);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     // Assign 'this' to a variable for use in the tooltip closure below.

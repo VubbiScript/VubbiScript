@@ -280,7 +280,11 @@ Blockly.Blocks['unityGlobalVariables_declare'] = {
     this.setNextStatement(false);
     //this.setHelp(new Blockly.Help(Blockly.Msg.VARIABLE_GLOBAL_HELP));
     
-    // Make sure the initial block is shown correctly
+  },
+  /**
+   * Call to make sure the initial block is displayed correctly
+   */
+  initDefaultBlock: function() {
     this.updateShape_(0, 'Number');
   },
   /**

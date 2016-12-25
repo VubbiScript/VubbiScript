@@ -1174,6 +1174,14 @@ Blockly.Msg.TOOLBOX_MOVE = 'Move';
 //
 // More new strings for Scratchity
 //
+
+// Other menu items
+Blockly.Msg.MENU_ZOOM = 'zoom';
+Blockly.Msg.MENU_ZOOM_IN = 'zoom in';
+Blockly.Msg.MENU_ZOOM_RESET = 'reset zoom';
+Blockly.Msg.MENU_ZOOM_OUT = 'zoom uit';
+
+// Blocks...
 Blockly.Msg.UNITY_MEMORY_TITLE = 'geheugen';
 Blockly.Msg.UNITY_MEMORY_TOOLTIP = 'Het geheugen van dit script.';
 Blockly.Msg.TOOLBOX_EVENTS = 'Gebeurtenissen';
@@ -1290,6 +1298,8 @@ Blockly.Msg.UNITY_RENDER_SETSPRITE_TITLE_1 = 'zet uiterlijk van';
 Blockly.Msg.UNITY_RENDER_SETSPRITE_TITLE_2 = 'op';
 
 Blockly.Msg.TOOLBOX_TEXT = 'Tekst';
+Blockly.Msg.TEXT_APPEND_TO_VARNAME_DEFAULT = 'tekst';
+
 Blockly.Msg.UNITY_LOG_TITLE = 'print';
 Blockly.Msg.UNITY_UI_SET_TEXT_TITLE = 'zet UI tekst op';
 
@@ -1429,3 +1439,8 @@ Blockly.Msg.UNITY_KEYCODE_Print = 'Print key';
 Blockly.Msg.UNITY_KEYCODE_SysReq = 'Sys Req key';
 Blockly.Msg.UNITY_KEYCODE_Break = 'Break key';
 Blockly.Msg.UNITY_KEYCODE_Menu = 'Menu key';
+
+//
+// Other messages
+//
+Blockly.Msg.UNITY_GENERATED_CODE_WARNING = 'BESTAND NIET AANPASSEN!#De code in dit bestand is automatisch gegenereerd!#Wijzigingen aan de code zullen overschreven worden wanneer het bestand opnieuw opgeslagen wordt vanuit Scratchity.';

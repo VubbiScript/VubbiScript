@@ -23,7 +23,7 @@ goog.require('goog.userAgent');
 Blockly.FieldCodeInput = function(code) {
   Blockly.FieldCodeInput.superClass_.constructor.call(this, code,
       null);
-  this.size_ = new goog.math.Size(0, 0);
+  this.size_ = new goog.math.Size(0, 10/* just set it to some temporary height > ADDITIONALSIZE */);
   
   this.aceeditor_ = null;
 };
@@ -69,6 +69,7 @@ Blockly.FieldCodeInput.prototype.init = function() {
        'x': -Blockly.BlockSvg.SEP_SPACE_X / 2,
        'y': 0,
        'height': this.size_.height-Blockly.FieldCodeInput.ADDITIONALSIZE}, this.fieldGroup_, this.sourceBlock_.workspace);
+  this.borderRect_.tooltip = this.sourceBlock_;
   this.textElement_ = Blockly.createSvgElement('text',
       {'class': 'blocklyCode', 'y': 12.5}, null);
   this.fieldGroup_.appendChild(this.textElement_);
@@ -80,7 +81,6 @@ Blockly.FieldCodeInput.prototype.init = function() {
       Blockly.bindEvent_(this.fieldGroup_, 'mouseup', this, this.onMouseUp_);
   
   // Configure the field to be transparent with respect to tooltips.
-  this.fieldGroup_.tooltip = this.sourceBlock_;
   Blockly.Tooltip.bindMouseEvents(this.fieldGroup_);
   // Force a render.
   this.updateTextNode_();
@@ -366,6 +366,8 @@ Blockly.FieldCodeInput.prototype.updateTextNode_ = function() {
     
     var textNode = document.createTextNode(text);
     var tspanNode = Blockly.createSvgElement("tspan", {'x':0, 'dy':(i==0?'0px':'1.2em')}, null);
+    // Make tooltip = tooltip from parent block
+    tspanNode.tooltip = this.sourceBlock_;
     if(text.length>longestline) {
       longestline = text.length;
       this.longestLineTextElem_ = textNode;

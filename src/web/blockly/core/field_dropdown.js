@@ -49,10 +49,11 @@ goog.require('goog.userAgent');
  * @extends {Blockly.Field}
  * @constructor
  */
-Blockly.FieldDropdown = function(menuGenerator, opt_validator) {
+Blockly.FieldDropdown = function(menuGenerator, opt_validator, opt_onchange) {
   this.menuGenerator_ = menuGenerator;
   this.trimOptions_();
   var firstTuple = this.getOptions_()[0];
+  this.anyChangesListener_ = opt_onchange;
 
   // Call parent's constructor.
   Blockly.FieldDropdown.superClass_.constructor.call(this, firstTuple[1],
@@ -267,6 +268,9 @@ Blockly.FieldDropdown.prototype.setValue = function(newValue) {
   if (this.sourceBlock_ && Blockly.Events.isEnabled()) {
     Blockly.Events.fire(new Blockly.Events.Change(
         this.sourceBlock_, 'field', this.name, this.value_, newValue));
+  }
+  if(this.anyChangesListener_) {
+    this.anyChangesListener_(newValue);
   }
   this.value_ = newValue;
   // Look up and display the human-readable text.

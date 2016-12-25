@@ -73,7 +73,7 @@ Blockly.Blocks['unityObjects_findTag'] = {
 
 Blockly.Blocks['unityObjects_tagof'] = {
   init: function() {
-    this.appendValueInput("NAME")
+    this.appendValueInput("WHO")
         .setCheck("GameObject")
         .appendField(Blockly.Msg.UNITY_OBJECTS_TAG_OF_TITLE);
     this.setOutput(true, "String");

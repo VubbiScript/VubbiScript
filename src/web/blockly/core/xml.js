@@ -47,7 +47,6 @@ Blockly.Xml.workspaceToDom = function(workspace) {
     top.setAttribute('y', Math.round(xy.y));
     xml.appendChild(top);
   }
-  xml.setAttribute('robottype', workspace.device);
   xml.setAttribute('xmlversion', workspace.version);
   return xml;
 };
@@ -664,7 +663,7 @@ Blockly.Xml.childToBlock = function(workspace, block, xmlChild) {
     case 'field':
         var field = block.getField(name);
         if (!field) {
-            console.warn('Ignoring non-existent field ' + name + ' in block ' + prototypeName);
+            console.warn('Ignoring non-existent field ' + name + ' in block ' + block.type);
             break;
         }
         field.setValue(xmlChild.textContent);
@@ -673,7 +672,7 @@ Blockly.Xml.childToBlock = function(workspace, block, xmlChild) {
     case 'statement':
         input = block.getInput(name);
         if (!input) {
-            console.warn('Ignoring non-existent input ' + name + ' in block ' + prototypeName);
+            console.warn('Ignoring non-existent input ' + name + ' in block ' + block.type);
             break;
         }
 

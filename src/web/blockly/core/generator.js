@@ -85,6 +85,9 @@ Blockly.Generator.prototype.workspaceToCode = function(workspace) {
   this.init(workspace);
   var blocks = workspace.getTopBlocks(true);
   for (var x = 0, block; block = blocks[x]; x++) {
+    if(!block.PROPERTY_VALID_ROOT) {
+      continue;// This block is not attached => not valid!
+    }
     var line = this.blockToCode(block);
     if (goog.isArray(line)) {
       // Value blocks return tuples of code and operator order.
@@ -154,7 +157,7 @@ Blockly.Generator.prototype.blockToCode = function(block) {
   if (!block) {
     return '';
   }
-  if (block.disabled) {
+  if (block.disabled && !block.PROPERTY_VALID_ROOT) {
     // Skip past this block if it is disabled.
     return this.blockToCode(block.getNextBlock());
   }
@@ -172,7 +175,7 @@ Blockly.Generator.prototype.blockToCode = function(block) {
     // Value blocks return tuples of code and operator order.
     goog.asserts.assert(block.outputConnection,
         'Expecting string from statement block "%s".', block.type);
-    return [this.scrub_(block, code[0]), code[1]];
+    return [this.scrub_(block, code[0]), code[1], code[2]];
   } else if (goog.isString(code)) {
     if (this.STATEMENT_PREFIX) {
       code = this.STATEMENT_PREFIX.replace(/%1/g, '\'' + block.id + '\'') +
@@ -193,32 +196,69 @@ Blockly.Generator.prototype.blockToCode = function(block) {
  * @param {string} name The name of the input.
  * @param {number} order The maximum binding strength (minimum order value)
  *     of any operators adjacent to "block".
+ * @param {String} expectedReturnType Which type of value this block should return
  * @return {string} Generated code or '' if no blocks are connected or the
  *     specified input does not exist.
  */
-Blockly.Generator.prototype.valueToCode = function(block, name, order) {
+Blockly.Generator.prototype.valueToCode = function(block, name, order, expectedReturnType) {
+  return this.valueToCodeTuple(block, name, order, expectedReturnType)[0];
+};
+
+/**
+ * Generate code representing the specified value input.
+ * @param {!Blockly.Block} block The block containing the input.
+ * @param {string} name The name of the input.
+ * @param {number} order The maximum binding strength (minimum order value)
+ *     of any operators adjacent to "block".
+ * @param {String} expectedReturnType Which type of value this block should return
+ * @return {string} Generated code or '' if no blocks are connected or the
+ *     specified input does not exist.
+ */
+Blockly.Generator.prototype.valueToCodeTuple = function(block, name, order, expectedReturnType) {
   if (isNaN(order)) {
     goog.asserts.fail('Expecting valid order from block "%s".', block.type);
   }
   var targetBlock = block.getInputTargetBlock(name);
   if (!targetBlock) {
-    return '';
+    tuple = ['', 0, null];
   }
   var tuple = this.blockToCode(targetBlock);
   if (tuple === '') {
     // Disabled block.
-    return '';
+    tuple = ['', 0, null];
   }
   // Value blocks must return code and order of operations info.
   // Statement blocks must only return code.
-  goog.asserts.assertArray(tuple, 'Expecting tuple from value block "%s".',
-      targetBlock.type);
+  if(targetBlock) {
+    goog.asserts.assertArray(tuple, 'Expecting tuple from value block "%s".',
+        targetBlock.type);
+  }
   var code = tuple[0];
   var innerOrder = tuple[1];
-  if (isNaN(innerOrder)) {
+  var returnType = tuple[2];
+  if (isNaN(innerOrder) && targetBlock) {
     goog.asserts.fail('Expecting valid order from value block "%s".',
         targetBlock.type);
   }
+  if(this.convertDataTypeValue) {
+    var convertedvalue = this.convertDataTypeValue(returnType, expectedReturnType, goog.bind(function(order) {
+      if (code && order <= innerOrder) {
+        // See below
+        if (!(order == innerOrder && (order == 0 || order == 99))) {
+          return '(' + code + ')';
+        }
+      }
+      return code;
+    }, this));
+    if(convertedvalue) {
+      code = convertedvalue[0];
+      if(convertedvalue[1]) {
+        innerOrder = convertedvalue[1];
+      }
+      returnType = convertedvalue[2];
+    }
+  }
+  
   if (code && order <= innerOrder) {
     if (order == innerOrder && (order == 0 || order == 99)) {
       // Don't generate parens around NONE-NONE and ATOMIC-ATOMIC pairs.
@@ -232,9 +272,10 @@ Blockly.Generator.prototype.valueToCode = function(block, name, order) {
       // Technically, this should be handled on a language-by-language basis.
       // However all known (sane) languages use parentheses for grouping.
       code = '(' + code + ')';
+      innerOrder = 0;
     }
   }
-  return code;
+  return [code, innerOrder, returnType];
 };
 
 /**
@@ -245,6 +286,23 @@ Blockly.Generator.prototype.valueToCode = function(block, name, order) {
  */
 Blockly.Generator.prototype.statementToCode = function(block, name) {
   var targetBlock = block.getInputTargetBlock(name);
+  var code = this.blockToCode(targetBlock);
+  // Value blocks must return code and order of operations info.
+  // Statement blocks must only return code.
+  goog.asserts.assertString(code, 'Expecting code from statement block "%s".',
+      targetBlock && targetBlock.type);
+  if (code) {
+    code = this.prefixLines(/** @type {string} */ (code), this.INDENT);
+  }
+  return code;
+};
+
+/**
+ * Generate code for the statements which are attached to the bottom of the block. Ident the code.
+ * 
+ */
+Blockly.Generator.prototype.eventStatementsToCode = function(block) {
+  var targetBlock = block.getNextBlock();
   var code = this.blockToCode(targetBlock);
   // Value blocks must return code and order of operations info.
   // Statement blocks must only return code.
