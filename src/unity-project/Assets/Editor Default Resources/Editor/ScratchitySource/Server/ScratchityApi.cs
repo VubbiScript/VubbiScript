@@ -72,6 +72,7 @@ namespace scratchity
 		public void Save(Dictionary<string, string> data) {
 			string filename = data ["file"];
 			string content = data ["content"];
+			string codecontent = data ["code"];
 
 			ServerLog.Log ("Writing file \"" + filename+"\"");
 
@@ -82,11 +83,7 @@ namespace scratchity
 				sw.Write(content);
 			}
 
-			XmlDocument doc = new XmlDocument ();
-			doc.Load (new StringReader (content));
-
-			// Generate the code...
-			string codecontent = new CodeGen().GenerateCode (scriptOutputDir, filename, doc);
+			// Save the generated code
 			string fullpath = Path.Combine (scriptOutputDir, filename + ".cs");
 			Directory.CreateDirectory(scriptOutputDir);
 			using (StreamWriter sw = new StreamWriter(fullpath))
