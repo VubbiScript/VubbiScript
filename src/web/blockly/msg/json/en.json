@@ -1,7 +1,7 @@
 {
 	"@metadata": {
 		"author": "Ellen Spertus <ellen.spertus@gmail.com>",
-		"lastupdated": "2016-12-20 21:29:34.017000",
+		"lastupdated": "2016-12-25 19:11:04.546000",
 		"locale": "en",
 		"messagedocumentation" : "qqq"
 	},
@@ -402,6 +402,10 @@
 	"TOOLBOX_DISPLAY": "Display",
 	"TOOLBOX_DRIVE": "Drive",
 	"TOOLBOX_MOVE": "Move",
+	"MENU_ZOOM": "zoom",
+	"MENU_ZOOM_IN": "zoom in",
+	"MENU_ZOOM_RESET": "reset zoom",
+	"MENU_ZOOM_OUT": "zoom uit",
 	"UNITY_MEMORY_TITLE": "geheugen",
 	"UNITY_MEMORY_TOOLTIP": "Het geheugen van dit script.",
 	"TOOLBOX_EVENTS": "Gebeurtenissen",
@@ -508,6 +512,7 @@
 	"UNITY_RENDER_SETSPRITE_TITLE_1": "zet uiterlijk van",
 	"UNITY_RENDER_SETSPRITE_TITLE_2": "op",
 	"TOOLBOX_TEXT": "Tekst",
+	"TEXT_APPEND_TO_VARNAME_DEFAULT": "tekst",
 	"UNITY_LOG_TITLE": "print",
 	"UNITY_UI_SET_TEXT_TITLE": "zet UI tekst op",
 	"UNITY_TIME_LEVELLOAD_TITLE": "tijd sinds start van het level",
@@ -633,5 +638,6 @@
 	"UNITY_KEYCODE_Print": "Print key",
 	"UNITY_KEYCODE_SysReq": "Sys Req key",
 	"UNITY_KEYCODE_Break": "Break key",
-	"UNITY_KEYCODE_Menu": "Menu key"
+	"UNITY_KEYCODE_Menu": "Menu key",
+	"UNITY_GENERATED_CODE_WARNING": "BESTAND NIET AANPASSEN!#De code in dit bestand is automatisch gegenereerd!#Wijzigingen aan de code zullen overschreven worden wanneer het bestand opnieuw opgeslagen wordt vanuit Scratchity."
 }
