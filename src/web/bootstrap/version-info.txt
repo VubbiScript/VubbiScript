@@ -1,3 +1,1 @@
-bootstrap-3.3.6-dist
-
-Downloaded from site, pre-compiled, without modifications...
+Modified using http://bootstrap-live-customizer.com/

@@ -31,13 +31,15 @@ define([], function(){
      * 
      * @param {String} file - name of the file to save
      * @param {String} content - the xml content of the file (Blockly format)
+     * @param {String} code - the generated code (C#)
      * @param {Function} done - callback which will be called when the call to the server returns successfully.
      * @param {Function} error - callback which will be called when the call to the server fails or returns an error.
      */
-    Connection.prototype.save = function(file, content, done, error) {
+    Connection.prototype.save = function(file, content, code, done, error) {
         var data = this._params({
             file:file, 
-            content:content
+            content:content,
+            code:code
         });
         
         $.ajax("/api/save", {

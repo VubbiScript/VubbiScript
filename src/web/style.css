@@ -6,6 +6,63 @@
   left:0;
 }
 
+.codecontainer {
+  position:absolute;
+  top:50;
+  bottom:0;
+  right:0;
+  
+  width:0px;
+  -webkit-transition: width 0.2s ease;
+  -moz-transition: width 0.2s ease;
+  -o-transition: width 0.2s ease;
+  transition: width 0.2s ease;
+}
+
+.codecontainer.open {
+  width: 60%;
+}
+.codecontainer .codecontentcontainer {
+  position: absolute;
+  overflow: hidden;
+  top:0px;
+  left:0px;
+  right:0px;
+  bottom:0px;
+}
+
+.codecontainer .codecontentcontainer .codebordergroup {
+  position:absolute;
+  background-color: rgba(239, 250, 255, 0.95);
+  top:0px;
+  left:0px;
+  bottom:0px;
+  width: 60vw;
+  box-sizing: border-box;
+}
+.codecontainer .codecontent {
+  position:absolute;
+  top:10px;
+  left:10px;
+  right:10px;
+  bottom:10px;
+  overflow:auto;
+}
+
+.showhidecodetoggle {
+  position:absolute;
+  left:-20px;
+  top:11px;
+  padding-left:5px;
+  padding-right:5px;
+}
+
+.codecontainer h5 {
+    font-weight: bold;
+    color: #666;
+    margin-top: 4px;
+}
+
 #notificationcontainer {
     position: absolute;
     top:10;

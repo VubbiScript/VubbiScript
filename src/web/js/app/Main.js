@@ -31,6 +31,11 @@ define([
     // Also preload ace theme & mode
     ace.require(["ace/theme/xcode", "ace/mode/csharp"]);
     
+    // Enable asserts in Blockly
+    if(window.SCRATCHITYDEBUGMODE) {
+        goog.asserts.ENABLE_ASSERTS = true;
+    }
+    
     /**
      * Util function - convert a name entered by the user to camelcase. (for cs file naming)
      */
@@ -73,9 +78,19 @@ define([
             this._initButtons();
             this.reloadList();
             
+            this.ws.onChange(_.bind(function() {
+                this.setConfigurationSaved(false);
+                this.updateCodePreview();
+            }, this));
+            
+            this.updateCodePreview();
+            
         }, this), _.bind(function(){
             Notifications.notifyError("Kan toolbox niet laden.");
         }, this));
+      
+        // Code preview area
+        this.codepreviewpre = $(".generatedcodepre");
     };
     
     /**
@@ -85,6 +100,7 @@ define([
     Main.prototype._initButtons = function() {
         $("#button_save").click(_.bind(this.save, this));
         $("#button_new").click(_.bind(this.newFile, this));
+        $(".showhidecodetoggle").click(_.bind(this.toggleCodeArea, this));
     };
     
     /**
@@ -97,6 +113,19 @@ define([
         }else{
             $("#filenamedisplay").text(toDisplay(this._filename));
         }
+    };
+  
+    /**
+     * Update the code in the preview...
+     */
+    Main.prototype.updateCodePreview = function() {
+        try{
+          var code = this.ws.generateCode(this._filename);
+        } catch (e) {
+          this.codepreviewpre.text("ERROR");
+          throw e;
+        }
+        this.codepreviewpre.text(code);
     };
     
     /**
@@ -112,7 +141,7 @@ define([
             return;
         }
         Notifications.buzy("Opslaan...");
-        this.cs.save(this._filename, this.ws.getProgram(), _.bind(function(){
+        this.cs.save(this._filename, this.ws.getProgram(), this.ws.generateCode(this._filename), _.bind(function(){
             Notifications.done();
             //Notifications.notifySuccess("Opgeslaan!");
             this.reloadList();
@@ -122,14 +151,22 @@ define([
             this.reloadList();
         }, this));
     };
+  
+    /**
+     * Show whether the configuration is saved
+     */
+    Main.prototype.setConfigurationSaved = function(isSaved) {
+        // TODO
+      
+    };
     
     /**
      * Function which will execute the continueCallback if the current file is saved.
      * If not, this function might ask whether you want to save the file. (and call the callback later)
-     * 
-     * Currently not implemented. => will always call the callback
      */
     Main.prototype.checkSaved = function(continuecallback) {
+        // TODO
+        
         // Always continue
         continuecallback();
     };
@@ -213,6 +250,13 @@ define([
         }, this), _.bind(function(){
             cont.append($("<div>", {"class":"list-group-item", "text":"Kan de lijst met bestanden niet laden..."}));
         }, this));
+    };
+  
+    /**
+     * Toggle the code area section
+     */
+    Main.prototype.toggleCodeArea = function() {
+        $(".codecontainer").toggleClass("open");
     };
     
     //

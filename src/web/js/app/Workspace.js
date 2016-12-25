@@ -42,6 +42,8 @@ define([
             this.blocklyWorkspace.dispose();
             this.blocklyWorkspace = null;
         }
+        this.listenToBlocklyEvents = false;
+        this._changeCallbacks = [];
         
         // Make the Blockly workspace
         this.blocklyWorkspace = Blockly.inject(this.div, {
@@ -62,10 +64,15 @@ define([
             checkInTask : true,
             robControls:true// JEPE NOTE: I should probably rename this to something else?
         });
-      
-        this.blocklyWorkspace.addChangeListener(Blockly.Events.disableOrphans);
         
         this.initProgram();
+    };
+    
+    /**
+     * Will be called when the code changes
+     */
+    Workspace.prototype.onChange = function(callback) {
+        this._changeCallbacks.push(callback);
     };
     
     /**
@@ -76,27 +83,59 @@ define([
      */
     Workspace.prototype.initProgram = function(opt_programBlocks) {
         this.blocklyWorkspace.clear();
-        var x, y;
+        var x, y, ystart, yupdate;
         if ($(window).width() < 768) {
             x = $(window).width() / 50;
             y = 25;
+            ystart = 145;//+120
+            yupdate = 265;
         } else {
             x = $(window).width() / 5;
             y = 50;
+            ystart = 170;//+120
+            yupdate = 290;
         }
         var id = Blockly.genUid();
-        var text = "<block_set><instance x='0' y='0'>" + "<block id='" + id
-                + "' type='unityControls_classConfig'></block></instance></block_set>";
-        // <field name='DEBUG'>TRUE</field>
+        var id_startblock = Blockly.genUid();
+        var id_updateblock = Blockly.genUid();
+        var text = "<block_set>" +
+            "<instance x='0' y='0'>" + 
+            "<block id='" + id + "' type='unityControls_classConfig'></block>"+
+            "</instance>"+
+            "<instance x='0' y='0'>"+
+            "<block id='" + id_startblock + "' type='unityEvents_start'></block>"+
+            "</instance>"+
+            "<instance x='0' y='0'>"+
+            "<block id='" + id_updateblock + "' type='unityEvents_update'></block>"+
+            "</instance>"+
+            "</block_set>";
+        
         var program = opt_programBlocks || text;
         var xml = Blockly.Xml.textToDom(program);
         Blockly.Xml.domToWorkspace(xml, this.blocklyWorkspace);
         var block = this.blocklyWorkspace.getBlockById(id);
+        var blockstart = this.blocklyWorkspace.getBlockById(id_startblock);
+        var blockupdate = this.blocklyWorkspace.getBlockById(id_updateblock);
         if (block) {
             block.moveBy(x, y);
+            blockstart.moveBy(x, ystart);
+            blockupdate.moveBy(x, yupdate);
         }
-        // TODO JEPE: set some ready variable state ! (blocklyReady)
+        
         Blockly.svgResize(this.blocklyWorkspace);
+        
+        // Add change listeners.
+        this.blocklyWorkspace.addChangeListener(_.bind(function(event) {
+            if (this.listenToBlocklyEvents && event.type != Blockly.Events.UI) {
+                _.each(this._changeCallbacks, _.bind(function(c) {
+                    c();
+                }, this));
+            }
+        }, this));
+      
+        setTimeout(_.bind(function() {
+            this.listenToBlocklyEvents = true;
+        }, this), 500);
     };
     
     /**
@@ -105,6 +144,13 @@ define([
     Workspace.prototype.getProgram = function(){
         var xml = Blockly.Xml.workspaceToDom(this.blocklyWorkspace);
         return Blockly.Xml.domToText(xml);
+    };
+    
+    /**
+     * Get the C# code for the workspace
+     */
+    Workspace.prototype.generateCode = function(filename) {
+        return Blockly.CSharp.workspaceToCode(this.blocklyWorkspace, filename);
     };
   
     // returns the constructor

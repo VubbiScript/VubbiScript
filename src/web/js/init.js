@@ -45,5 +45,7 @@ var reqconfig = {
   waitSeconds: 15
 };
 
+window.SCRATCHITYDEBUGMODE = true;
+
 require.config(reqconfig);
 require(["app/Main"], function(){});
