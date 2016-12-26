@@ -9,6 +9,8 @@
 
 > \- Jeroen Penninck
 
+<a href="screenshot.png?raw=true" target="_blank"><img src="screenshot.png?raw=true" alt="Scratchity Screenshot" width="100%"/></a>
+
 ## How to try it out?
 The latest build can be found in the bin folder. Once imported in a Unity project, you will find it under "Window/Scratchity Code Editor".
 
