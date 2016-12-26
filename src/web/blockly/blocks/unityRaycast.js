@@ -15,12 +15,14 @@ Blockly.Blocks['unityRaycast_raycast_param'] = Blockly.OutputMutatingBlock.creat
         this.setTooltip("");
         //this.setHelpUrl('http://www.example.com/');
     },
-    [
-        {label:Blockly.Msg.UNITY_RAYCAST_RAYCAST_PARAM_OBJ, val:"other", type:"GameObject", proposedname:Blockly.Msg.UNITY_RAYCAST_RAYCAST_PARAM_OBJ_DEFNAME},
-        {label:Blockly.Msg.UNITY_RAYCAST_RAYCAST_PARAM_DIST, val:"dist", type:"Number", proposedname:Blockly.Msg.UNITY_RAYCAST_RAYCAST_PARAM_DIST_DEFNAME},
-        {label:Blockly.Msg.UNITY_RAYCAST_RAYCAST_PARAM_POINT, val:"point", type:"Vector3", proposedname:Blockly.Msg.UNITY_RAYCAST_RAYCAST_PARAM_POINT_DEFNAME},
-        {label:Blockly.Msg.UNITY_RAYCAST_RAYCAST_PARAM_NORMAL, val:"normal", type:"Vector3", proposedname:Blockly.Msg.UNITY_RAYCAST_RAYCAST_PARAM_NORMAL_DEFNAME}
-    ]
+    function() {
+        return [
+            {label:Blockly.Msg.UNITY_RAYCAST_RAYCAST_PARAM_OBJ, val:"other", type:"GameObject", proposedname:Blockly.Msg.UNITY_RAYCAST_RAYCAST_PARAM_OBJ_DEFNAME},
+            {label:Blockly.Msg.UNITY_RAYCAST_RAYCAST_PARAM_DIST, val:"dist", type:"Number", proposedname:Blockly.Msg.UNITY_RAYCAST_RAYCAST_PARAM_DIST_DEFNAME},
+            {label:Blockly.Msg.UNITY_RAYCAST_RAYCAST_PARAM_POINT, val:"point", type:"Vector3", proposedname:Blockly.Msg.UNITY_RAYCAST_RAYCAST_PARAM_POINT_DEFNAME},
+            {label:Blockly.Msg.UNITY_RAYCAST_RAYCAST_PARAM_NORMAL, val:"normal", type:"Vector3", proposedname:Blockly.Msg.UNITY_RAYCAST_RAYCAST_PARAM_NORMAL_DEFNAME}
+        ];
+    }
 );
 
 Blockly.Blocks['unityRaycast_raycast'] = Blockly.OutputMutatingBlock.createBlock (

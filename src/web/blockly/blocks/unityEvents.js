@@ -75,11 +75,13 @@ Blockly.Blocks['unityEvents_collision_param'] = Blockly.OutputMutatingBlock.crea
         this.setTooltip("");
         //this.setHelpUrl('http://www.example.com/');
     },
-    [
-        {label:Blockly.Msg.UNITY_EVENTS_COLLIDE_PARAM_OBJ, val:"coll_other", type:"GameObject", proposedname:Blockly.Msg.UNITY_EVENTS_COLLIDE_PARAM_OBJ_DEFNAME}, 
-        {label:Blockly.Msg.UNITY_EVENTS_COLLIDE_PARAM_SPEED, val:"coll_speed", type:"Number", proposedname:Blockly.Msg.UNITY_EVENTS_COLLIDE_PARAM_SPEED_DEFNAME}, 
-        {label:Blockly.Msg.UNITY_EVENTS_COLLIDE_PARAM_VECTOR, val:"coll_dirspeed", type:"Vector3", proposedname:Blockly.Msg.UNITY_EVENTS_COLLIDE_PARAM_VECTOR_DEFNAME}
-    ]
+    function() {
+        return [
+            {label:Blockly.Msg.UNITY_EVENTS_COLLIDE_PARAM_OBJ, val:"coll_other", type:"GameObject", proposedname:Blockly.Msg.UNITY_EVENTS_COLLIDE_PARAM_OBJ_DEFNAME}, 
+            {label:Blockly.Msg.UNITY_EVENTS_COLLIDE_PARAM_SPEED, val:"coll_speed", type:"Number", proposedname:Blockly.Msg.UNITY_EVENTS_COLLIDE_PARAM_SPEED_DEFNAME}, 
+            {label:Blockly.Msg.UNITY_EVENTS_COLLIDE_PARAM_VECTOR, val:"coll_dirspeed", type:"Vector3", proposedname:Blockly.Msg.UNITY_EVENTS_COLLIDE_PARAM_VECTOR_DEFNAME}
+        ];
+    }
 );
 
 Blockly.Blocks['unityEvents_collision'] = Blockly.OutputMutatingBlock.createBlock (
@@ -109,9 +111,11 @@ Blockly.Blocks['unityEvents_jointbreaks_param'] = Blockly.OutputMutatingBlock.cr
         this.setTooltip("");
         //this.setHelpUrl('http://www.example.com/');
     },
-    [
-        {label:Blockly.Msg.UNITY_EVENTS_JOINTBREAKS_PARAM_OBJ, val:"joint_other", type:"GameObject", proposedname:Blockly.Msg.UNITY_EVENTS_JOINTBREAKS_PARAM_OBJ_DEFNAME}
-    ]
+    function() {
+        return [
+            {label:Blockly.Msg.UNITY_EVENTS_JOINTBREAKS_PARAM_OBJ, val:"joint_other", type:"GameObject", proposedname:Blockly.Msg.UNITY_EVENTS_JOINTBREAKS_PARAM_OBJ_DEFNAME}
+        ];
+    }
 );
 
 Blockly.Blocks['unityEvents_jointbreaks'] = Blockly.OutputMutatingBlock.createBlock (
@@ -135,9 +139,11 @@ Blockly.Blocks['unityEvents_trigger_param'] = Blockly.OutputMutatingBlock.create
         this.setTooltip("");
         //this.setHelpUrl('http://www.example.com/');
     },
-    [
-        {label:Blockly.Msg.UNITY_EVENTS_TRIGGER_PARAM_OBJ, val:"trigger_other", type:"GameObject", proposedname:Blockly.Msg.UNITY_EVENTS_TRIGGER_PARAM_OBJ_DEFNAME}
-    ]
+    function() {
+        return [
+            {label:Blockly.Msg.UNITY_EVENTS_TRIGGER_PARAM_OBJ, val:"trigger_other", type:"GameObject", proposedname:Blockly.Msg.UNITY_EVENTS_TRIGGER_PARAM_OBJ_DEFNAME}
+        ];
+    }
 );
 
 Blockly.Blocks['unityEvents_trigger'] = Blockly.OutputMutatingBlock.createBlock (

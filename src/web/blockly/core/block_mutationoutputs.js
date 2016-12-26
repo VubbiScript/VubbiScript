@@ -7,15 +7,16 @@ goog.require('Blockly.DataTypes');
 /**
  * A parameter in an output mutating block...
  *
- * @param options - an array of Objects {label, value, type, proposedname}
+ * @param generateOptions - function generating an array of Objects {label, value, type, proposedname}
  */
-Blockly.OutputMutatingBlock.createParamBlock = function(parenttype, init, options) {
+Blockly.OutputMutatingBlock.createParamBlock = function(parenttype, init, generateOptions) {
     return {
         /**
          * Block for variable decaration.
          * @this Blockly.Block
          */
         init: function() {
+            var options = generateOptions();
             var dropdownopts = [];
             var proposednames = {};
             var requiredtypes = {};
