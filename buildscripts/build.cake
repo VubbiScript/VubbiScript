@@ -75,7 +75,7 @@ Task("MergeJSandHTML")
   // Make release mode for JS
   Information("-- begin -- Building single-page-HTML code");
   StartProcess("PowerShell.exe", "-ExecutionPolicy Bypass -File .\\build_singlepageindex.ps1");
-  Information("-- begin -- Building single-page-HTML code");
+  Information("-- end -- Building single-page-HTML code");
 });
 
 Task("BuildWebReleaseZip")
