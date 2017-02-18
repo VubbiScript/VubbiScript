@@ -14,6 +14,7 @@ Blockly.DataTypes.getTypes = function(workspace) {
         [Blockly.Msg.VARIABLES_TYPE_STRING, 'String'],
         [Blockly.Msg.VARIABLES_TYPE_GAMEOBJECT, 'GameObject'],
         [Blockly.Msg.VARIABLES_TYPE_VECTOR3, 'Vector3'],
+        [Blockly.Msg.VARIABLES_TYPE_QUATERNION, 'Quaternion'],
         [Blockly.Msg.VARIABLES_TYPE_SPRITE, 'Sprite'],
       //[Blockly.Msg.VARIABLES_TYPE_ARRAY_NUMBER, 'List_Number'],
       //[Blockly.Msg.VARIABLES_TYPE_ARRAY_BOOLEAN, 'List_Boolean'],

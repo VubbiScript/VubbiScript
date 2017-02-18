@@ -122,6 +122,8 @@ Blockly.CAT_DETECT_RGB = "#FF69B4";
  * The rgb value for block colours in communication category.
  */
 Blockly.CAT_IMAGE_RGB = "#DF01D7";
+Blockly.CAT_ROTATE_RGB = "#DF01D7";
+
 
 
 Blockly.CAT_MORE_RGB = "#68bce8";
@@ -253,6 +255,7 @@ Blockly.DATA_TYPE['Boolean'] = "#EB6A0A";// was #33B8CA
 Blockly.DATA_TYPE['Sprite'] = "#FF69B4";
 Blockly.DATA_TYPE['GameObject'] = "#8FA402";
 Blockly.DATA_TYPE['Vector3'] = "#EBC300";
+Blockly.DATA_TYPE['Quaternion'] = "#DF01D7";
 //Blockly.DATA_TYPE['Image'] = "#DF01D7";
 //Blockly.DATA_TYPE['Actor'] = "#F29400";
 Blockly.DATA_TYPE['List_Number'] = "#39378B";

@@ -23,6 +23,7 @@ define([
     "../blockly/blocks/unityInput",
     "../blockly/blocks/unityMove",
     "../blockly/blocks/unityRender",
+    "../blockly/blocks/unityRotate",
     "../blockly/blocks/unityTime",
     "../blockly/blocks/unityVector",
     "../blockly/blocks/unityObjects",

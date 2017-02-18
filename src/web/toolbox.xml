@@ -114,6 +114,30 @@
       <value name="WHO"><block type="unity_me"></block></value>
     </block>
     
+    <sep gap="50"/>
+    
+    <block type="unityrotate_get_rotation">
+      <value name="WHO"><block type="unity_me"/></value>
+    </block>
+    <block type="unityrotate_set_rotation">
+      <value name="WHO"><block type="unity_me"/></value>
+      <value name="QUATERNION"><block type="unityrotate_identity"/></value>
+    </block>
+    <block type="unityrotate_rotate">
+      <value name="WHO"><block type="unity_me"/></value>
+      <value name="QUATERNION">
+        <block type="unityrotate_angleaxis2d">
+          <value name="ANGLE">
+            <block type="math_number">
+                <field name="NUM">90</field>
+            </block>
+          </value>
+        </block>
+      </value>
+    </block>
+    
+    <sep gap="50"/>
+    
     <!-- physic based -->
     <!-- WARN: need rigidbody -->
     
@@ -205,7 +229,81 @@
       <!--<block type="unityVector_angle"></block>-->
       
       <block type="unityVector_pick"></block>
+    
+      <sep gap="50"/>
+      
+      <block type="unityrotate_apply_vector">
+        <value name="VECTOR">
+          <block type="unityVector_pick">
+            <field name="OPTION">right</field>
+          </block>
+        </value>
+        <value name="QUATERION">
+          <block type="unityrotate_get_rotation">
+            <value name="WHO"><block type="unity_me"/></value>
+          </block>
+        </value>
+      </block>
     </category>
+  
+    <category name="TOOLBOX_ROTATE" colour="const">
+      
+      <block type="unityrotate_identity"/>
+      
+      <block type="unityrotate_angleaxis2d">
+        <value name="ANGLE">
+          <block type="math_number">
+              <field name="NUM">90</field>
+          </block>
+        </value>
+      </block>
+      <block type="unityrotate_get_angle_2d"/>
+      
+      <block type="unityrotate_combine"/>
+      <block type="unityrotate_inverse"/>
+      
+      <block type="unityrotate_looktowards_2d">
+        <value name="TOWARDS">
+          <block type="unityTransform_position"/>
+        </value>
+      </block>
+      
+      <sep gap="50"/>
+      
+      <block type="unityrotate_angleaxis">
+        <value name="ANGLE">
+          <block type="math_number">
+              <field name="NUM">90</field>
+          </block>
+        </value>
+        <value name="AXIS">
+          <block type="unityVector_pick">
+            <field name="OPTION">back</field>
+          </block>
+        </value>
+      </block>
+      
+      <block type="unityrotate_looktowards">
+        <value name="POINTWHAT">
+          <block type="unityVector_pick">
+            <field name="OPTION">right</field>
+          </block>
+        </value>
+        <value name="TOWARDS">
+          <block type="unityTransform_position"/>
+        </value>
+        <value name="STAYWHAT">
+          <block type="unityVector_pick">
+            <field name="OPTION">up</field>
+          </block>
+        </value>
+      </block>
+      
+      <!--<block type="unityrotate_get_angle"/>-->
+      
+    </category>
+  
+  
     <category name="TOOLBOX_MATH" colour="const">
         <block type="math_number" />
         <block type="math_arithmetic" />
