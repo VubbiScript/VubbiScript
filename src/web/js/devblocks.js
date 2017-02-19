@@ -47,6 +47,7 @@ define([
     "../blockly/generators/csharp/unityInput",
     "../blockly/generators/csharp/unityMove",
     "../blockly/generators/csharp/unityRender",
+    "../blockly/generators/csharp/unityRotate",
     "../blockly/generators/csharp/unityTime",
     "../blockly/generators/csharp/unityVector",
     "../blockly/generators/csharp/unityObjects",

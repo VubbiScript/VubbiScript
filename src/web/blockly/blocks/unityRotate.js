@@ -100,7 +100,7 @@ Blockly.Blocks['unityrotate_apply_vector'] = {
   init: function() {
     this.appendValueInput("VECTOR")
         .setCheck("Vector3");
-    this.appendValueInput("QUATERION")
+    this.appendValueInput("QUATERNION")
         .setCheck("Quaternion")
         .appendField(Blockly.Msg.UNITY_QUATERNION_APPLY_VECTOR_TITLE);
     this.setInputsInline(true);
@@ -113,10 +113,10 @@ Blockly.Blocks['unityrotate_apply_vector'] = {
 
 Blockly.Blocks['unityrotate_combine'] = {
   init: function() {
-    this.appendValueInput("QUATERION1")
+    this.appendValueInput("QUATERNION1")
         .setCheck("Quaternion")
         .appendField(Blockly.Msg.UNITY_QUATERNION_COMBINE_TITLE_1);
-    this.appendValueInput("QUATERION2")
+    this.appendValueInput("QUATERNION2")
         .setCheck("Quaternion")
         .appendField(Blockly.Msg.UNITY_QUATERNION_COMBINE_TITLE_2);
     this.setInputsInline(true);
@@ -129,10 +129,10 @@ Blockly.Blocks['unityrotate_combine'] = {
 
 Blockly.Blocks['unityrotate_get_angle'] = {
   init: function() {
-    this.appendValueInput("QUATERION1")
+    this.appendValueInput("QUATERNION1")
         .setCheck("Quaternion")
         .appendField(Blockly.Msg.UNITY_QUATERNION_GET_ANGLE_TITLE_1);
-    this.appendValueInput("QUATERION2")
+    this.appendValueInput("QUATERNION2")
         .setCheck("Quaternion")
         .appendField(Blockly.Msg.UNITY_QUATERNION_GET_ANGLE_TITLE_2);
     this.appendDummyInput()
@@ -146,7 +146,7 @@ Blockly.Blocks['unityrotate_get_angle'] = {
 
 Blockly.Blocks['unityrotate_get_angle_2d'] = {
   init: function() {
-    this.appendValueInput("QUATERION")
+    this.appendValueInput("QUATERNION")
         .setCheck("Quaternion")
         .appendField(Blockly.Msg.UNITY_QUATERNION_GET_ANGLE_2D_TITLE_1);
     this.appendDummyInput()
@@ -166,11 +166,14 @@ Blockly.Blocks['unityrotate_looktowards'] = {
     this.appendValueInput("TOWARDS")
         .setCheck("Vector3")
         .appendField(Blockly.Msg.UNITY_QUATERNION_LOOKTOWARDS_TITLE_2);
-    this.appendValueInput("STAYWHAT")
+    this.appendValueInput("LOOKFROM")
         .setCheck("Vector3")
         .appendField(Blockly.Msg.UNITY_QUATERNION_LOOKTOWARDS_TITLE_3);
-    this.appendDummyInput()
+    this.appendValueInput("STAYWHAT")
+        .setCheck("Vector3")
         .appendField(Blockly.Msg.UNITY_QUATERNION_LOOKTOWARDS_TITLE_4);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.UNITY_QUATERNION_LOOKTOWARDS_TITLE_5);
     this.setOutput(true, "Quaternion");
     this.setColour(Blockly.CAT_ROTATE_RGB);
     this.setTooltip('');
@@ -190,8 +193,11 @@ Blockly.Blocks['unityrotate_looktowards_2d'] = {
     this.appendValueInput("TOWARDS")
         .setCheck("Vector3")
         .appendField(Blockly.Msg.UNITY_QUATERNION_LOOKTOWARDS_2D_TITLE_2);
-    this.appendDummyInput()
+    this.appendValueInput("LOOKFROM")
+        .setCheck("Vector3")
         .appendField(Blockly.Msg.UNITY_QUATERNION_LOOKTOWARDS_2D_TITLE_3);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.UNITY_QUATERNION_LOOKTOWARDS_2D_TITLE_4);
     this.setOutput(true, "Quaternion");
     this.setColour(Blockly.CAT_ROTATE_RGB);
     this.setTooltip('');

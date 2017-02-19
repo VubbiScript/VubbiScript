@@ -97,6 +97,7 @@ Blockly.CSharp.DATATYPE_GAMEOBJECT = 'GameObject';
 Blockly.CSharp.DATATYPE_SPRITE = 'Sprite';
 Blockly.CSharp.DATATYPE_BOOLEAN = 'Boolean';
 Blockly.CSharp.DATATYPE_VECTOR = 'Vector3';
+Blockly.CSharp.DATATYPE_QUATERNION = 'Quaternion';
 Blockly.CSharp.DATATYPE_ANY = null;// everything for which we are not sure...
 
 /**
@@ -221,7 +222,7 @@ Blockly.CSharp.finish = function(code) {
   }
   var utilityMethods = definitions.join('\n\n');
   if(utilityMethods) {
-    utilityMethods = '\n\n/*\n * Help functies\n */\n\n'+utilityMethods;
+    utilityMethods = '\n\n'+this.prefixLines('//\n// Utility functions\n//\n', this.INDENT)+'\n'+this.prefixLines(utilityMethods, this.INDENT);
   }
   
   var indentCode = Blockly.CSharp.prefixLines(code, Blockly.CSharp.INDENT);

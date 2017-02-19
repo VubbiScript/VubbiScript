@@ -266,6 +266,11 @@
         <value name="TOWARDS">
           <block type="unityTransform_position"/>
         </value>
+        <value name="LOOKFROM">
+          <block type="unityTransform_position">
+            <value name="WHO"><block type="unity_me"/></value>
+          </block>
+        </value>
       </block>
       
       <sep gap="50"/>
@@ -291,6 +296,11 @@
         </value>
         <value name="TOWARDS">
           <block type="unityTransform_position"/>
+        </value>
+        <value name="LOOKFROM">
+          <block type="unityTransform_position">
+            <value name="WHO"><block type="unity_me"/></value>
+          </block>
         </value>
         <value name="STAYWHAT">
           <block type="unityVector_pick">
