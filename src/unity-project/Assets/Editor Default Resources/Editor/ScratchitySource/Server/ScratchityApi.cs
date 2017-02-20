@@ -2,6 +2,7 @@
 using System.Xml;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 
 using UnityEditor;
 
@@ -16,22 +17,28 @@ namespace scratchity
 
 		// Some settings
 		private string scriptOutputDir;
-		private string configDir;
-
-		private const string FILEEXT = ".vcs.xml";
 
 		// Constructor... Getting settings...
 		public ScratchityApi () {
-			scriptOutputDir = Path.Combine (UnityEngine.Application.dataPath, "Scripts");
-			configDir = Path.Combine (UnityEngine.Application.dataPath, "../BlockScriptData");
+			scriptOutputDir = UnityEngine.Application.dataPath;
+		}
 
+		private struct SaveEntry {
+			public string filename;
+			public string content;
+			public string code;
+		}
+
+		private class LoadEntry {
+			public string filename;
+			public string content;
+			public WaitHandle waitHandle;
 		}
 
 		// -- Warning THREADSAFETY: accessed from multiple threads! Use locking!
 		private System.Object lockThis = new System.Object();
-		private bool needsAssetReload = false;
-		private List<String> specificAssetsToReload = new List<String>();
-		private string openFileId = null;
+		private List<SaveEntry> specificAssetsToSave = new List<SaveEntry> ();
+		private List<LoadEntry> specificAssetsToLoad = new List<LoadEntry> ();
 		// --
 
 		/// <summary>
@@ -42,19 +49,41 @@ namespace scratchity
 		public void OnUpdate() {
 			// 
 			lock(lockThis) {
-				if(needsAssetReload) {
-					needsAssetReload = false;
-					AssetDatabase.Refresh ();
-				}
 				string origin = UnityEngine.Application.dataPath.Replace("\\","/");
-				foreach(String assetToReload in specificAssetsToReload) {
-					string assetToReloadLocal = assetToReload.Replace ("\\", "/");
-					if (assetToReloadLocal.StartsWith (origin)) {
-						assetToReloadLocal = assetToReloadLocal.Substring (origin.Length);
+
+
+				// SAVE Asset & Script (in the Unity Thread)
+				try{
+					foreach(SaveEntry assetToSave in specificAssetsToSave) {
+						string path = assetToSave.filename;
+						string content = assetToSave.content;
+						string codecontent = assetToSave.code;
+
+						// Update Scratchity file
+						ScratchityFileHandler.UpdateScratchityScriptContent (path, content);
+
+						// Save the generated code
+						string fullpathcs = path + ".cs";
+						using (StreamWriter sw = new StreamWriter(fullpathcs))
+						{
+							sw.Write(codecontent);
+						}
+
+						AssetDatabase.ImportAsset (path+".cs");
 					}
-					AssetDatabase.ImportAsset ("Assets/"+assetToReloadLocal);
+				} finally {
+					specificAssetsToSave.Clear ();
 				}
-				specificAssetsToReload.Clear ();
+
+				// LOAD Asset & Script (in the Unity Thread)
+				try{
+					foreach (LoadEntry assetToLoad in specificAssetsToLoad) {
+						assetToLoad.content = ScratchityFileHandler.GetScratchityScriptContent (assetToLoad.filename);
+						((AutoResetEvent)assetToLoad.waitHandle).Set ();
+					}
+				} finally {
+					specificAssetsToLoad.Clear ();
+				}
 			}
 		}
 
@@ -74,26 +103,24 @@ namespace scratchity
 			string content = data ["content"];
 			string codecontent = data ["code"];
 
-			ServerLog.Log ("Writing file \"" + filename+"\"");
+			ServerLog.Log ("Saving \"" + filename+"\"");
+
+			string fullpath = Path.Combine (scriptOutputDir, filename);
+			string directory = Path.GetDirectoryName (fullpath);
 
 			// Save the file
-			Directory.CreateDirectory(configDir);
-			using (StreamWriter sw = new StreamWriter(Path.Combine(configDir, filename+FILEEXT)))
-			{
-				sw.Write(content);
-			}
+			Directory.CreateDirectory(directory);
 
-			// Save the generated code
-			string fullpath = Path.Combine (scriptOutputDir, filename + ".cs");
-			Directory.CreateDirectory(scriptOutputDir);
-			using (StreamWriter sw = new StreamWriter(fullpath))
-			{
-				sw.Write(codecontent);
-			}
+			SaveEntry entry = new SaveEntry ();
+			entry.filename = "Assets/"+filename;
+			entry.content = content;
+			entry.code = ScratchityFileHandler.GenerateHeader() + codecontent;
 
 			lock (lockThis) {
-				specificAssetsToReload.Add (fullpath);
+				specificAssetsToSave.Add (entry);
 			}
+
+			// Note: if the save throws an error we will never know (we are in a different thread and we are not waiting for the save)
 		}
 
 		/// <summary>
@@ -105,55 +132,20 @@ namespace scratchity
 		/// <param name="data">Data.</param>
 		public string Load(Dictionary<string, string> data) {
 			string filename = data ["file"];
-			string fullfilepath = Path.Combine (configDir, filename + FILEEXT);
-			if (File.Exists (fullfilepath)) {
-				using (StreamReader sr = new StreamReader (fullfilepath)) {
-					return sr.ReadToEnd ();
-				}
-			}
-			return null;
-		}
 
-		/// <summary>
-		/// Delete a file
-		/// 
-		/// Called by an incoming http connection => 
-		/// THREADSAFETY: Called from web server thread => do not call Unity code from this thread!
-		/// </summary>
-		/// <param name="data">Data.</param>
-		public void Delete(Dictionary<string, string> data) {
-			string filename = data ["file"];
-			File.Delete (Path.Combine (configDir, filename + FILEEXT));
-			string fullpath = Path.Combine (scriptOutputDir, filename + ".cs");
-			File.Delete (fullpath);
+			LoadEntry loadEntry = new LoadEntry ();
+			loadEntry.filename = "Assets/" + filename;
+			loadEntry.waitHandle = new AutoResetEvent (false);
 
 			lock (lockThis) {
-				specificAssetsToReload.Add (fullpath);
+				specificAssetsToLoad.Add (loadEntry);
 			}
-		}
 
-		/// <summary>
-		/// Get the list of all Script files
-		/// 
-		/// Called by an incoming http connection => 
-		/// THREADSAFETY: Called from web server thread => do not call Unity code from this thread!
-		/// </summary>
-		/// <returns>The files.</returns>
-		public List<string> ListFiles() {
-			List<string> files = new List<string> ();
-			if (Directory.Exists (configDir)) {
-				string[] filesindir = Directory.GetFiles (configDir);
-				foreach (string file in filesindir) {
-					string filename = new FileInfo (file).Name;
-					if (filename.EndsWith (FILEEXT)) {
-						filename = filename.Substring (0, filename.Length - FILEEXT.Length);
-						files.Add (filename);
-					}
-				}
-			}
-			return files;
-		}
+			// Load is done in another thread -> wait for it
+			loadEntry.waitHandle.WaitOne (10000);
 
+			return loadEntry.content;
+		}
 	}
 }
 

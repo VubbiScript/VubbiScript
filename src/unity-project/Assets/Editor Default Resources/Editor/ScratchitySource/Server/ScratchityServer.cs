@@ -128,24 +128,6 @@
 				SendApiOk (p, content);
 				return;
 			}
-			if (p.http_url.Equals ("/api/delete")) {
-				// Save the file...
-				api.Delete (ParseQuery(inputData));
-				SendApiOk (p, "");
-				return;
-			}
-			if (p.http_url.Equals ("/api/list")) {
-				// Get a list of files...
-				List<string> files = api.ListFiles ();
-				XElement filesXml = new XElement ("files");
-				foreach (string file in files) {
-					XElement fileXml = new XElement ("file");
-					fileXml.Add (new XText (file));
-					filesXml.Add (fileXml);
-				}
-				SendApiOk (p, filesXml.ToString());
-				return;
-			}
 
 
 			ServerLog.Log (p.http_url);

@@ -74,31 +74,14 @@
     z-index: 10;
 }
 
-.filenamedropdown .filename {
+.filename {
     color: black;
     font-weight: bold;
-}
-
-.filenamedropdown > .dropdown-menu {
-    width:350px;
-    padding:10px;
-}
-
-.filemenu-btn {
-    text-align:center;
-}
-
-.filemenu-btn:hover {
-    text-decoration: none;
+    padding: 15px;
 }
 
 a {
     cursor: pointer;
-}
-
-#filelistcontainer.list-group {
-    margin-bottom: 0px;
-    margin-top: 15px;
 }
 
 #buzyindicator {
@@ -108,13 +91,6 @@ a {
     margin-left: 15px;
     margin-right: 15px;
 }
-
-.btn-deletefile {
-    float:right;
-    margin-right: -15px;
-    margin-top: -4px;
-}
-
 
 .blocklyToolboxDiv {
   top: 0px !important;

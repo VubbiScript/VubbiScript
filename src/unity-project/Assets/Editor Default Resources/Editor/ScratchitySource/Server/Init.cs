@@ -41,6 +41,11 @@ namespace scratchity
 			}
 
 			//
+			// Set the icon for Scratchity files
+			//
+			ScratchityFileHandler.InitScratchityIcon ();
+
+			//
 			// Server Configuration
 			//
 			ServerConfig config = new ServerConfig ();

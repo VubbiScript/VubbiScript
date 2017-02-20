@@ -81,53 +81,6 @@ define([], function(){
     };
     
     /**
-     * Delete a file on the server.
-     *
-     * This completely deletes the file (cs + blockly xml)
-     * 
-     * @param {String} file - name of the file to delete
-     * @param {Function} done - callback which will be called when the call to the server returns successfully.
-     * @param {Function} error - callback which will be called when the call to the server fails or returns an error.
-     */
-    Connection.prototype.delete = function(file, done, error) {
-        var data = this._params({
-            file:file
-        });
-        
-        $.ajax("/api/delete", {
-            method:"POST",
-            data:data,
-            success:function(){
-                done();
-            }, 
-            error:function(){
-                error();
-            }
-        });
-    };
-    
-    /**
-     * Get the list of available Scratchity files on the server.
-     * 
-     * The done function has one argument = an array of file names
-     * 
-     * @param {Function} done - callback which will be called when the call to the server returns successfully.
-     * @param {Function} error - callback which will be called when the call to the server fails or returns an error.
-     */
-    Connection.prototype.list = function(done, error) {
-        $.ajax("/api/list", {
-            method:"POST",
-            success:function(xml){
-                var items = $("> file", $(xml)).map(function(n, e) {return $(e).text();}).get();
-                done(items);
-            }, 
-            error:function(){
-                error();
-            }
-        });
-    };
-    
-    /**
      * Load the toolbox configuration from the server.
      * This is usually the first call to be done to the server...
      * 

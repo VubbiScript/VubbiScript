@@ -238,7 +238,7 @@
             <field name="OPTION">right</field>
           </block>
         </value>
-        <value name="QUATERION">
+        <value name="QUATERNION">
           <block type="unityrotate_get_rotation">
             <value name="WHO"><block type="unity_me"/></value>
           </block>

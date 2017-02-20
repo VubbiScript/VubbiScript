@@ -41,25 +41,18 @@ public class WebEditorWindow : EditorWindow, IHasCustomMenu{
 	/// </summary>
 	string urlText = "http://localhost:8040";
 
-
-	[MenuItem ("Window/Scratchity Code Editor %#w")]
 	/// <summary>
-	/// Open the Scratchity Unity Window
+	/// Opens a file in the editor.
 	/// </summary>
-	static void Load() {
+	/// <param name="file">File.</param>
+	public static void OpenFile(string file) {
 		WebEditorWindow window = (WebEditorWindow)WebEditorWindow.GetWindow(typeof(WebEditorWindow));
+		window.OpenFileByHash (file);
 		window.Init();
 		window.CreateContextObject();
 		window.Show ();
-		window.titleContent = new GUIContent("Scratchity Code Editor");
-	}
+		window.titleContent = new GUIContent("Scratchity Code Editor");window.Focus ();
 
-	public static void OpenFileId(string fileid) {
-		Load ();
-		WebEditorWindow window = (WebEditorWindow)WebEditorWindow.GetWindow(typeof(WebEditorWindow));
-		// TODO: open the correct file??
-		Debug.Log("Open fileid: "+fileid);
-		window.Focus ();
 	}
 
 	public WebEditorWindow() {
@@ -129,6 +122,12 @@ public class WebEditorWindow : EditorWindow, IHasCustomMenu{
 		}*/
 	}
 
+	private string fileToOpen = null;
+	public void OpenFileByHash(string file) {
+		fileToOpen = file;
+		Repaint (); // Make sure OnGUI is triggered
+	}
+
 	void OnGUI() {
 		if(unclipMethod==null) {
 			guiClipType = GetTypeFromAllAssemblies ("GUIClip");
@@ -145,6 +144,12 @@ public class WebEditorWindow : EditorWindow, IHasCustomMenu{
 		{
 			this.InitWebView(webViewRect);
 		}
+
+		// fileToOpen is not null => we need to browse to the new file!
+		if (fileToOpen != null) {
+			UpdateUrl ();
+		}
+
 		if (Event.current.type == EventType.Layout)
 		{
 			if (setSizeAndPositionMethod == null) {
@@ -231,11 +236,16 @@ public class WebEditorWindow : EditorWindow, IHasCustomMenu{
 
 			ReflWebViewType.GetMethod ("SetDelegateObject").Invoke (m_WebView, new object[] { this });
 
-			loadURLMethod = ReflWebViewType.GetMethod ("LoadURL");
-			loadURLMethod.Invoke (m_WebView, new object[] { urlText });
+			UpdateUrl ();
 
 			this.wantsMouseMove = true;
 		}
+	}
+
+	private void UpdateUrl() {
+		loadURLMethod = ReflWebViewType.GetMethod ("LoadURL");
+		loadURLMethod.Invoke (m_WebView, new object[] { urlText + (fileToOpen!=null?"#"+fileToOpen:"") });
+		fileToOpen = null;
 	}
 
 	private void CreateContextObject()
