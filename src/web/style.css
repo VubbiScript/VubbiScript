@@ -1,6 +1,6 @@
 .pagecontainer {
   position:absolute;
-  top:50;
+  top:0;
   bottom:0;
   right:0;
   left:0;
@@ -8,7 +8,7 @@
 
 .codecontainer {
   position:absolute;
-  top:50;
+  top:0;
   bottom:0;
   right:0;
   
@@ -57,6 +57,10 @@
   padding-right:5px;
 }
 
+.loading .showhidecodetoggle {
+  display:none;
+}
+
 .codecontainer h5 {
     font-weight: bold;
     color: #666;
@@ -85,46 +89,42 @@ a {
 }
 
 #buzyindicator {
-    margin-top:13px;
-    margin-bottom:0px;
+    position: absolute;
+    top: -10px;
+    left: 0px;
+    right: 0px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 40vh;
     width:150px;
-    margin-left: 15px;
-    margin-right: 15px;
+    
 }
 
 .blocklyToolboxDiv {
   top: 0px !important;
 }
 
-/*
- * Bootstrap overrides...
- * Do not collapse navbar
- */
-.navbar-collapse.collapse {
-  display: block!important;
+/* toolbox header */
+.scratchityToolboxHeader {
+  cursor: default;
+  font-family: sans-serif;
+  font-size: 17px;
+  padding: 0 3px;
+  font-weight: 600;
+  color: #666;
+  vertical-align: middle;
+  margin-bottom: 1px;
+  margin-top:10px;
 }
-
-.navbar-nav>li, .navbar-nav {
-  float: left !important;
+.physicsToggle {
+  position:absolute;
+  right:0px;
+  top: 10px;
 }
-
-.navbar-nav.navbar-right:last-child {
-  margin-right: -15px !important;
-}
-
-.navbar-right {
-  float: right!important;
-}
-
-.navbar-nav {
-  margin: 0px !important;
-}
-
-.navbar-header {
-  float:left !important;
-}
-
-.navbar-nav > li > a {
-  padding-top: 15px !important;
-  padding-bottom: 15px !important;
+.physicsToggle .btn {
+  color: #555;
+  background-color: transparent;
+  border-color: #ddd;
+  font-size: 8pt;
+  margin-right: 10px;
 }

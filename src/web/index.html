@@ -5,32 +5,12 @@
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="style.css"/>
   </head>
-  <body>
-
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">Scratchity</a>
-        </div>
-          
-        <ul class="nav navbar-nav">
-            
-            <li id="filenamedisplay" class="filename">naamloos bestand</li>
-            <li><a id="button_save"><span class="glyphicon glyphicon-floppy-save"></span> Sla op</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-            
-              <div id="buzyindicator" class="progress">
-                <div class="progress-bar progress-bar-striped active buzyindicatorstate" style="width: 100%">Loading...</div>
-              </div>
-            
-            </li>
-        </ul>
-      </div>
-    </nav>
-    
+  <body class="loading">
     <div id="notificationcontainer"></div>
+    
+    <div id="buzyindicator" class="progress">
+      <div class="progress-bar progress-bar-striped active buzyindicatorstate" style="width: 100%">Loading...</div>
+    </div>
 
     <div class="pagecontainer">
       <!-- HERE WE WILL PUT BLOCKLY -->

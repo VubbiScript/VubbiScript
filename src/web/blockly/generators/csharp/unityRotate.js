@@ -31,8 +31,8 @@ Blockly.CSharp['unityrotate_set_rotation'] = function(block) {
 
 Blockly.CSharp['unityrotate_rotate'] = function(block) {
   var transform = Blockly.CSharp.valueToCode(block, 'WHO', Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_TRANSFORM);
-  var quaternion = Blockly.CSharp.valueToCode(block, 'QUATERNION', Blockly.CSharp.ORDER_NONE, Blockly.CSharp.DATATYPE_QUATERNION) || 'Quaternion.identity';
-  return transform+'.Rotate('+quaternion+');\n';
+  var quaternion = Blockly.CSharp.valueToCode(block, 'QUATERNION', Blockly.CSharp.ORDER_ASSIGNMENT, Blockly.CSharp.DATATYPE_QUATERNION) || 'Quaternion.identity';
+  return transform+'.localRotation *= '+quaternion+';\n';
 };
 
 Blockly.CSharp['unityrotate_get_rotation'] = function(block) {

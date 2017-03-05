@@ -1180,6 +1180,7 @@ Blockly.Msg.MENU_ZOOM = 'zoom';
 Blockly.Msg.MENU_ZOOM_IN = 'zoom in';
 Blockly.Msg.MENU_ZOOM_RESET = 'reset zoom';
 Blockly.Msg.MENU_ZOOM_OUT = 'zoom uit';
+Blockly.Msg.MENU_SAVE = 'sla op';
 
 // Blocks...
 Blockly.Msg.UNITY_MEMORY_TITLE = 'geheugen';

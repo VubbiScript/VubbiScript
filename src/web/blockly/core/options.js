@@ -125,6 +125,7 @@ Blockly.Options = function(options) {
   this.checkInTask = options['checkInTask'] || false;
   this.variableDeclaration = !!options['variableDeclaration'];
   this.robControls = !!options['robControls'];
+  this.toolboxHeaderRenderFunc = options['toolboxHeaderRenderFunc'];
 };
 
 /**

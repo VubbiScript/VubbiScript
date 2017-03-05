@@ -104,6 +104,7 @@ namespace scratchity
 				script = AssetDatabase.LoadAssetAtPath<VisualBlockScript> (path + ".asset");
 			}
 			script.data = content;
+			EditorUtility.SetDirty (script);
 			AssetDatabase.SaveAssets ();
 			AssetDatabase.Refresh ();
 			EditorUtility.FocusProjectWindow ();

@@ -17,7 +17,7 @@ Blockly.CSharp['unityTransform_jumpto'] = function(block) {
 Blockly.CSharp['unityTransform_move'] = function(block) {
   var transform = Blockly.CSharp.valueToCode(block, 'WHO', Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_TRANSFORM);
   var vector = Blockly.CSharp.valueToCode(block, 'DELTA', Blockly.CSharp.ORDER_NONE, Blockly.CSharp.DATATYPE_VECTOR) || 'Vector3.zero';
-  return transform+'.Translate('+vector+");\n";
+  return transform+'.Translate('+vector+", Space.World);\n";
 };
 
 Blockly.CSharp['unityTransform_position'] = function(block) {

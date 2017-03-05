@@ -59,7 +59,6 @@ define([
         this.ws = new Workspace($(".pagecontainer")[0]);
         
         this._filename = null;
-        this._updateFilename();
         
         // Load toolbox
         this.cs.loadToolbox(_.bind(function(xml) {
@@ -67,6 +66,7 @@ define([
             
             // Toolbox is loaded... Continue initialization
             this.ws.init();
+            this._updateFilename();
 
             this._initButtons();
             
@@ -74,6 +74,8 @@ define([
                 this.setConfigurationSaved(false);
                 this.updateCodePreview();
             }, this));
+            
+            $("body").removeClass("loading");
             
             this.updateCodePreview();
             
@@ -96,7 +98,7 @@ define([
      * Attach click listeners to the save & new buttons
      */
     Main.prototype._initButtons = function() {
-        $("#button_save").click(_.bind(this.save, this));
+        $("#saveProgram").click(_.bind(this.save, this));
         $(".showhidecodetoggle").click(_.bind(this.toggleCodeArea, this));
     };
     
@@ -106,9 +108,10 @@ define([
      */
     Main.prototype._updateFilename = function() {
         if(!this._filename) {
-            $("#filenamedisplay").text("no file opened !?");
+            $("#filenamedisplay")[0].textContent = "naamloos bestand";
         }else{
-            $("#filenamedisplay").text(this._filename);
+            var filenamesplit = this._filename.split(/[/\\]/);
+            $("#filenamedisplay")[0].textContent = filenamesplit[filenamesplit.length-1];
         }
     };
   
@@ -144,12 +147,14 @@ define([
      */
     Main.prototype.save = function() {
         if(!this._filename) {
-            var userinput = prompt("Gelieve een naam in te geven.", "test");
-            this._filename = toCamelCase(userinput);
+            var userinput = prompt("Gelieve een naam in te geven.", "Scripts/HelloWorld");
+            if(!userinput) {
+                return;
+            }
+            var pieces = userinput.split(/[\\/]/);
+            var path = pieces.slice(0, -1).join("/");
+            this._filename = (path.length>0?path+"/":"")+toCamelCase(pieces[pieces.length-1]);
             this._updateFilename();
-        }
-        if(!this._filename) {
-            return;
         }
         Notifications.buzy("Opslaan...");
         this.cs.save(this._filename, this.ws.getProgram(), this.ws.generateCode(this._getClassName()), _.bind(function(){
@@ -190,8 +195,8 @@ define([
             this.cs.load(file, _.bind(function(data) {
                 Notifications.done();
                 this._filename = file;
-                this._updateFilename();
                 this.ws.initProgram(data);
+                this._updateFilename();
                 this.updateCodePreview();
                 //Notifications.notifySuccess("Bestand geladen!");
             }, this), _.bind(function() {

@@ -149,6 +149,13 @@ Blockly.Toolbox.prototype.init = function() {
   this.HtmlDiv = goog.dom.createDom('div', 'blocklyToolboxDiv');
   this.HtmlDiv.setAttribute('dir', workspace.RTL ? 'RTL' : 'LTR');
   
+  // Render something in the header of the toolbox
+  if(workspace.options.toolboxHeaderRenderFunc) {
+    var headerDiv = goog.dom.createDom('div', 'blocklyToolboxHeaderDiv');
+    this.HtmlDiv.appendChild(headerDiv);
+    workspace.options.toolboxHeaderRenderFunc(this.HtmlDiv);
+  }
+  
   // for tabbed workspaces
   workspace.svgGroup_.parentNode.parentNode.appendChild(this.HtmlDiv);
   

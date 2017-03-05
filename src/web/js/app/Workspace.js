@@ -62,10 +62,82 @@ define([
             // Note: behavior changed! Now, this will look for a property "PROPERTY_VALID_ROOT" in the block.
             // (instead of having to provide a list of names)
             checkInTask : true,
+            // New: function to allow custom toolbox header
+            toolboxHeaderRenderFunc : _.bind(function(div) {
+              var container = $("<div>", {"class":"scratchityToolboxHeader"});
+              var header = $("<div>", {"text":"Blokken", "class":"title"});
+              var togglePhysics = this.makePhysicsToggle_();
+              container.append(header, togglePhysics);
+              div.appendChild(container[0]);
+            }, this),
             robControls:true// JEPE NOTE: I should probably rename this to something else?
         });
         
         this.initProgram();
+    };
+  
+    Workspace.prototype.makePhysicsToggle_ = function() {
+      var togglePhysics = $("<div>", {"class":"dropdown physicsToggle"});
+      var btn = $("<button>", {"class":"btn btn-default btn-xs dropdown-toggle", "type":"button", "data-toggle":"dropdown", "text":"Phy2D"});
+      
+      var menu = $("<ul>", {"class":"dropdown-menu"});
+      menu.append(
+        $("<li>").append(
+          $("<a>", {text:"Gebruik 2D physics (RigidBody2D, BoxCollider2D)", "data-shortlabel":"Phy2D", "data-value":"2D"})
+          .click(_.bind(this.updatePhysicsToggle_, this, '2D'))
+        )
+      );
+      menu.append(
+        $("<li>").append(
+          $("<a>", {text:"Gebruik 3D physics (RigidBody, BoxCollider)", "data-shortlabel":"Phy3D", "data-value":"3D"})
+          .click(_.bind(this.updatePhysicsToggle_, this, '3D'))
+        )
+      );
+      
+      togglePhysics.on("show.bs.dropdown", function () {
+        var rect = togglePhysics[0].getBoundingClientRect(true);
+        menu.css({
+          position:"absolute",
+          display: "block",
+          left: rect.left,
+          top: rect.bottom
+        });
+        $("body").append(menu);
+      });
+      
+      togglePhysics.on("hide.bs.dropdown", function () {
+        menu.css({
+          position:"",
+          display: "",
+          left: 0,
+          top: 0
+        });
+        $(togglePhysics).append(menu);
+      });
+      
+      togglePhysics.append(btn).append(menu);
+      this._togglePhysics = togglePhysics;
+      this._togglePhysicsMenu = menu;
+      
+      this.updatePhysicsToggleLabel_("2D");
+      
+      return togglePhysics;
+    };
+  
+    Workspace.prototype.updatePhysicsToggle_ = function(val) {
+      // TODO: remove this:
+      if(val==='3D') {
+        alert("Sorry, Scratchity kan nog niet werken met 3D physics...");
+        return;
+      }
+      // TODO: update workspace somehow and save/load the value
+      
+      this.updatePhysicsToggleLabel_(val);
+    };
+  
+    Workspace.prototype.updatePhysicsToggleLabel_ = function(val) {
+      var label = $("a[data-value='"+val+"']", this._togglePhysicsMenu).attr("data-shortlabel");
+      $(".btn", this._togglePhysics).text(label+" ").append($("<span>", {"class":"caret"}));
     };
     
     /**
