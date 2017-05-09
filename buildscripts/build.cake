@@ -40,6 +40,9 @@ Task("BuildDll")
   // Copy Dll files
   CopyFiles("../src/unity-project/Assets/Editor Default Resources/Editor/ScratchitySource/Lib/*.dll", unityBuildProjectDllDir);
   CopyFiles("./BuildCSharpCode/ScratchityBuild/bin/Release/Scratchity.dll", unityBuildProjectDllDir);
+  
+  // Copy Icon
+  CopyFiles("../src/unity-project/Assets/Editor Default Resources/Editor/Scratchity/*", unityBuildProjectDllDir);
 });
 
 Task("BuildJS")
