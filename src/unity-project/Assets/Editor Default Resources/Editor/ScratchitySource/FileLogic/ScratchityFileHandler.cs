@@ -216,7 +216,14 @@ namespace scratchity
 		/// </summary>
 		/// <param name="file">File. WITHOUT Asset/ WITHOUT extension</param>
 		public static void OpenFile(string file){
-			WebEditorWindow.OpenFile (file);
+			bool OPENINBROWSER = true;
+			if (OPENINBROWSER) {
+				Application.OpenURL ("http://localhost:8040/#"+file);
+			} else {
+				// DID NOT WORK SO WELL - still here in case we decide to use it again...
+				// (Difficult to minimize and the window loses data when you start/stop a game)
+				WebEditorWindow.OpenFile (file);
+			}
 		}
 
 		//
@@ -235,11 +242,13 @@ namespace scratchity
 						string filecontent = File.ReadAllText (file);
 						VisualBlockScript dataObj = ScratchityFileHandler.CreateAsset ("Assets/Scripts", actualname, false);
 						dataObj.data = filecontent;
+						EditorUtility.SetDirty (dataObj);
 						AssetDatabase.SaveAssets ();
 						AssetDatabase.Refresh ();
 					}
 				}
-				Directory.Delete (oldDataDir, true);
+				// For safety reasons, do NOT DELETE OLD DATA from before migration!
+				// Directory.Delete (oldDataDir, true);
 			}
 		}
 	}
