@@ -9,12 +9,12 @@ goog.provide('Blockly.CSharp.unityEvents');
 goog.require('Blockly.CSharp');
 
 Blockly.CSharp['unityEvents_start'] = function(block) {
-  Blockly.CSharp.pushEventBlock(block, 'void Start()');
+  Blockly.CSharp.pushEventBlock(block, 'void Start()', 'Start');
   return null;
 };
 
 Blockly.CSharp['unityEvents_update'] = function(block) {
-  Blockly.CSharp.pushEventBlock(block, 'void Update()');
+  Blockly.CSharp.pushEventBlock(block, 'void Update()', 'Update');
   return null;
 };
 
@@ -26,7 +26,7 @@ Blockly.CSharp['unityEvents_mouse'] = function(block) {
     'Exit':'OnMouseExit',
   };
   if(callMap.hasOwnProperty(blockType)) {
-    Blockly.CSharp.pushEventBlock(block, 'void '+callMap[blockType]+'()');
+    Blockly.CSharp.pushEventBlock(block, 'void '+callMap[blockType]+'()', callMap[blockType]);
   }
   return null;
 };
@@ -39,7 +39,7 @@ Blockly.CSharp['unityEvents_mouse_click'] = function(block) {
     'Up':'OnMouseUp'
   };
   if(callMap.hasOwnProperty(blockType)) {
-    Blockly.CSharp.pushEventBlock(block, 'void '+callMap[blockType]+'()');
+    Blockly.CSharp.pushEventBlock(block, 'void '+callMap[blockType]+'()', callMap[blockType]);
   }
   return null;
 };
@@ -59,7 +59,7 @@ Blockly.CSharp['unityEvents_collision'] = function(block) {
     'Exit':'OnCollisionExit2D'
   };
   if(callMap.hasOwnProperty(blockType)) {
-    Blockly.CSharp.pushEventBlock(block, 'void '+callMap[blockType]+'(Collision2D '+argumentName+')', outputCode);
+    Blockly.CSharp.pushEventBlock(block, 'void '+callMap[blockType]+'(Collision2D '+argumentName+')', callMap[blockType], outputCode);
   }
   return null;
 };
@@ -72,7 +72,7 @@ Blockly.CSharp['unityEvents_jointbreaks'] = function(block) {
   var outputCode = Blockly.CSharp.generateOutputMutationCode(block, exportMap);
   var blockType = block.getFieldValue('STATE');
 
-  Blockly.CSharp.pushEventBlock(block, 'void OnJointBreak2D(Joint2D '+argumentName+')', outputCode);
+  Blockly.CSharp.pushEventBlock(block, 'void OnJointBreak2D(Joint2D '+argumentName+')', 'OnJointBreak2D', outputCode);
   return null;
 };
 
@@ -89,7 +89,7 @@ Blockly.CSharp['unityEvents_trigger'] = function(block) {
     'Exit':'OnTriggerExit2D'
   };
   if(callMap.hasOwnProperty(blockType)) {
-    Blockly.CSharp.pushEventBlock(block, 'void '+callMap[blockType]+'(Collider2D '+argumentName+')', outputCode);
+    Blockly.CSharp.pushEventBlock(block, 'void '+callMap[blockType]+'(Collider2D '+argumentName+')', callMap[blockType], outputCode);
   }
   return null;
 };

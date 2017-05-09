@@ -49,11 +49,30 @@ Blockly.CSharp['variables_set'] = function(block) {
 };
 
 Blockly.CSharp['unityGlobalVariables_declare'] = function(block) {
-  var dataType = Blockly.CSharp.convertDataTypeName(block.getFieldValue('TYPE'));
-  var argument0 = Blockly.CSharp.valueToCode(block, 'VALUE',
-      Blockly.CSharp.ORDER_ASSIGNMENT) || '';
+  var type = block.getFieldValue('TYPE');
+  var dataType = Blockly.CSharp.convertDataTypeName(type);
+  var ispublic = true;
+  var argument0;
+  if (type === 'Number') {
+    argument0 = parseFloat(block.getFieldValue('NUM'))+"f";
+  } else if (type === 'String') {
+    argument0 = Blockly.CSharp.quote_(block.getFieldValue('TEXT'))
+  } else if (type === 'Boolean') {
+    argument0 = (block.getFieldValue('BOOL') == 'TRUE') ? 'true' : 'false';
+  } else if (type === 'Vector3') {
+    var x = parseFloat(block.getFieldValue('X'))+"f" || '0f';
+    var y = parseFloat(block.getFieldValue('Y'))+"f" || '0f';
+    var z = parseFloat(block.getFieldValue('Z'))+"f" || '0f';
+    argument0 = 'new Vector3('+x+', '+y+', '+z+')';
+  } else if (type === 'Quaternion') {
+    argument0 = 'Quaternion.identity';
+    ispublic = false;
+  } else {
+    argument0 = "";
+  }
+  
   var varName = Blockly.CSharp.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   
-  return "public "+dataType+" "+varName+(argument0?" = "+argument0+";":";")+'\n';
+  return (ispublic?"public":"private")+" "+dataType+" "+varName+(argument0?" = "+argument0+";":";")+'\n';
 };

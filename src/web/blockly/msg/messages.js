@@ -1249,7 +1249,7 @@ Blockly.Msg.UNITY_RAYCAST_RAYCAST_PARAM_DIST_DEFNAME = 'afstand';
 Blockly.Msg.UNITY_RAYCAST_RAYCAST_PARAM_POINT_DEFNAME = 'punt';
 Blockly.Msg.UNITY_RAYCAST_RAYCAST_PARAM_NORMAL_DEFNAME = 'normaal';
 
-Blockly.Msg.TOOLBOX_VARIABLE = 'Variablen';
+Blockly.Msg.TOOLBOX_VARIABLE = 'Geheugen';
 
 Blockly.Msg.TOOLBOX_CONTROL = 'Logica';
 
@@ -1276,6 +1276,7 @@ Blockly.Msg.UNITY_VECTOR_CREATE_Z_TITLE = 'z';
 Blockly.Msg.UNITY_VECTOR_FETCH_X_TITLE = 'x van';
 Blockly.Msg.UNITY_VECTOR_FETCH_Y_TITLE = 'y van';
 Blockly.Msg.UNITY_VECTOR_FETCH_Z_TITLE = 'z van';
+Blockly.Msg.UNITY_VECTOR_FETCH_TITLE_1 = 'van';
 Blockly.Msg.UNITY_VECTOR_LENGTH_TITLE = 'lengte van';
 Blockly.Msg.UNITY_VECTOR_PICK_OPT_UP = 'omhoog (0, 1, 0)';
 Blockly.Msg.UNITY_VECTOR_PICK_OPT_DOWN = 'omlaag (0, -1, 0)';
@@ -1285,6 +1286,20 @@ Blockly.Msg.UNITY_VECTOR_PICK_OPT_FORWARD = 'voorwaarts (diepte) (0, 0, 1)';
 Blockly.Msg.UNITY_VECTOR_PICK_OPT_BACK = 'achterwaarts (diepte) (0, 0, -1)';
 Blockly.Msg.UNITY_VECTOR_PICK_OPT_ZERO = 'nul (0, 0, 0)';
 Blockly.Msg.UNITY_VECTOR_PICK_OPT_ONE = 'één (1, 1, 1)';
+Blockly.Msg.UNITY_VECTOR_MATH_TOOLTIP_ADD = 'Geeft de elementgewijze som van twee vectoren.';
+Blockly.Msg.UNITY_VECTOR_MATH_TOOLTIP_MINUS = 'Geeft het elementgewijs verschil van twee vectoren.';
+Blockly.Msg.UNITY_VECTOR_MATH_TOOLTIP_MULTIPLY = 'Geeft het elementgewijs product van twee vectoren.';
+Blockly.Msg.UNITY_VECTOR_TOSIZE_TITLE = 'geschaald tot lengte';
+Blockly.Msg.UNITY_VECTOR_MULTIPLY_TITLE = 'maal';
+Blockly.Msg.UNITY_VECTOR_PRODUCT_OPTION_DOT = 'dot';
+Blockly.Msg.UNITY_VECTOR_PRODUCT_OPTION_CROSS = 'cross';
+Blockly.Msg.UNITY_VECTOR_PRODUCT_TITLE_1 = 'product van';
+Blockly.Msg.UNITY_VECTOR_PRODUCT_TITLE_2 = 'en';
+Blockly.Msg.UNITY_VECTOR_TRANSFORMPOINT_TOLOCAL_TITLE_1 = 'positie tegenover';
+Blockly.Msg.UNITY_VECTOR_TRANSFORMPOINT_TOLOCAL_TITLE_2 = 'van positie';
+Blockly.Msg.UNITY_VECTOR_TRANSFORMPOINT_TOLOCAL_TITLE_3 = 'in de wereld';
+Blockly.Msg.UNITY_VECTOR_TRANSFORMPOINT_TOWORLD_TITLE_1 = 'positie in de wereld van positie';
+Blockly.Msg.UNITY_VECTOR_TRANSFORMPOINT_TOWORLD_TITLE_2 = 'tegenover';
 
 Blockly.Msg.TOOLBOX_ROTATE = 'Rotaties';
 Blockly.Msg.VARIABLES_TYPE_QUATERNION = 'Rotatie';
@@ -1302,13 +1317,11 @@ Blockly.Msg.UNITY_QUATERNION_COMBINE_TITLE_2 = ' en dan ';
 Blockly.Msg.UNITY_QUATERNION_GET_ANGLE_TITLE_1 = 'verschil tussen rotatie ';
 Blockly.Msg.UNITY_QUATERNION_GET_ANGLE_TITLE_2 = ' en ';
 Blockly.Msg.UNITY_QUATERNION_GET_ANGLE_TITLE_3 = ' in graden';
-Blockly.Msg.UNITY_QUATERNION_GET_ANGLE_2D_TITLE_1 = 'hoeveel graden gedraaid is ';
-Blockly.Msg.UNITY_QUATERNION_GET_ANGLE_2D_TITLE_2 = ' (2D)';
-Blockly.Msg.UNITY_QUATERNION_LOOKTOWARDS_TITLE_1 = 'draaiing waarbij mijn ';
-Blockly.Msg.UNITY_QUATERNION_LOOKTOWARDS_TITLE_2 = ' richt naar ';
-Blockly.Msg.UNITY_QUATERNION_LOOKTOWARDS_TITLE_3 = ' vanuit ';
-Blockly.Msg.UNITY_QUATERNION_LOOKTOWARDS_TITLE_4 = ' en mijn ';
-Blockly.Msg.UNITY_QUATERNION_LOOKTOWARDS_TITLE_5 = ' zo blijft';
+Blockly.Msg.UNITY_QUATERNION_GET_ANGLE_2D_TITLE_1 = '2D richting (0°-360°) van ';
+Blockly.Msg.UNITY_QUATERNION_LOOKTOWARDS_TITLE_1 = 'draaiing rond as ';
+Blockly.Msg.UNITY_QUATERNION_LOOKTOWARDS_TITLE_2 = ' waarbij mijn ';
+Blockly.Msg.UNITY_QUATERNION_LOOKTOWARDS_TITLE_3 = ' richt naar ';
+Blockly.Msg.UNITY_QUATERNION_LOOKTOWARDS_TITLE_4 = ' vanuit ';
 Blockly.Msg.UNITY_QUATERNION_LOOKTOWARDS_2D_TITLE_1 = 'draaiing waarbij de ';
 Blockly.Msg.UNITY_QUATERNION_LOOKTOWARDS_2D_TITLE_2 = ' richt naar ';
 Blockly.Msg.UNITY_QUATERNION_LOOKTOWARDS_2D_TITLE_3 = ' vanuit ';
@@ -1327,6 +1340,8 @@ Blockly.Msg.UNITY_OBJECTS_TAG_OF_TITLE = 'tag van';
 Blockly.Msg.UNITY_OBJECTS_DESTROY_TITLE = 'vernietig';
 Blockly.Msg.UNITY_OBJECTS_CREATE_TITLE = 'maak kopie van';
 Blockly.Msg.UNITY_OBJECTS_CREATE_AND_GET_TITLE = 'maak kopie van';
+Blockly.Msg.UNITY_OBJECTS_TAG_COMPARE_TITLE_1 = 'tag van';
+Blockly.Msg.UNITY_OBJECTS_TAG_COMPARE_TITLE_2 = 'is';
 
 Blockly.Msg.UNITY_RENDER_SETSPRITE_TITLE_1 = 'zet uiterlijk van';
 Blockly.Msg.UNITY_RENDER_SETSPRITE_TITLE_2 = 'op';
@@ -1337,10 +1352,19 @@ Blockly.Msg.TEXT_APPEND_TO_VARNAME_DEFAULT = 'tekst';
 Blockly.Msg.UNITY_LOG_TITLE = 'print';
 Blockly.Msg.UNITY_UI_SET_TEXT_TITLE = 'zet UI tekst op';
 
+Blockly.Msg.TOOLBOX_TIME = 'Tijd';
 Blockly.Msg.UNITY_TIME_LEVELLOAD_TITLE = 'tijd sinds start van het level';
 Blockly.Msg.UNITY_TIME_DELTA_TITLE = 'delta tijd';
+Blockly.Msg.UNITY_TIME_WAITFRAME_TITLE = 'wacht tot volgende frame 🕑';
+Blockly.Msg.UNITY_TIME_WAITTIME_TITLE_1 = 'wacht';
+Blockly.Msg.UNITY_TIME_WAITTIME_TITLE_2 = 'seconde(n) 🕑';
+Blockly.Msg.UNITY_TIME_REPEAT_TITLE = 'herhaal elke frame 🕑';
+Blockly.Msg.UNITY_TIME_REPEAT_TILL_TITLE = 'herhaal elke frame 🕑 zolang ';
+Blockly.Msg.UNITY_TIME_LOOP_TITLE = 'tijd sinds start van herhaal';
 
 Blockly.Msg.TOOLBOX_OTHER = 'Andere...';
+
+Blockly.Msg.UNITY_SCENE_GOTO_TITLE = 'ga naar Scene met naam';
 
 // Meer blokjes
 Blockly.Msg.TOOLBOX_MORE = 'Meer blokjes';
@@ -1478,3 +1502,4 @@ Blockly.Msg.UNITY_KEYCODE_Menu = 'Menu key';
 // Other messages
 //
 Blockly.Msg.UNITY_GENERATED_CODE_WARNING = 'BESTAND NIET AANPASSEN!#De code in dit bestand is automatisch gegenereerd!#Wijzigingen aan de code zullen overschreven worden wanneer het bestand opnieuw opgeslagen wordt vanuit Scratchity.';
+Blockly.Msg.DEPRECATEDBLOCK = 'Dit blokje is verouderd en zal uit Scratchity worden verwijderd.';

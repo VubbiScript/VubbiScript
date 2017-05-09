@@ -17,6 +17,6 @@ Blockly.CSharp['unityGeneral_msgSend'] = function(block) {
 
 Blockly.CSharp['unityGeneral_msgReceive'] = function(block) {
   var name = Blockly.CSharp.variableDB_.getName('msg '+block.getFieldValue('EVENT'), 'MESSAGES'/* TODO: MAKE CONSTANT */);
-  Blockly.CSharp.pushEventBlock(block, 'void '+name+'()');
+  Blockly.CSharp.pushEventBlock(block, 'void '+name+'()', name);
   return null;
 };

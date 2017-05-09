@@ -17,3 +17,8 @@ Blockly.CSharp['unityGeneral_log'] = function(block) {
   var toprint = Blockly.CSharp.valueToCode(block, 'WHAT', Blockly.CSharp.ORDER_NONE, Blockly.CSharp.DATATYPE_ANY) || '""';
   return 'print('+toprint+');\n';
 };
+
+Blockly.CSharp['unityScene_toscene'] = function(block) {
+  var scene = Blockly.CSharp.valueToCode(block, 'SCENE', Blockly.CSharp.ORDER_NONE, Blockly.CSharp.DATATYPE_STRING);
+  return 'UnityEngine.SceneManagement.SceneManager.LoadScene('+scene+');\n';
+};

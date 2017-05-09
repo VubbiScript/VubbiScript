@@ -51,7 +51,7 @@
 
 .showhidecodetoggle {
   position:absolute;
-  left:-20px;
+  right:100%;
   top:11px;
   padding-left:5px;
   padding-right:5px;

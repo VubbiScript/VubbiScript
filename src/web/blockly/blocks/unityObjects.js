@@ -82,3 +82,19 @@ Blockly.Blocks['unityObjects_tagof'] = {
     //this.setHelpUrl('http://www.example.com/');
   }
 };
+
+Blockly.Blocks['unityObjects_tagcompare'] = {
+  init: function() {
+    this.appendValueInput("WHO")
+        .setCheck("GameObject")
+        .appendField(Blockly.Msg.UNITY_OBJECTS_TAG_COMPARE_TITLE_1);
+    this.appendValueInput("TAG")
+        .setCheck("String")
+        .appendField(Blockly.Msg.UNITY_OBJECTS_TAG_COMPARE_TITLE_2);
+    this.setInputsInline(true);
+    this.setOutput(true, "Boolean");
+    this.setColour(Blockly.CAT_OBJECTS_RGB);
+    this.setTooltip('');
+    //this.setHelpUrl('http://www.example.com/');
+  }
+};

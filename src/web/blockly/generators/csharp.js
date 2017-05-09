@@ -154,6 +154,7 @@ Blockly.CSharp.init = function(workspace) {
   
   // We will put the temporary method-local variable definitions in here
   Blockly.CSharp.temporaryMethodVariables_ = null;
+  Blockly.CSharp.temporaryMethodVariablesCoroutine_ = null;
   
   Blockly.CSharp.eventMethods_ = [];
   
@@ -165,6 +166,11 @@ Blockly.CSharp.init = function(workspace) {
   // to actual function names (to avoid collisions with user functions).
   // Will be filled by calling "provideFunction_" in the generator
   Blockly.CSharp.functionNames_ = Object.create(null);
+  
+  // Keep track of the temporary variables used throughout whole blocks of code...
+  // These will be pushed on a stack (in case of multiple nested blocks that need the same variable)
+  // One stack per requested variable (so different variable names or types = different stack)
+  Blockly.CSharp.loopVariableStack_ = Object.create(null);
 
   if (!Blockly.CSharp.variableDB_) {
     var namingConventions = {};
@@ -186,7 +192,7 @@ Blockly.CSharp.finish = function(code) {
   // NOTE: code will ONLY contain the "editable code block"-methods
   // => the other methods and variables are added to member variables instead.
   
-  var usingStatements = 'using UnityEngine;\n'+'using System.Collections.Generic;';
+  var usingStatements = 'using UnityEngine;\n'+'using System.Collections;\n'+'using System.Collections.Generic;';
   
   var classStart = 'public class '+this.classname_+' : MonoBehaviour\n{\n';
   var classEnd = '}';
@@ -202,7 +208,7 @@ Blockly.CSharp.finish = function(code) {
       declaredTempVars = this.prefixLines(declaredTempVars, this.INDENT);
     }
     
-    eventMethodCode+=eventMethod.functionName+'\n{\n'+eventMethod.outputsCode+declaredTempVars+eventMethod.code+'}\n\n';
+    eventMethodCode+=eventMethod.functionDescription+'\n{\n'+eventMethod.outputsCode+declaredTempVars+eventMethod.code+'}\n\n';
   }, this));
   if(eventMethodCode) {
     // strip last two newlines
@@ -355,30 +361,81 @@ Blockly.CSharp.generateOutputMutationCode = function(block, exportMap) {
   return '';
 };
 
-Blockly.CSharp.pushEventBlock = function(block, functionName, outputsCode) {
+Blockly.CSharp.pushEventBlock = function(block, functionDescription, functionName, outputsCode) {
   var eventMethodInfo = null;
+  var eventMethodInfoIndex = -1;
   
   // Look whether there is already a method with this name => merge them
-  goog.array.forEach(Blockly.CSharp.eventMethods_, function(methodInfo) {
-    if(functionName === methodInfo.functionName) {
+  goog.array.forEach(Blockly.CSharp.eventMethods_, function(methodInfo, index) {
+    if(functionDescription === methodInfo.functionDescription) {
       // Same method => simply add the code at the end (and extend the declarations)
       eventMethodInfo = methodInfo;
+      eventMethodInfoIndex = index;
     }
   });
   
   if(!eventMethodInfo) {
     eventMethodInfo = {
       functionName: functionName,
+      functionDescription: functionDescription,
       code:"",
       temporaryMethodVariables:[],
       outputsCode:""
     };
     Blockly.CSharp.eventMethods_.push(eventMethodInfo);
+    eventMethodInfoIndex = Blockly.CSharp.eventMethods_.length-1;
   }
   
-  this.temporaryMethodVariables_= eventMethodInfo.temporaryMethodVariables;
-  eventMethodInfo.code += Blockly.CSharp.eventStatementsToCode(block);
+  this.temporaryMethodVariables_= goog.array.clone(eventMethodInfo.temporaryMethodVariables);
+  this.temporaryMethodVariablesCoroutine_ = [];
+  this.shouldBeCoroutine_ = false;
+  var code = Blockly.CSharp.eventStatementsToCode(block);
+  var shouldBeCoroutine = this.shouldBeCoroutine_;
+  if(shouldBeCoroutine) {
+    var insertAfter = eventMethodInfoIndex;
+    var suffix = 0;
+    var prefix = "Coroutine"+functionName;
+    while(insertAfter+1 < Blockly.CSharp.eventMethods_.length && 
+          goog.string.startsWith(Blockly.CSharp.eventMethods_[insertAfter+1].functionName, prefix)) {
+      insertAfter++;
+      suffix++;
+    }
+    // Names...
+    var coroutineFunctionName = prefix+(suffix>0?"_"+suffix:"");
+    var coroutineVariableName = "running"+functionName+(suffix>0?"_"+suffix:"");
+    // Declare new private variable...
+    //
+    // TODO: MAKING THE VARIABLE UNIQUE = NOT WORKING !!!!!!!!!!!!
+    //
+    var coroutineVariableName = Blockly.CSharp.variableDB_.getName(
+      coroutineVariableName, Blockly.Variables.NAME_TYPE);
+    var varDescription = this.INDENT+"private bool "+coroutineVariableName+' = false;\n';
+    Blockly.CSharp.tempGlobalsCode_+=varDescription;
+    
+    // Try-catch code
+    var innercode = this.INDENT+coroutineVariableName+" = true;\n"+code;
+    var finallycode = this.INDENT+coroutineVariableName+" = false;\n";
+    code = this.prefixLines("try {\n"+innercode+"} finally {\n"+finallycode+"}\n", this.INDENT);
+    
+    var newMethod = {
+      functionName: coroutineFunctionName,
+      functionDescription: "private IEnumerator "+coroutineFunctionName+"()",
+      code:code,
+      temporaryMethodVariables:this.temporaryMethodVariablesCoroutine_,
+      outputsCode:""
+    };
+    Blockly.CSharp.eventMethods_.splice(insertAfter+1, 0, newMethod);
+    
+    // Add the method call
+    eventMethodInfo.code+=this.prefixLines("if(!"+coroutineVariableName+") {\n"+this.INDENT+"StartCoroutine("+coroutineFunctionName+"());\n}\n", this.INDENT);
+    
+    // Add the private boolean to see whether it is started
+  } else {
+    eventMethodInfo.code += code;
+    eventMethodInfo.temporaryMethodVariables = this.temporaryMethodVariables_;
+  }
   this.temporaryMethodVariables_ = null;
+  this.temporaryMethodVariablesCoroutine_ = null;
   
   if(outputsCode) {
     eventMethodInfo.outputsCode += outputsCode;
@@ -386,11 +443,57 @@ Blockly.CSharp.pushEventBlock = function(block, functionName, outputsCode) {
 };
 
 /**
+ * Convert the "current" event block to a coroutine. => Should only be executed while pushEventBlock is processing the code.
+ */
+Blockly.CSharp.transformCurrentEventBlockToCoroutine = function() {
+  this.shouldBeCoroutine_ = true;
+};
+
+/**
+ * Declares a variable which is used throughout a block of code.
+ * We need a separate method for this because we cannot reuse the same variable
+ * in the same block of code...
+ */
+Blockly.CSharp.pushLoopStackVariable = function(type, name) {
+  this.loopVariableStack_[type+"~"+name] = this.loopVariableStack_[type+"~"+name] || [];
+  var loopVariable = this.declareLocalTempVar(type, name, false);
+  this.loopVariableStack_[type+"~"+name].push(loopVariable);
+  return loopVariable;
+};
+
+/**
+ * Get the name of the variable in the top loop/code block of the stack
+ */
+Blockly.CSharp.getTopLoopStackVariable = function(type, name) {
+  var loopStack = this.loopVariableStack_[type+"~"+name];
+  if(loopStack) {
+    return loopStack[loopStack.length-1];
+  }
+};
+
+/**
+ * We are closing the code block/loop => release the variable
+ */
+Blockly.CSharp.popLoopStackVariable = function(type, name) {
+  var loopStack = this.loopVariableStack_[type+"~"+name];
+  var actualVarName = loopStack.pop();
+  // Make the variable available for re-use now.
+  goog.array.forEach(this.temporaryMethodVariables_, function(variable) {
+    if(variable.name === actualVarName) {
+      variable.availableforreuse = true;
+    }
+  });
+};
+
+/**
  * Declares a temporary variable on the method level and returns the name
  */
-Blockly.CSharp.declareLocalTempVar = function(type, name) {
+Blockly.CSharp.declareLocalTempVar = function(type, name, availableforreuse) {
+  // Default, availableforreuse is true
+  availableforreuse = availableforreuse !== false;
+  
   var tempVarInfo = this.isLegalReusableBlockLocalTempVarName(type, name);
-  while (!Blockly.Variables.isLegalName(name, null) || (tempVarInfo.isdeclared && !tempVarInfo.iscorrecttype)) {
+  while (!Blockly.Variables.isLegalName(name, null) || (tempVarInfo.isdeclared && (!tempVarInfo.iscorrecttype || !tempVarInfo.availableforreuse))) {
     // Collision with another variable.
     var r = name.match(/^(.*?)(\d+)$/);
     if (!r) {
@@ -403,23 +506,38 @@ Blockly.CSharp.declareLocalTempVar = function(type, name) {
   
   if(!tempVarInfo.isdeclared) {
     // Declare the temporary variable on top of the method
-    this.temporaryMethodVariables_.push({name:name, type:type});
+    this.temporaryMethodVariables_.push({name:name, type:type, availableforreuse:availableforreuse});
+  } else {
+    // was already declared but we need it again => block for reuse
+    if(!availableforreuse) {
+      goog.array.forEach(this.temporaryMethodVariables_, function(variable) {
+        if(variable.name === name) {
+          variable.availableforreuse = false;
+        }
+      });
+    }
+  }
+  var coroutineVarInfo = this.isLegalReusableBlockLocalTempVarName(type, name, true)
+  if(!coroutineVarInfo.isdeclared) {
+    this.temporaryMethodVariablesCoroutine_.push({name:name, type:type});
   }
   return name;
 };
 
-Blockly.CSharp.isLegalReusableBlockLocalTempVarName = function(type, name) {
+Blockly.CSharp.isLegalReusableBlockLocalTempVarName = function(type, name, coroutineVars) {
   var isdeclared = false;
   var iscorrecttype = false;
-  goog.array.forEach(this.temporaryMethodVariables_, function(variable) {
+  var availableforreuse = false;
+  goog.array.forEach((coroutineVars?this.temporaryMethodVariablesCoroutine_:this.temporaryMethodVariables_), function(variable) {
     if(variable.name === name) {
       isdeclared = true;
       if(variable.type === type) {
         iscorrecttype = true;
+        availableforreuse = variable.availableforreuse;
       }
     }
   });
-  return {isdeclared:isdeclared, iscorrecttype:iscorrecttype};
+  return {isdeclared:isdeclared, iscorrecttype:iscorrecttype, availableforreuse:availableforreuse};
 };
 
 /**

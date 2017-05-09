@@ -672,7 +672,20 @@ Blockly.Xml.childToBlock = function(workspace, block, xmlChild) {
     case 'statement':
         input = block.getInput(name);
         if (!input) {
-            console.warn('Ignoring non-existent input ' + name + ' in block ' + block.type);
+            // Migrate the blocks...
+            if(block.migrateMissingInput) {
+                if (childBlockNode) {
+                    if (!childShadowNode) {
+                        blockChild = Blockly.Xml.domToBlockHeadless_(RealGrandchildList, workspace);
+                    } else {
+                        blockChild = Blockly.Xml.domToBlockHeadless_(childBlockNode, workspace);
+                    }
+                    block.migrateMissingInput(name, blockChild);
+                    blockChild.dispose();
+                }
+            } else {
+                console.warn('Ignoring non-existent input ' + name + ' in block ' + block.type);
+            }
             break;
         }
 

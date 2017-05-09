@@ -263,11 +263,10 @@ Blockly.Blocks['unityGlobalVariables_declare'] = {
     var name = Blockly.Variables.findLegalName(Blockly.Msg.VARIABLES_DEFAULT_NAME, this);
     this.nameOld = name;
     var nameField = new Blockly.FieldTextInput(name, this.validateName);
-    this.appendValueInput('VALUE').
+    this.appendDummyInput("ENTRY").
          appendField(Blockly.Msg.VARIABLES_TITLE).
          appendField(nameField, 'VAR').appendField(':').
-         appendField(declType, 'TYPE').
-         appendField(Blockly.RTL ? '\u2192' : '\u2190');
+         appendField(declType, 'TYPE');
     this.setPreviousStatement(true, 'declaration_only');
     //this.setTooltip(Blockly.Msg.VARIABLES_GLOBAL_DECLARE_TOOLTIP);
     this.setMutatorMinus(new Blockly.MutatorMinus(['unityGlobalVariables_declare']));
@@ -279,13 +278,24 @@ Blockly.Blocks['unityGlobalVariables_declare'] = {
     this.nextStatement_ = false;
     this.setNextStatement(false);
     //this.setHelp(new Blockly.Help(Blockly.Msg.VARIABLE_GLOBAL_HELP));
-    
+    this.displayedDeclarationType_ = null;
   },
   /**
    * Call to make sure the initial block is displayed correctly
    */
   initDefaultBlock: function() {
     this.updateShape_(0, 'Number');
+  },
+  /**
+   * Will be called when during the import of the xml, we are missing a value with a certain name.
+   * => The block that was in there will be passed to this call.
+   */
+  migrateMissingInput: function(inputname, block) {
+    if(inputname === 'VALUE') {
+      // We used to have an input called "VALUE"
+      // Import the values in this block...
+      Blockly.DataTypes.importInputFromBlock(this.workspace, this, block, this.displayedDeclarationType_);
+    }
   },
   /**
    * Change the required variable type
@@ -355,9 +365,7 @@ Blockly.Blocks['unityGlobalVariables_declare'] = {
       this.setNext(this.nextStatement_);
     }
     this.declarationType_ = xmlElement.getAttribute('declaration_type');
-    if (this.declarationType_) {
-      this.getInput('VALUE').setCheck(this.declarationType_);
-    }
+    this.updateShape_(0, this.declarationType_);
   },
   setNext: function(next) {
     this.nextStatement_ = next;
@@ -403,20 +411,13 @@ Blockly.Blocks['unityGlobalVariables_declare'] = {
       this.dispose();
     } else if (num == 0) {
       // changes in dropdown field TYPE -> change initial value
-      if (this.getInputTargetBlock('VALUE')) {
-        this.getInputTargetBlock('VALUE').dispose();
+      var input = this.getInput("ENTRY");
+      if(this.displayedDeclarationType_) {
+        Blockly.DataTypes.removeDataTypeInputBlock(this.workspace, input, this.displayedDeclarationType_, true);
       }
-      this.getInput('VALUE').setCheck(option);
-      var block = Blockly.DataTypes.getDefaultBlock(this.workspace, option);
-      var value = this.getInput('VALUE');
-      if (block) {
-        block.initSvg();
-        block.render();
-        if (option.substr(0, 5) === 'List_') {
-          block.updateType_(option.substr(5));
-        }
-        value.connection.connect(block.outputConnection);
-      }
+      Blockly.DataTypes.addDataTypeInputBlock(this.workspace, input, option, true);
+      this.displayedDeclarationType_ = option;
+      this.setColour(Blockly.DataTypes.getDataTypeColour(option));
     }
   },
   updateType: function(option) {

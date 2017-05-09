@@ -16,7 +16,7 @@ Blockly.Blocks['unityGeneral_log'] = {
         .appendField(Blockly.Msg.UNITY_LOG_TITLE);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.CAT_TEXT_RGB);
+    this.setColour(Blockly.CAT_OTHER_RGB);
     this.setTooltip('');
     //this.setHelpUrl('http://www.example.com/');
   }
@@ -31,6 +31,20 @@ Blockly.Blocks['unityUI_text'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(Blockly.CAT_TEXT_RGB);
+    this.setTooltip('');
+    //this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+// Go to scene
+Blockly.Blocks['unityScene_toscene'] = {
+  init: function() {
+    this.appendValueInput("SCENE")
+        .setCheck("String")
+        .appendField(Blockly.Msg.UNITY_SCENE_GOTO_TITLE);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(Blockly.CAT_OTHER_RGB);
     this.setTooltip('');
     //this.setHelpUrl('http://www.example.com/');
   }

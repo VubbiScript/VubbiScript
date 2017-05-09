@@ -92,9 +92,10 @@ Blockly.CAT_PROCEDURE_RGB = "#179C7D";
 Blockly.CAT_ACTION_RGB = "#F29400";
 Blockly.CAT_EVENTS_RGB = "#F29400";// color for TOOLBOX_EVENTS
 /**
- * The rgb value for block colours in activity category.
+ * The rgb value for block colours in variables category.
  */
-Blockly.CAT_ACTIVITY_RGB = "#E2001A";// JEPE: Available color!
+Blockly.CAT_ACTIVITY_RGB = "#9085BA";
+Blockly.CAT_VARIABLE_RGB = "#9085BA";
 /**
  * The rgb value for block colours in controls category.
  */
@@ -110,23 +111,25 @@ Blockly.CAT_OBJECTS_RGB = "#8FA402";
  */
 Blockly.CAT_TEXT_RGB = "#BACC1E";
 /**
- * The rgb value for block colours in variables category.
  */
-Blockly.CAT_VARIABLE_RGB = "#9085BA";
+Blockly.CAT_UNUSED_RGB = "#E2001A";// JEPE: Available color!
 /**
  * The rgb value for block colours in communication category.
  */
 Blockly.CAT_COMMUNICATION_RGB = "#FF69B4";
 Blockly.CAT_DETECT_RGB = "#FF69B4";
+Blockly.CAT_SPRITE_RGB = "#FF69B4";
 /**
  * The rgb value for block colours in communication category.
  */
 Blockly.CAT_IMAGE_RGB = "#DF01D7";
 Blockly.CAT_ROTATE_RGB = "#DF01D7";
 
-
+Blockly.CAT_TIME_RGB = "#11c996";
 
 Blockly.CAT_MORE_RGB = "#68bce8";
+
+Blockly.CAT_OTHER_RGB = "#5577ee";
 
 /**
  * Lookup table for icon - categories.

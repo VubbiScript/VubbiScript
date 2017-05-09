@@ -36,3 +36,9 @@ Blockly.CSharp['unityObjects_tagof'] = function(block) {
   var gameObject = Blockly.CSharp.valueToCode(block, 'WHO', Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_GAMEOBJECT);
   return [gameObject+'.tag', Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_STRING];
 };
+
+Blockly.CSharp['unityObjects_tagcompare'] = function(block) {
+  var gameObject = Blockly.CSharp.valueToCode(block, 'WHO', Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_GAMEOBJECT);
+  var tag = Blockly.CSharp.valueToCode(block, 'TAG', Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_STRING);
+  return [gameObject+'.CompareTag('+tag+')', Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_BOOLEAN];
+};
