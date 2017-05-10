@@ -64,7 +64,7 @@ define([
             checkInTask : true,
             // New: function to allow custom toolbox header
             toolboxHeaderRenderFunc : _.bind(function(div) {
-              var container = $("<div>", {"class":"scratchityToolboxHeader"});
+              var container = $("<div>", {"class":"vubbiscriptToolboxHeader"});
               var header = $("<div>", {"text":"Blokken", "class":"title"});
               var togglePhysics = this.makePhysicsToggle_();
               container.append(header, togglePhysics);
@@ -127,7 +127,7 @@ define([
     Workspace.prototype.updatePhysicsToggle_ = function(val) {
       // TODO: remove this:
       if(val==='3D') {
-        alert("Sorry, Scratchity kan nog niet werken met 3D physics...");
+        alert("Sorry, Vubbi kan nog niet werken met 3D physics...");
         return;
       }
       // TODO: update workspace somehow and save/load the value
@@ -148,10 +148,10 @@ define([
     };
     
     /**
-     * Loads an empty OR existing Scratchity program
+     * Loads an empty OR existing Vubbi program
      * 
      * Based on "https://github.com/OpenRoberta/robertalab/blob/master/OpenRobertaServer/staticResources/js/app/roberta/roberta.program.js" > "initProgramEnvironment"
-     * @param {String} opt_programBlocks - an existing Scratchity program (if not passed, an empty program is loaded)
+     * @param {String} opt_programBlocks - an existing Vubbi program (if not passed, an empty program is loaded)
      */
     Workspace.prototype.initProgram = function(opt_programBlocks) {
         this.blocklyWorkspace.clear();

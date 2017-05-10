@@ -5,12 +5,12 @@ SET "ProjectDir=.\unity-project-auto-package-build"
 CALL :normaliseProjectDir "%ProjectDir%"
 echo Opening project at %ProjectDir%
 
-SET "UnityPackageFileName=../bin/scratchity.unitypackage"
+SET "UnityPackageFileName=../bin/vubbi.unitypackage"
 CALL :normaliseUnityPackageFileName "%UnityPackageFileName%"
 echo Saving file to %UnityPackageFileName%
 
 REM It is possible to but -batchmode after -quit to run without generating any windows...
-"C:\Program Files\Unity\Editor\Unity.exe" -quit -projectPath "%ProjectDir%" +exportscratchityunitypackage "%UnityPackageFileName%"
+"C:\Program Files\Unity\Editor\Unity.exe" -quit -projectPath "%ProjectDir%" +exportvubbiscriptunitypackage "%UnityPackageFileName%"
 
 GOTO :EOF
 

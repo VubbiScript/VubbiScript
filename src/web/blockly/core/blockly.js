@@ -57,7 +57,7 @@ goog.require('Blockly.utils');
 goog.require('goog.color');
 goog.require('goog.userAgent');
 
-// New Scratchity dependencies:
+// New Vubbi dependencies:
 goog.require('Blockly.DataTypes');
 goog.require('Blockly.OutputMutatingBlock');
 

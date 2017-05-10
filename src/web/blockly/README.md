@@ -1,6 +1,6 @@
-# Blockly - Scratchity
+# Blockly - Vubbi
 
-This is a fork of the Blockly library which is modified for use inside Scratchity.
+This is a fork of the Blockly library which is modified for use inside Vubbi.
 
 This "Blockly" however is forked from the "Open Roberta Blockly" instead of the main blockly because the "Open Roberta" one has some nice features that were also needed.
 (E.g. variables have types + nice color coding for types, there is a section to declare variables, nice flat styling, ...)

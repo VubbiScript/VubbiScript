@@ -10,8 +10,8 @@ var configuration = Argument("configuration", "Release");
 //////////////////////////////////////////////////////////////////////
 
 // Define directories.
-var unityBuildProjectWebData = "./unity-project-auto-package-build/Assets/Editor Default Resources/Editor/Scratchity/Scratchity.data";
-var unityBuildProjectDllDir = Directory("./unity-project-auto-package-build/Assets/Editor Default Resources/Editor/Scratchity");
+var unityBuildProjectWebData = "./unity-project-auto-package-build/Assets/Editor Default Resources/Editor/VubbiScript/Vubbi.data";
+var unityBuildProjectDllDir = Directory("./unity-project-auto-package-build/Assets/Editor Default Resources/Editor/VubbiScript");
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
@@ -20,7 +20,7 @@ var unityBuildProjectDllDir = Directory("./unity-project-auto-package-build/Asse
 Task("Clean")
     .Does(() =>
 {
-    CleanDirectory(Directory("./unity-project-auto-package-build/Assets/Editor Default Resources/Editor/Scratchity"));
+    CleanDirectory(Directory("./unity-project-auto-package-build/Assets/Editor Default Resources/Editor/VubbiScript"));
     DeleteFiles("../bin/*.unitypackage");
     CleanDirectory(Directory("./temp"));
     CleanDirectory(Directory("./temp/web"));
@@ -32,17 +32,17 @@ Task("BuildDll")
     .Does(() =>
 {
   // Use MSBuild
-  Information("-- begin -- Scratchity Dll Build");
-  MSBuild("./BuildCSharpCode/ScratchityBuild/ScratchityBuild.csproj", settings =>
+  Information("-- begin -- Vubbi Dll Build");
+  MSBuild("./BuildCSharpCode/VubbiBuild/VubbiBuild.csproj", settings =>
      settings.SetConfiguration(configuration).WithTarget("Clean").WithTarget("Build"));
-  Information("-- end -- Scratchity Dll Build");
+  Information("-- end -- Vubbi Dll Build");
   
   // Copy Dll files
-  CopyFiles("../src/unity-project/Assets/Editor Default Resources/Editor/ScratchitySource/Lib/*.dll", unityBuildProjectDllDir);
-  CopyFiles("./BuildCSharpCode/ScratchityBuild/bin/Release/Scratchity.dll", unityBuildProjectDllDir);
+  CopyFiles("../src/unity-project/Assets/Editor Default Resources/Editor/VubbiScriptSource/Lib/*.dll", unityBuildProjectDllDir);
+  CopyFiles("./BuildCSharpCode/VubbiBuild/bin/Release/Vubbi.dll", unityBuildProjectDllDir);
   
   // Copy Icon
-  CopyFiles("../src/unity-project/Assets/Editor Default Resources/Editor/Scratchity/*", unityBuildProjectDllDir);
+  CopyFiles("../src/unity-project/Assets/Editor Default Resources/Editor/VubbiScript/*", unityBuildProjectDllDir);
 });
 
 Task("BuildJS")

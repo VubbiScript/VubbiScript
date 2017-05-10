@@ -1133,7 +1133,7 @@ Blockly.Msg.PROCEDURES_IFRETURN_WARNING = 'Warning: This block may be used only 
 
 
 //
-// New strings for Scratchity
+// New strings for Vubbi
 // (Some are based on the strings for "Open Roberta")
 //
 Blockly.Msg.VARIABLES_GET_ITEM = Blockly.Msg.VARIABLES_DEFAULT_NAME;
@@ -1172,7 +1172,7 @@ Blockly.Msg.TOOLBOX_DRIVE = 'Drive';
 Blockly.Msg.TOOLBOX_MOVE = 'Move';
 
 //
-// More new strings for Scratchity
+// More new strings for Vubbi
 //
 
 // Other menu items
@@ -1501,5 +1501,5 @@ Blockly.Msg.UNITY_KEYCODE_Menu = 'Menu key';
 //
 // Other messages
 //
-Blockly.Msg.UNITY_GENERATED_CODE_WARNING = 'BESTAND NIET AANPASSEN!#De code in dit bestand is automatisch gegenereerd!#Wijzigingen aan de code zullen overschreven worden wanneer het bestand opnieuw opgeslagen wordt vanuit Scratchity.';
-Blockly.Msg.DEPRECATEDBLOCK = 'Dit blokje is verouderd en zal uit Scratchity worden verwijderd.';
+Blockly.Msg.UNITY_GENERATED_CODE_WARNING = 'BESTAND NIET AANPASSEN!#De code in dit bestand is automatisch gegenereerd!#Wijzigingen aan de code zullen overschreven worden wanneer het bestand opnieuw opgeslagen wordt vanuit Vubbi.';
+Blockly.Msg.DEPRECATEDBLOCK = 'Dit blokje is verouderd en zal uit Vubbi worden verwijderd.';
