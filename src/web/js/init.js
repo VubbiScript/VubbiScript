@@ -42,7 +42,7 @@ var reqconfig = {
         exports: 'Blocks'
     }
   },
-  waitSeconds: 15
+  waitSeconds: 30
 };
 
 window.SCRATCHITYDEBUGMODE = true;

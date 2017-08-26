@@ -106,10 +106,12 @@ Blockly.CSharp.DATATYPE_ANY = null;// everything for which we are not sure...
 Blockly.CSharp.DATATYPE_INT = 'int';
 Blockly.CSharp.DATATYPE_TRANSFORM = 'Transform';
 Blockly.CSharp.DATATYPE_RIGIDBODY2D = 'Rigidbody2D';
+Blockly.CSharp.DATATYPE_RIGIDBODY = 'Rigidbody';
 Blockly.CSharp.DATATYPE_SPRITERENDERER = 'SpriteRenderer';
 Blockly.CSharp.DATATYPES_COMPONENTS = [
   Blockly.CSharp.DATATYPE_TRANSFORM,
   Blockly.CSharp.DATATYPE_RIGIDBODY2D,
+  Blockly.CSharp.DATATYPE_RIGIDBODY,
   Blockly.CSharp.DATATYPE_SPRITERENDERER
 ];
 

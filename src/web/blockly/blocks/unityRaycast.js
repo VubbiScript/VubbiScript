@@ -28,16 +28,19 @@ Blockly.Blocks['unityRaycast_raycast_param'] = Blockly.OutputMutatingBlock.creat
 Blockly.Blocks['unityRaycast_raycast'] = Blockly.OutputMutatingBlock.createBlock (
     'unityRaycast_raycast_param',
     function() {
+      this.appendDummyInput()
+            .appendField(Blockly.Msg.UNITY_RAYCAST_RAYCAST_TITLE_1)
+            .appendField(Blockly.PhysicsToggle.makeToggleField(), "PHYSICS");
       this.appendValueInput("ORIGIN")
           .setCheck("Vector3")
           .setAlign(Blockly.ALIGN_RIGHT)
-          .appendField(Blockly.Msg.UNITY_RAYCAST_RAYCAST_TITLE_1);
+          .appendField(Blockly.Msg.UNITY_RAYCAST_RAYCAST_TITLE_2);
       this.appendValueInput("DIRECTION")
           .setCheck("Vector3")
           .setAlign(Blockly.ALIGN_RIGHT)
-          .appendField(Blockly.Msg.UNITY_RAYCAST_RAYCAST_TITLE_2);
-      this.appendDummyInput()
           .appendField(Blockly.Msg.UNITY_RAYCAST_RAYCAST_TITLE_3);
+      this.appendDummyInput()
+          .appendField(Blockly.Msg.UNITY_RAYCAST_RAYCAST_TITLE_4);
       this.appendStatementInput("STATEMENTS")
           .setCheck(null);
       this.setPreviousStatement(true, null);

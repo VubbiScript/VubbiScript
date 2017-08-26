@@ -66,10 +66,13 @@ define([
             toolboxHeaderRenderFunc : _.bind(function(div) {
               var container = $("<div>", {"class":"vubbiscriptToolboxHeader"});
               var header = $("<div>", {"text":"Blokken", "class":"title"});
-              var togglePhysics = this.makePhysicsToggle_();
-              container.append(header, togglePhysics);
+              container.append(header);
+              // TODO JEPE => Add the global physics toggle!!
+              //var togglePhysics = this.makePhysicsToggle_();
+              //container.append(togglePhysics);
               div.appendChild(container[0]);
             }, this),
+            media:"blockly/media/",
             robControls:true// JEPE NOTE: I should probably rename this to something else?
         });
         
@@ -83,13 +86,13 @@ define([
       var menu = $("<ul>", {"class":"dropdown-menu"});
       menu.append(
         $("<li>").append(
-          $("<a>", {text:"Gebruik 2D physics (RigidBody2D, BoxCollider2D)", "data-shortlabel":"Phy2D", "data-value":"2D"})
+          $("<a>", {text:"Gebruik 2D physics (RigidBody2D, BoxCollider2D)", "data-shortlabel":"2D", "data-value":"2D"})
           .click(_.bind(this.updatePhysicsToggle_, this, '2D'))
         )
       );
       menu.append(
         $("<li>").append(
-          $("<a>", {text:"Gebruik 3D physics (RigidBody, BoxCollider)", "data-shortlabel":"Phy3D", "data-value":"3D"})
+          $("<a>", {text:"Gebruik 3D physics (RigidBody, BoxCollider)", "data-shortlabel":"3D", "data-value":"3D"})
           .click(_.bind(this.updatePhysicsToggle_, this, '3D'))
         )
       );
@@ -125,19 +128,15 @@ define([
     };
   
     Workspace.prototype.updatePhysicsToggle_ = function(val) {
-      // TODO: remove this:
-      if(val==='3D') {
-        alert("Sorry, Vubbi kan nog niet werken met 3D physics...");
-        return;
-      }
       // TODO: update workspace somehow and save/load the value
+      
       
       this.updatePhysicsToggleLabel_(val);
     };
   
     Workspace.prototype.updatePhysicsToggleLabel_ = function(val) {
       var label = $("a[data-value='"+val+"']", this._togglePhysicsMenu).attr("data-shortlabel");
-      $(".btn", this._togglePhysics).text(label+" ").append($("<span>", {"class":"caret"}));
+      $(".btn", this._togglePhysics).text("").append($("<img>", {"src":"/blockly/media/toggle_"+label+".png"}).css({"width":"16px", "height":"16px"}), " ").append($("<span>", {"class":"caret"}));
     };
     
     /**
@@ -208,6 +207,12 @@ define([
         setTimeout(_.bind(function() {
             this.listenToBlocklyEvents = true;
         }, this), 500);
+        
+        // Fix - Blockly can open the context menu inside the blockly context menu...
+        // This happens because "mousedown" opens the blockly context menu and "mouseup" opens the browser context menu (so no preventDefault)
+        // Furthermore, Blockly does not prevent opening the menu since it is not part of the svg...
+        // Supress the browser's context menu.
+        $("div.blocklyWidgetDiv").on("contextmenu", ">.blocklyContextMenu", function(e){e.preventDefault();});
     };
     
     /**

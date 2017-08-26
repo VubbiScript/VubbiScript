@@ -51,16 +51,20 @@ goog.require('goog.userAgent');
  * @extends {Blockly.Field}
  * @constructor
  */
-Blockly.FieldDropdownImage = function(menuGenerator, pathToImages, width, height, opt_type) {
+Blockly.FieldDropdownImage = function(menuGenerator, pathToImages, width, height, opt_type, opt_stickyarrow, opt_useVerticalSeparatorPrefix, opt_onchange) {
     // Ensure height and width are numbers.  Strings are bad at math.
     this.height_ = Number(height);
     this.width_ = Number(width);
     this.type_ = '.' + (opt_type || 'png');
+    this.labelStr_ = this.opt_label || "";
+    this.stickyarrow_ = opt_stickyarrow === true;
+    this.useVerticalSeparatorPrefix_ = opt_useVerticalSeparatorPrefix === true;
     this.menuGenerator_ = menuGenerator;
+    this.anyChangesListener_ = opt_onchange;
     this.trimOptions_();
     this.pathToMedia_ = Blockly.Css.mediaPath_ + pathToImages;
     var firstTuple = this.getOptions_()[0];
-    this.size_ = new goog.math.Size(this.width_ + 10, this.height_ + 2 * Blockly.BlockSvg.INLINE_PADDING_Y);
+    this.size_ = new goog.math.Size(this.width_ + (this.stickyarrow_?2:10), this.height_ + 2 * Blockly.BlockSvg.INLINE_PADDING_Y);
     this.text_ = firstTuple[0] || '';
     this.setValue(firstTuple[1]);
 };
@@ -114,7 +118,7 @@ Blockly.FieldDropdownImage.prototype.init = function() {
     // to make the combination of image and arrow clickable
     this.rectElement_ = Blockly.createSvgElement('rect', {
         'height' : this.height_ + 'px',
-        'width' : (this.width_ + 15) + 'px',
+        'width' : (this.width_ + (this.stickyarrow_?2:15)) + 'px',
         'fill-opacity' : 0,
         'cursor' : 'default',
     }, this.fieldGroup_);
@@ -126,7 +130,7 @@ Blockly.FieldDropdownImage.prototype.init = function() {
 
     // Add dropdown arrow: "option ▾" (LTR) or "▾ אופציה" (RTL)
     this.arrow_ = Blockly.createSvgElement('tspan', {}, null);
-    this.arrow_.appendChild(document.createTextNode(this.sourceBlock_.RTL ? Blockly.FieldDropdownImage.ARROW_CHAR + ' ' : ' '
+    this.arrow_.appendChild(document.createTextNode(this.sourceBlock_.RTL ? Blockly.FieldDropdownImage.ARROW_CHAR + (this.stickyarrow_?'':' ') : (this.stickyarrow_?'':' ')
             + Blockly.FieldDropdownImage.ARROW_CHAR));
     this.textElement_ = Blockly.createSvgElement('text', {
         'class' : 'blocklyText',
@@ -136,11 +140,28 @@ Blockly.FieldDropdownImage.prototype.init = function() {
     if (this.sourceBlock_ && this.arrow_) {
         // Update arrow's colour.
         this.arrow_.style.fill = '#ffffff';
+      
+        if(this.stickyarrow_) {
+          this.arrow_.style.fill = '#383838';
+        }
     }
     if (this.sourceBlock_.RTL) {
         this.textElement_.insertBefore(this.arrow_, this.textElement_.firstChild);
     } else {
         this.textElement_.appendChild(this.arrow_);
+    }
+    
+    // Optional - vertical separator bar in front of dropdown
+    if(this.useVerticalSeparatorPrefix_) {
+        this.labelElement_ = Blockly.createSvgElement('text', {
+            'class' : 'blocklyText',
+            'y' : this.size_.height / 2 - 1,
+            'x' : -8
+        }, this.fieldGroup_);
+        var labelTSpan = Blockly.createSvgElement('tspan', {}, null);
+        labelTSpan.appendChild(document.createTextNode("|"));
+        this.labelElement_.appendChild(labelTSpan);
+        labelTSpan.style.fill = "rgba(255,255,255,0.5)";
     }
 
     this.sourceBlock_.getSvgRoot().appendChild(this.fieldGroup_);
@@ -354,10 +375,13 @@ Blockly.FieldDropdownImage.prototype.setValue = function(newValue) {
     }
     this.value_ = newValue;
     this.src_ = this.pathToMedia_ + newValue + '.png';
-//  if (this.sourceBlock_ && Blockly.Events.isEnabled()) {
-//      Blockly.Events.fire(new Blockly.Events.Change(
-//          this.sourceBlock_, 'field', this.name, this.value_, newValue));
-//  }
+    if (this.sourceBlock_ && Blockly.Events.isEnabled()) {
+        Blockly.Events.fire(new Blockly.Events.Change(
+            this.sourceBlock_, 'field', this.name, this.value_, newValue));
+    }
+    if(this.anyChangesListener_) {
+      this.anyChangesListener_(newValue);
+    }
     if (this.imageElement_) {
         this.imageElement_.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', goog.isString(this.src_) ? this.src_ : '');
     }

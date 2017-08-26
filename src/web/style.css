@@ -128,3 +128,8 @@ a {
   font-size: 8pt;
   margin-right: 10px;
 }
+
+/* Bootstrap will overwrite the style of BODY. But the body inside the svg foreignObject should be an exception... */
+body.blocklyMinimalBody {
+  background-color: transparent;
+}

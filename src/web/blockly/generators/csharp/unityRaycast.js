@@ -11,8 +11,9 @@ goog.require('Blockly.CSharp');
 Blockly.CSharp['unityRaycast_raycast'] = function(block) {
   var originValue = Blockly.CSharp.valueToCode(block, 'ORIGIN', Blockly.CSharp.ORDER_NONE, Blockly.CSharp.DATATYPE_BOOLEAN) || 'Vector2.zero';
   var directionValue = Blockly.CSharp.valueToCode(block, 'DIRECTION', Blockly.CSharp.ORDER_NONE, Blockly.CSharp.DATATYPE_BOOLEAN) || 'Vector2.down';
+  var physicsMode = (block.getFieldValue('PHYSICS') || '2D') === '2D'?'2D':'';
   
-  var variableName = Blockly.CSharp.declareLocalTempVar('RaycastHit2D', 'rayHit');
+  var variableName = Blockly.CSharp.declareLocalTempVar('RaycastHit'+physicsMode, 'rayHit');
   
   var outputMutationCode = Blockly.CSharp.generateOutputMutationCode(block, {
     'other':variableName+'.transform.gameObject',
@@ -23,8 +24,12 @@ Blockly.CSharp['unityRaycast_raycast'] = function(block) {
   
   var statementCode = Blockly.CSharp.statementToCode(block, 'STATEMENTS');
   
-  var blockCode = variableName+' = Physics2D.Raycast('+originValue+', '+directionValue+');\n'+
-      'if ('+variableName+'.collider!=null) {\n'+outputMutationCode+statementCode+'}\n';
+  if(physicsMode === '2D') {
+      var blockCode = variableName+' = Physics2D.Raycast('+originValue+', '+directionValue+');\n'+
+          'if ('+variableName+'.collider!=null) {\n'+outputMutationCode+statementCode+'}\n';
+  } else {
+      var blockCode = 'if (Physics.Raycast('+originValue+', '+directionValue+', out '+variableName+')) {\n'+outputMutationCode+statementCode+'}\n';
+  }
   
   return blockCode;
 };

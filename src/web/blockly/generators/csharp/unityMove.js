@@ -26,23 +26,38 @@ Blockly.CSharp['unityTransform_position'] = function(block) {
 };
 
 Blockly.CSharp['unityPhysics_angularSpeed'] = function(block) {
-  var rigidbody = Blockly.CSharp.valueToCode(block, 'WHO', Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_RIGIDBODY2D);
-  return [rigidbody+".angularVelocity", Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_NUMBER];
+  var physicsMode = (block.getFieldValue('PHYSICS') || '2D') === '2D'?'2D':'';
+  if(physicsMode === '2D') {
+      var rigidbody = Blockly.CSharp.valueToCode(block, 'WHO', Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_RIGIDBODY2D);
+      return [rigidbody+".angularVelocity", Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_NUMBER];
+  } else {
+      var rigidbody = Blockly.CSharp.valueToCode(block, 'WHO', Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_RIGIDBODY);
+      return [rigidbody+".angularVelocity", Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_VECTOR];
+  }
 };
 
 Blockly.CSharp['unityPhysics_velocity'] = function(block) {
-  var rigidbody = Blockly.CSharp.valueToCode(block, 'WHO', Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_RIGIDBODY2D);
+  var physicsMode = (block.getFieldValue('PHYSICS') || '2D') === '2D'?'2D':'';
+  var rigidbody = Blockly.CSharp.valueToCode(block, 'WHO', Blockly.CSharp.ORDER_PRIMARY, physicsMode==='2D'?Blockly.CSharp.DATATYPE_RIGIDBODY2D:Blockly.CSharp.DATATYPE_RIGIDBODY);
   return [rigidbody+".velocity", Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_VECTOR];
 };
 
 Blockly.CSharp['unityPhysics_push'] = function(block) {
-  var rigidbody = Blockly.CSharp.valueToCode(block, 'WHO', Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_RIGIDBODY2D);
+  var physicsMode = (block.getFieldValue('PHYSICS') || '2D') === '2D'?'2D':'';
+  var rigidbody = Blockly.CSharp.valueToCode(block, 'WHO', Blockly.CSharp.ORDER_PRIMARY, physicsMode==='2D'?Blockly.CSharp.DATATYPE_RIGIDBODY2D:Blockly.CSharp.DATATYPE_RIGIDBODY);
   var vector = Blockly.CSharp.valueToCode(block, 'DIRECTION', Blockly.CSharp.ORDER_NONE, Blockly.CSharp.DATATYPE_VECTOR) || 'Vector3.zero';
   return rigidbody+'.AddForce('+vector+');\n';
 };
 
 Blockly.CSharp['unityPhysics_torque'] = function(block) {
-  var rigidbody = Blockly.CSharp.valueToCode(block, 'WHO', Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_RIGIDBODY2D);
-  var value = Blockly.CSharp.valueToCode(block, 'TORQUE', Blockly.CSharp.ORDER_NONE, Blockly.CSharp.DATATYPE_VECTOR) || '0f';
-  return rigidbody+'.AddTorque('+value+');\n';
+  var physicsMode = (block.getFieldValue('PHYSICS') || '2D') === '2D'?'2D':'';
+  if(physicsMode === '2D') {
+      var rigidbody = Blockly.CSharp.valueToCode(block, 'WHO', Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_RIGIDBODY2D);
+      var value = Blockly.CSharp.valueToCode(block, 'TORQUE', Blockly.CSharp.ORDER_NONE, Blockly.CSharp.DATATYPE_NUMBER) || '0f';
+      return rigidbody+'.AddTorque('+value+');\n';
+  } else {
+      var rigidbody = Blockly.CSharp.valueToCode(block, 'WHO', Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_RIGIDBODY);
+      var value = Blockly.CSharp.valueToCode(block, 'TORQUE', Blockly.CSharp.ORDER_NONE, Blockly.CSharp.DATATYPE_VECTOR) || 'Vector3.zero';
+      return rigidbody+'.AddTorque('+value+');\n';
+  }
 };

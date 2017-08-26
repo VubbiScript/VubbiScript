@@ -52,14 +52,16 @@ Blockly.CSharp['unityEvents_collision'] = function(block) {
     'coll_dirspeed':argumentName+'.relativeVelocity'
   };
   var outputCode = Blockly.CSharp.generateOutputMutationCode(block, exportMap);
+  var physicsMode = (block.getFieldValue('PHYSICS') || '2D') === '2D'?'2D':'';
   var blockType = block.getFieldValue('STATE');
   var callMap = {
-    'Enter':'OnCollisionEnter2D',
-    'Stay':'OnCollisionStay2D',
-    'Exit':'OnCollisionExit2D'
+    'Enter':'OnCollisionEnter'+physicsMode,
+    'Stay':'OnCollisionStay'+physicsMode,
+    'Exit':'OnCollisionExit'+physicsMode
   };
+  
   if(callMap.hasOwnProperty(blockType)) {
-    Blockly.CSharp.pushEventBlock(block, 'void '+callMap[blockType]+'(Collision2D '+argumentName+')', callMap[blockType], outputCode);
+    Blockly.CSharp.pushEventBlock(block, 'void '+callMap[blockType]+'(Collision'+physicsMode+' '+argumentName+')', callMap[blockType], outputCode);
   }
   return null;
 };
@@ -70,9 +72,10 @@ Blockly.CSharp['unityEvents_jointbreaks'] = function(block) {
     'joint_other':argumentName+'.gameObject'
   };
   var outputCode = Blockly.CSharp.generateOutputMutationCode(block, exportMap);
+  var physicsMode = (block.getFieldValue('PHYSICS') || '2D') === '2D'?'2D':'';
   var blockType = block.getFieldValue('STATE');
 
-  Blockly.CSharp.pushEventBlock(block, 'void OnJointBreak2D(Joint2D '+argumentName+')', 'OnJointBreak2D', outputCode);
+  Blockly.CSharp.pushEventBlock(block, 'void OnJointBreak'+physicsMode+'(Joint'+physicsMode+' '+argumentName+')', 'OnJointBreak'+physicsMode, outputCode);
   return null;
 };
 
@@ -82,14 +85,15 @@ Blockly.CSharp['unityEvents_trigger'] = function(block) {
     'trigger_other':argumentName+'.gameObject'
   };
   var outputCode = Blockly.CSharp.generateOutputMutationCode(block, exportMap);
+  var physicsMode = (block.getFieldValue('PHYSICS') || '2D') === '2D'?'2D':'';
   var blockType = block.getFieldValue('STATE');
   var callMap = {
-    'Enter':'OnTriggerEnter2D',
-    'Stay':'OnTriggerStay2D',
-    'Exit':'OnTriggerExit2D'
+    'Enter':'OnTriggerEnter'+physicsMode,
+    'Stay':'OnTriggerStay'+physicsMode,
+    'Exit':'OnTriggerExit'+physicsMode
   };
   if(callMap.hasOwnProperty(blockType)) {
-    Blockly.CSharp.pushEventBlock(block, 'void '+callMap[blockType]+'(Collider2D '+argumentName+')', callMap[blockType], outputCode);
+    Blockly.CSharp.pushEventBlock(block, 'void '+callMap[blockType]+'(Collider'+physicsMode+' '+argumentName+')', callMap[blockType], outputCode);
   }
   return null;
 };

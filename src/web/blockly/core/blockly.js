@@ -37,7 +37,7 @@ goog.require('Blockly.FieldCheckbox');
 // Add it only if you need it.
 //goog.require('Blockly.FieldDate');
 goog.require('Blockly.FieldDropdown');
-//goog.require('Blockly.FieldDropdownImage');
+goog.require('Blockly.FieldDropdownImage');
 goog.require('Blockly.FieldImage');
 goog.require('Blockly.FieldTextInput');
 goog.require('Blockly.FieldNumber');
@@ -60,6 +60,7 @@ goog.require('goog.userAgent');
 // New Vubbi dependencies:
 goog.require('Blockly.DataTypes');
 goog.require('Blockly.OutputMutatingBlock');
+goog.require('Blockly.PhysicsToggle');
 
 
 // Turn off debugging when compiled.

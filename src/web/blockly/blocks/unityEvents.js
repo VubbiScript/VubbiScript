@@ -95,7 +95,8 @@ Blockly.Blocks['unityEvents_collision'] = Blockly.OutputMutatingBlock.createBloc
                 [Blockly.Msg.UNITY_EVENTS_COLLIDE_OPT_STAY, "Stay"], 
                 [Blockly.Msg.UNITY_EVENTS_COLLIDE_OPT_EXIT, "Exit"]
             ]), "STATE")
-            .appendField(Blockly.Msg.UNITY_EVENTS_COLLIDE_TITLE_2);
+            .appendField(Blockly.Msg.UNITY_EVENTS_COLLIDE_TITLE_2)
+            .appendField(Blockly.PhysicsToggle.makeToggleField(), "PHYSICS");
         this.setNextStatement(true, null);
         this.setColour(Blockly.CAT_ACTION_RGB);
         this.setMutatorPlus(new Blockly.MutatorPlus([ 'unityEvents_collision' ]));
@@ -123,7 +124,8 @@ Blockly.Blocks['unityEvents_jointbreaks'] = Blockly.OutputMutatingBlock.createBl
     function() {
         this.PROPERTY_VALID_ROOT = true;
         this.appendDummyInput()
-            .appendField(Blockly.Msg.UNITY_EVENTS_JOINTBREAKS_TITLE);
+            .appendField(Blockly.Msg.UNITY_EVENTS_JOINTBREAKS_TITLE)
+            .appendField(Blockly.PhysicsToggle.makeToggleField(), "PHYSICS");
         this.setNextStatement(true, null);
         this.setColour(Blockly.CAT_ACTION_RGB);
         this.setMutatorPlus(new Blockly.MutatorPlus([ 'unityEvents_jointbreaks' ]));
@@ -157,7 +159,8 @@ Blockly.Blocks['unityEvents_trigger'] = Blockly.OutputMutatingBlock.createBlock 
                 [Blockly.Msg.UNITY_EVENTS_TRIGGER_OPT_STAY, "Stay"], 
                 [Blockly.Msg.UNITY_EVENTS_TRIGGER_OPT_EXIT, "Exit"]
             ]), "STATE")
-            .appendField(Blockly.Msg.UNITY_EVENTS_TRIGGER_TITLE_2);
+            .appendField(Blockly.Msg.UNITY_EVENTS_TRIGGER_TITLE_2)
+            .appendField(Blockly.PhysicsToggle.makeToggleField(), "PHYSICS");
         this.setNextStatement(true, null);
         this.setColour(Blockly.CAT_ACTION_RGB);
         this.setMutatorPlus(new Blockly.MutatorPlus([ 'unityEvents_jointbreaks' ]));
