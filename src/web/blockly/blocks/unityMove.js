@@ -107,6 +107,56 @@ Blockly.Blocks['unityPhysics_angularSpeed'] = {
     }
 };
 
+Blockly.Blocks['unityPhysics_angularSpeed_set'] = {
+  init: function() {
+    this.appendValueInput("WHO")
+        .setCheck("GameObject")
+        .appendField(Blockly.Msg.UNITY_PHYSICS_ANGULARSPEED_SET_TITLE_1);
+    this.appendValueInput("SPEED")
+        .setCheck("Number")
+        .appendField(Blockly.Msg.UNITY_PHYSICS_ANGULARSPEED_SET_TITLE_2);
+    var physicsToggle = Blockly.PhysicsToggle.makeToggleField(goog.bind(function(newValue){
+        this.type_ = newValue==="2D"?"Number":"Vector3";
+        this.getInput('SPEED').connection.setCheck(this.type_);
+    }, this));
+    this.appendDummyInput()
+        .appendField(physicsToggle, "PHYSICS");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(Blockly.CAT_MOVE_RGB);
+    this.setTooltip('');
+    this.type_ = "Number";
+    //this.setHelpUrl('http://www.example.com/');
+  },
+    /**
+     * Create XML to represent whether a statement list of variable declarations
+     * should be present.
+     * 
+     * @return {Element} XML storage element.
+     * @this Blockly.Block
+     */
+    mutationToDom : function() {
+        var container = document.createElement('mutation');
+        container.setAttribute('type', this.type_);
+        return container;
+    },
+
+    /**
+     * Parse XML to restore the statement list.
+     * 
+     * @param {!Element}
+     *            xmlElement XML storage element.
+     * @this Blockly.Block
+     */
+    domToMutation : function(xmlElement) {
+        if(xmlElement.getAttribute('type')) {
+          this.type_ = xmlElement.getAttribute('type');
+          this.getInput('SPEED').connection.setCheck(this.type_);
+        }
+    }
+};
+
 Blockly.Blocks['unityPhysics_velocity'] = {
   init: function() {
     this.appendValueInput("WHO")
@@ -115,6 +165,25 @@ Blockly.Blocks['unityPhysics_velocity'] = {
         .appendField(Blockly.PhysicsToggle.makeToggleField(), "PHYSICS");
     this.setInputsInline(true);
     this.setOutput(true, "Vector3");
+    this.setColour(Blockly.CAT_MOVE_RGB);
+    this.setTooltip('');
+    //this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.Blocks['unityPhysics_velocity_set'] = {
+  init: function() {
+    this.appendValueInput("WHO")
+        .setCheck("GameObject")
+        .appendField(Blockly.Msg.UNITY_PHYSICS_VELOCITY_SET_TITLE_1);
+    this.appendValueInput("SPEED")
+        .setCheck("Vector3")
+        .appendField(Blockly.Msg.UNITY_PHYSICS_VELOCITY_SET_TITLE_2);
+    this.appendDummyInput()
+        .appendField(Blockly.PhysicsToggle.makeToggleField(), "PHYSICS");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
     this.setColour(Blockly.CAT_MOVE_RGB);
     this.setTooltip('');
     //this.setHelpUrl('http://www.example.com/');

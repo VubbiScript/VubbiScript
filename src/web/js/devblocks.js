@@ -29,6 +29,7 @@ define([
     "../blockly/blocks/unityObjects",
     "../blockly/blocks/unityDetect",
     "../blockly/blocks/unityCode",
+    "../blockly/blocks/unityScreen",
     "../blockly/blocks/variables",
   
     // The code generation
@@ -53,6 +54,7 @@ define([
     "../blockly/generators/csharp/unityObjects",
     "../blockly/generators/csharp/unityDetect",
     "../blockly/generators/csharp/unityCode",
+    "../blockly/generators/csharp/unityScreen",
     "../blockly/generators/csharp/variables",
     ], function(){
     // When developing, this file loads all the blocks by using the non-optimized files

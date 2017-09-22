@@ -523,38 +523,39 @@ Blockly.Css.CONTENT = [
     'background-image: url(<<<PATH>>>/sprites.png);',
     'height: 16px;',
     'vertical-align: middle;',
-    'width: 0px;',// Do not show... (was 16px)
+    'width: 8px;',
   '}',
   '.toolboxIcon.typcn:before {',
     'line-height:0',
   '}',
   '.blocklyTreeIconClosedLtr {',
-    'background-position: -32px -1px;',
+    'background-position: -36px -1px;',
   '}',
 
   '.blocklyTreeIconClosedRtl {',
-    'background-position: 0px -1px;',
+    'background-position: -4px -1px;',
   '}',
 
   '.blocklyTreeIconOpen {',
-    'background-position: -16px -1px;',
+    'background-position: -20px -1px;',
   '}',
 
   '.blocklyTreeSelected>.blocklyTreeIconClosedLtr {',
-    'background-position: -32px -17px;',
+    'background-position: -36px -17px;',
   '}',
 
   '.blocklyTreeSelected>.blocklyTreeIconClosedRtl {',
-    'background-position: 0px -17px;',
+    'background-position: -4px -17px;',
   '}',
 
   '.blocklyTreeSelected>.blocklyTreeIconOpen {',
-    'background-position: -16px -17px;',
+    'background-position: -20px -17px;',
   '}',
 
   '.blocklyTreeIconNone,',
   '.blocklyTreeSelected>.blocklyTreeIconNone {',
-    'background-position: -48px -1px;',
+    'background-position: -52px -1px;',
+    'width: 0px',// Do not show...
   '}',
 
   '.blocklyTreeLabel {',

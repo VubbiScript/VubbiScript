@@ -25,9 +25,13 @@ Blockly.Blocks['unityGeneral_log'] = {
 // Set UI text
 Blockly.Blocks['unityUI_text'] = {
   init: function() {
+    this.appendValueInput("WHO")
+        .setCheck("GameObject")
+        .appendField(Blockly.Msg.UNITY_UI_SET_TEXT_TITLE_1);
     this.appendValueInput("TEXT")
         .setCheck("String")
-        .appendField(Blockly.Msg.UNITY_UI_SET_TEXT_TITLE);
+        .appendField(Blockly.Msg.UNITY_UI_SET_TEXT_TITLE_2);
+    this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(Blockly.CAT_TEXT_RGB);

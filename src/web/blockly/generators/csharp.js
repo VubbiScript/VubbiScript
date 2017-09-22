@@ -71,7 +71,7 @@ Blockly.CSharp.ORDER_ATOMIC = 0;          // 0 "" ...
 Blockly.CSharp.ORDER_PRIMARY = 1;         // x.y  f(x)  a[x]  x++  x--  new  typeof  checked  unchecked
 Blockly.CSharp.ORDER_UNARY = 2;           // +  -  !  ~  ++x  --x  (T)x
 Blockly.CSharp.ORDER_MULTIPLICATIVE = 3;  // *  /  %
-Blockly.CSharp.ORDER_MULTIPLICATIVE_RIGHT = 4;  // left-associative...
+Blockly.CSharp.ORDER_MULTIPLICATIVE_RIGHT = 3;  // left-associative... Same as ORDER_MULTIPLICATIVE now, because NOT left-associative in all cases (some operation overloads)
 Blockly.CSharp.ORDER_ADDITIVE = 4;        // +  -
 Blockly.CSharp.ORDER_ADDITIVE_RIGHT = 5;  // left-associative...
 Blockly.CSharp.ORDER_BITWISE_SHIFT = 5;   // <<  >>
@@ -108,11 +108,15 @@ Blockly.CSharp.DATATYPE_TRANSFORM = 'Transform';
 Blockly.CSharp.DATATYPE_RIGIDBODY2D = 'Rigidbody2D';
 Blockly.CSharp.DATATYPE_RIGIDBODY = 'Rigidbody';
 Blockly.CSharp.DATATYPE_SPRITERENDERER = 'SpriteRenderer';
+Blockly.CSharp.DATATYPE_CAMERA = 'Camera';
+Blockly.CSharp.DATATYPE_UITEXTCOMP = 'UnityEngine.UI.Text';
 Blockly.CSharp.DATATYPES_COMPONENTS = [
   Blockly.CSharp.DATATYPE_TRANSFORM,
   Blockly.CSharp.DATATYPE_RIGIDBODY2D,
   Blockly.CSharp.DATATYPE_RIGIDBODY,
-  Blockly.CSharp.DATATYPE_SPRITERENDERER
+  Blockly.CSharp.DATATYPE_SPRITERENDERER,
+  Blockly.CSharp.DATATYPE_CAMERA,
+  Blockly.CSharp.DATATYPE_UITEXTCOMP
 ];
 
 
@@ -297,6 +301,19 @@ Blockly.CSharp.isPrimitiveString = function(expression) {
  */
 Blockly.CSharp.convertDataTypeValue = function(datatype, expecteddatatype, getValue) {
   var val = getValue(Blockly.CSharp.ORDER_NONE);
+  if(goog.array.contains(Blockly.CSharp.DATATYPES_COMPONENTS, datatype)) {
+    if(datatype!=expecteddatatype) {
+      if(expecteddatatype === Blockly.CSharp.DATATYPE_GAMEOBJECT) {
+        return [getValue(Blockly.CSharp.ORDER_PRIMARY)+'.gameObject', Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_GAMEOBJECT];
+      } else if(goog.array.contains(Blockly.CSharp.DATATYPES_COMPONENTS, expecteddatatype)) {
+        return [getValue(Blockly.CSharp.ORDER_PRIMARY)+'.gameObject.GetComponent<'+expecteddatatype+'>()', Blockly.CSharp.ORDER_PRIMARY, expecteddatatype];
+      }
+    } else {
+      // No conversion needed...
+      return null;
+    }
+  }
+  
   if(expecteddatatype === Blockly.CSharp.DATATYPE_INT) {
     if(val === null || val === undefined || val === '') {
       return null;
@@ -325,7 +342,7 @@ Blockly.CSharp.convertDataTypeValue = function(datatype, expecteddatatype, getVa
     }
   } else if(expecteddatatype === Blockly.CSharp.DATATYPE_GAMEOBJECT) {
     if(val === null || val === undefined || val === '') {
-      return ['(GameObject)null', Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_STRING];
+      return ['(GameObject)null', Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_GAMEOBJECT];
     } else {
       return null;
     }

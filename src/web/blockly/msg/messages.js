@@ -1267,7 +1267,13 @@ Blockly.Msg.UNITY_PHYSICS_PUSH_TITLE_2 = 'duw in richting';
 Blockly.Msg.UNITY_PHYSICS_TORQUE_TITLE_1 = 'geef';
 Blockly.Msg.UNITY_PHYSICS_TORQUE_TITLE_2 = 'draaikracht';
 
-Blockly.Msg.TOOLBOX_MATH = 'Wiskunde';
+Blockly.Msg.UNITY_PHYSICS_VELOCITY_SET_TITLE_1 = 'zet snelheid (eenheid/s) van dyn. rigidbody van';
+Blockly.Msg.UNITY_PHYSICS_VELOCITY_SET_TITLE_2 = 'op';
+Blockly.Msg.UNITY_PHYSICS_ANGULARSPEED_SET_TITLE_1 = 'zet snelheid (°/s) van dyn. rigidbody van';
+Blockly.Msg.UNITY_PHYSICS_ANGULARSPEED_SET_TITLE_2 = 'op';
+
+Blockly.Msg.TOOLBOX_MATH_GROUP = 'Wiskunde'
+Blockly.Msg.TOOLBOX_MATH = 'Getallen';
 
 
 Blockly.Msg.TOOLBOX_VECTOR = 'Coördinaten & richtingen';
@@ -1333,6 +1339,20 @@ Blockly.Msg.UNITY_QUATERNION_LOOKTOWARDS_2D_OPT_YAXIS_POS = 'positieve kant van 
 Blockly.Msg.UNITY_QUATERNION_LOOKTOWARDS_2D_OPT_YAXIS_NEG = 'negatieve kant van mijn y-as';
 Blockly.Msg.UNITY_QUATERNION_INVERSE_TITLE = 'omgekeerde draaiing van ';
 
+Blockly.Msg.UNITY_SCREEN_MOUSE_POSITION_TITLE = 'pixelpositie van muis op scherm';
+Blockly.Msg.UNITY_SCREEN_MOUSE_SCENE_POSITION_2D_TITLE = 'positie van muis in scene met z=0 (2D)';
+Blockly.Msg.UNITY_SCREEN_CAMERA_MAIN_TITLE = 'hoofdcamera object';
+Blockly.Msg.UNITY_SCREEN_SCREEN_TO_SCENE_TITLE_1 = 'coördinaat in scene van pixelpositie';
+Blockly.Msg.UNITY_SCREEN_SCREEN_TO_SCENE_TITLE_2 = 'volgens camera van';
+Blockly.Msg.UNITY_SCREEN_SCREEN_TO_SCENE_TITLE_3 = 'door vlak met normaal';
+Blockly.Msg.UNITY_SCREEN_SCREEN_TO_SCENE_TITLE_4 = 'dat gaat door punt';
+Blockly.Msg.UNITY_SCREEN_SCENE_TO_SCREEN_TITLE_1 = 'pixelpositie op scherm van coördinaat';
+Blockly.Msg.UNITY_SCREEN_SCENE_TO_SCREEN_TITLE_2 = 'volgens camera van';
+Blockly.Msg.UNITY_SCREEN_SCREEN_SIZE_TITLE = 'grootte van scherm in pixels';
+Blockly.Msg.UNITY_SCREEN_SCREEN_TO_SCENE_DIR_TITLE_1 = 'richting in scene van pixelpositie';
+Blockly.Msg.UNITY_SCREEN_SCREEN_TO_SCENE_DIR_TITLE_2 = 'volgens camera van';
+
+
 Blockly.Msg.TOOLBOX_OBJECTS = 'Objecten';
 Blockly.Msg.UNITY_THIS = 'mijzelf';
 Blockly.Msg.UNITY_OBJECTS_FIND_TAG_TITLE = 'zoek GameObject met tag';
@@ -1351,7 +1371,8 @@ Blockly.Msg.TOOLBOX_TEXT = 'Tekst';
 Blockly.Msg.TEXT_APPEND_TO_VARNAME_DEFAULT = 'tekst';
 
 Blockly.Msg.UNITY_LOG_TITLE = 'print';
-Blockly.Msg.UNITY_UI_SET_TEXT_TITLE = 'zet UI tekst op';
+Blockly.Msg.UNITY_UI_SET_TEXT_TITLE_1 = 'zet UI tekst van';
+Blockly.Msg.UNITY_UI_SET_TEXT_TITLE_2 = 'op';
 
 Blockly.Msg.TOOLBOX_TIME = 'Tijd';
 Blockly.Msg.UNITY_TIME_LEVELLOAD_TITLE = 'tijd sinds start van het level';

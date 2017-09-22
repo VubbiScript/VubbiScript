@@ -77,7 +77,7 @@ Blockly.Toolbox = function(workspace) {
    * @private
    */
   this.config_ = {
-    indentWidth: 19,
+    indentWidth: 12,
     cssRoot: 'blocklyTreeRoot',
     cssHideRoot: 'blocklyHidden',
     cssItem: '',
@@ -112,6 +112,8 @@ Blockly.Toolbox = function(workspace) {
     this.config_['cssTreeIcon'] = '';
   }
 };
+
+var NOCOLOR = '#FFFFFE';
 
 /**
  * Width of the toolbox, which changes only in vertical layout.
@@ -325,6 +327,8 @@ Blockly.Toolbox.prototype.populate_ = function(newTree) {
           if (colour === "const") {
             var rgbName = 'CAT_' + childIn.getAttribute('name').toUpperCase().replace('TOOLBOX_','') + '_RGB';
             colour = Blockly[rgbName];
+          } else if (colour === "nogroup") {
+            colour = NOCOLOR;
           }
           if (goog.isString(colour)) {
             if (colour.match(/^#[0-9a-fA-F]{6}$/)) {
@@ -403,7 +407,9 @@ Blockly.Toolbox.prototype.addColour_ = function(opt_tree, opt_sub) {
   for (var i = 0, child; child = children[i]; i++) {
     var element = child.getRowElement();
     if (element) {
-      if (this.hasColours_) {
+      if (child.hexColour === NOCOLOR) {
+        var border = '8px solid #FFFFFFFF';
+      } else if (this.hasColours_) {
         var border = '8px solid ' + (child.hexColour || '#ddd'); 
       } else {
         var border = 'none';
@@ -525,13 +531,20 @@ Blockly.Toolbox.TreeControl.prototype.setSelectedItem = function(node) {
   if (node == this.selectedItem_ || node == toolbox.tree_) {
     return;
   }
-  goog.ui.tree.TreeControl.prototype.setSelectedItem.call(this, node);
+  
+  if(node && node.hexColour===NOCOLOR) {
+    goog.ui.tree.TreeControl.prototype.setSelectedItem.call(this, null);
+  } else {
+    goog.ui.tree.TreeControl.prototype.setSelectedItem.call(this, node);
+  }
   if (toolbox.lastCategory_) {
     toolbox.lastCategory_.getRowElement().style.backgroundColor = '';
   }
   if (node) {
     var hexColour = node.hexColour || '#57e';
-    node.getRowElement().style.backgroundColor = hexColour;
+    if(node.hexColour!==NOCOLOR) {
+      node.getRowElement().style.backgroundColor = hexColour;
+    }
     toolbox.addColour_(node, true);
   }
   

@@ -10,7 +10,8 @@ goog.require('Blockly.CSharp');
 
 Blockly.CSharp['unityUI_text'] = function(block) {
   var text = Blockly.CSharp.valueToCode(block, 'TEXT', Blockly.CSharp.ORDER_NONE, Blockly.CSharp.DATATYPE_STRING);
-  return 'GetComponent<UnityEngine.UI.Text>().text = '+text+';\n';
+  var uitextcomp = Blockly.CSharp.valueToCode(block, 'WHO', Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_UITEXTCOMP);
+  return uitextcomp+'.text = '+text+';\n';
 };
 
 Blockly.CSharp['unityGeneral_log'] = function(block) {

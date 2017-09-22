@@ -36,10 +36,30 @@ Blockly.CSharp['unityPhysics_angularSpeed'] = function(block) {
   }
 };
 
+Blockly.CSharp['unityPhysics_angularSpeed_set'] = function(block) {
+  var physicsMode = (block.getFieldValue('PHYSICS') || '2D') === '2D'?'2D':'';
+  if(physicsMode === '2D') {
+      var rigidbody = Blockly.CSharp.valueToCode(block, 'WHO', Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_RIGIDBODY2D);
+      var value = Blockly.CSharp.valueToCode(block, 'SPEED', Blockly.CSharp.ORDER_ASSIGNMENT, Blockly.CSharp.DATATYPE_NUMBER) || '0f';
+      return rigidbody+'.angularVelocity = '+value+';\n';
+  } else {
+      var rigidbody = Blockly.CSharp.valueToCode(block, 'WHO', Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_RIGIDBODY);
+      var value = Blockly.CSharp.valueToCode(block, 'SPEED', Blockly.CSharp.ORDER_ASSIGNMENT, Blockly.CSharp.DATATYPE_VECTOR) || 'Vector3.zero';
+      return rigidbody+'.angularVelocity = '+value+';\n';
+  }
+};
+
 Blockly.CSharp['unityPhysics_velocity'] = function(block) {
   var physicsMode = (block.getFieldValue('PHYSICS') || '2D') === '2D'?'2D':'';
   var rigidbody = Blockly.CSharp.valueToCode(block, 'WHO', Blockly.CSharp.ORDER_PRIMARY, physicsMode==='2D'?Blockly.CSharp.DATATYPE_RIGIDBODY2D:Blockly.CSharp.DATATYPE_RIGIDBODY);
   return [rigidbody+".velocity", Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_VECTOR];
+};
+
+Blockly.CSharp['unityPhysics_velocity_set'] = function(block) {
+  var physicsMode = (block.getFieldValue('PHYSICS') || '2D') === '2D'?'2D':'';
+  var rigidbody = Blockly.CSharp.valueToCode(block, 'WHO', Blockly.CSharp.ORDER_PRIMARY, physicsMode==='2D'?Blockly.CSharp.DATATYPE_RIGIDBODY2D:Blockly.CSharp.DATATYPE_RIGIDBODY);
+  var vector = Blockly.CSharp.valueToCode(block, 'SPEED', Blockly.CSharp.ORDER_ASSIGNMENT, Blockly.CSharp.DATATYPE_VECTOR) || 'Vector3.zero';
+  return rigidbody+'.velocity = '+vector+';\n';
 };
 
 Blockly.CSharp['unityPhysics_push'] = function(block) {
