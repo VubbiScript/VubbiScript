@@ -55,7 +55,7 @@ Task("BuildJS")
   Information("-- end -- Blockly Build");
   
   // Copy files
-  CopyDirectory("../src/web/blockly/media", "./temp/web/media");
+  CopyDirectory("../src/web/blockly/media", "./temp/web/blockly/media");
   CopyDirectory("../src/web/bootstrap/fonts", "./temp/web/fonts");
   CopyFileToDirectory("../src/web/toolbox.xml", Directory("./temp/web"));
   
