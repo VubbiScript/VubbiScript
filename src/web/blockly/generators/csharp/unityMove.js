@@ -52,7 +52,7 @@ Blockly.CSharp['unityPhysics_angularSpeed_set'] = function(block) {
 Blockly.CSharp['unityPhysics_velocity'] = function(block) {
   var physicsMode = (block.getFieldValue('PHYSICS') || '2D') === '2D'?'2D':'';
   var rigidbody = Blockly.CSharp.valueToCode(block, 'WHO', Blockly.CSharp.ORDER_PRIMARY, physicsMode==='2D'?Blockly.CSharp.DATATYPE_RIGIDBODY2D:Blockly.CSharp.DATATYPE_RIGIDBODY);
-  return [rigidbody+".velocity", Blockly.CSharp.ORDER_PRIMARY, Blockly.CSharp.DATATYPE_VECTOR];
+  return ["(Vector3) "+rigidbody+".velocity", Blockly.CSharp.ORDER_UNARY, Blockly.CSharp.DATATYPE_VECTOR];
 };
 
 Blockly.CSharp['unityPhysics_velocity_set'] = function(block) {

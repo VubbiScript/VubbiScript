@@ -9,8 +9,8 @@ goog.provide('Blockly.CSharp.unityRaycast');
 goog.require('Blockly.CSharp');
 
 Blockly.CSharp['unityRaycast_raycast'] = function(block) {
-  var originValue = Blockly.CSharp.valueToCode(block, 'ORIGIN', Blockly.CSharp.ORDER_NONE, Blockly.CSharp.DATATYPE_BOOLEAN) || 'Vector2.zero';
-  var directionValue = Blockly.CSharp.valueToCode(block, 'DIRECTION', Blockly.CSharp.ORDER_NONE, Blockly.CSharp.DATATYPE_BOOLEAN) || 'Vector2.down';
+  var originValue = Blockly.CSharp.valueToCode(block, 'ORIGIN', Blockly.CSharp.ORDER_NONE, Blockly.CSharp.DATATYPE_VECTOR) || 'Vector2.zero';
+  var directionValue = Blockly.CSharp.valueToCode(block, 'DIRECTION', Blockly.CSharp.ORDER_NONE, Blockly.CSharp.DATATYPE_VECTOR) || 'Vector2.down';
   var physicsMode = (block.getFieldValue('PHYSICS') || '2D') === '2D'?'2D':'';
   
   var variableName = Blockly.CSharp.declareLocalTempVar('RaycastHit'+physicsMode, 'rayHit');
