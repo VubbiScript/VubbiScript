@@ -2,6 +2,7 @@ define([
     // import all dependencies
     "jquery",
     "underscore",
+    "highlight",
     "bootstrap",
     "blockly",
     "blocks",
@@ -16,6 +17,7 @@ define([
     ], function(
         $,
         _,
+        highlight,
         bootstrap,
         Blockly,
         Blocks,
@@ -35,6 +37,11 @@ define([
     if(window.SCRATCHITYDEBUGMODE) {
         goog.asserts.ENABLE_ASSERTS = true;
     }
+    
+    // Configure highlight
+    highlight.configure({
+      tabReplace: '    '
+    });
     
     /**
      * Util function - convert a name entered by the user to camelcase. (for cs file naming)
@@ -140,6 +147,7 @@ define([
           throw e;
         }
         this.codepreviewpre.text(code);
+        highlight.highlightBlock(this.codepreviewpre[0]);
     };
     
     /**

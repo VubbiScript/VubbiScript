@@ -11,6 +11,7 @@ var reqconfig = {
     "jquery": "lib/jquery-2.2.3.min",
     "bootstrap": "../bootstrap/js/bootstrap",
     "underscore": "lib/underscore-min",
+    "highlight": "lib/highlight.pack",
     "blockly": "../blockly/blockly_compressed",
     "blocks": "devblocks",
     "blockly_lang_en": "../blockly/msg/js/en",
@@ -24,6 +25,9 @@ var reqconfig = {
     },
     'underscore': {
         exports: '_'
+    },
+    'highlight': {
+        exports: 'hljs'
     },
     'blockly': {
         deps: ['ace/ace'],
