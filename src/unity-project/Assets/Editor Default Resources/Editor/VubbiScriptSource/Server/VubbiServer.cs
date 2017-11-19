@@ -157,11 +157,11 @@ namespace vubbiscript
 		/// <param name="p">P.</param>
 		/// <param name="data">Data.</param>
 		public void SendApiOk(HttpProcessor p, string data) {
-			p.outputStream.WriteLine("HTTP/1.1 " + HttpStatusCode.OK.ToString());
-			p.outputStream.WriteLine("Server: Vubbi Server");
-			p.outputStream.WriteLine("Accept-Ranges: bytes");
-			p.outputStream.WriteLine("Content-Length: "+p.outputStream.Encoding.GetByteCount (data));
-			p.outputStream.WriteLine ("");
+			p.outputStream.Write("HTTP/1.1 " + ServerHttpStatusCode.OK.ToString()+"\r\n");
+			p.outputStream.Write("Server: Vubbi Server\r\n");
+			p.outputStream.Write("Accept-Ranges: bytes\r\n");
+			p.outputStream.Write("Content-Length: "+p.outputStream.Encoding.GetByteCount (data)+"\r\n");
+			p.outputStream.Write ("\r\n");
 			p.outputStream.Write (data);
 		}
 
@@ -173,12 +173,12 @@ namespace vubbiscript
 		/// <param name="statusCode">Status code.</param>
 		/// <param name="mySocket">My socket.</param>
 		public void SendHeader(string mimeHeader, long totalBytes, ServerHttpStatusCode statusCode, HttpProcessor p) {
-			p.outputStream.WriteLine("HTTP/1.1 " + statusCode.ToString());
-			p.outputStream.WriteLine("Server: Vubbi Server");
-			p.outputStream.WriteLine ("Content-Type: " + mimeHeader);//+"; charset=ISO 8859-1");
-			p.outputStream.WriteLine("Accept-Ranges: bytes");
-			p.outputStream.WriteLine("Content-Length: " + totalBytes);
-			p.outputStream.WriteLine ("");
+			p.outputStream.Write("HTTP/1.1 " + statusCode.ToString()+"\r\n");
+			p.outputStream.Write("Server: Vubbi Server\r\n");
+			p.outputStream.Write("Content-Type: " + mimeHeader+"\r\n");//+"; charset=ISO 8859-1");
+			p.outputStream.Write("Accept-Ranges: bytes\r\n");
+			p.outputStream.Write("Content-Length: " + totalBytes+"\r\n");
+			p.outputStream.Write("\r\n");
 		}
 	}
 
