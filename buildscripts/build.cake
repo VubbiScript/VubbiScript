@@ -24,6 +24,9 @@ Task("Clean")
     DeleteFiles("../bin/*.unitypackage");
     CleanDirectory(Directory("./temp"));
     CleanDirectory(Directory("./temp/web"));
+    
+    // Clean docs directories also
+    CleanDirectory(Directory("../bin/app_no_edit"));
 });
 
 
@@ -56,8 +59,12 @@ Task("BuildJS")
   
   // Copy files
   CopyDirectory("../src/web/blockly/media", "./temp/web/blockly/media");
-  CopyDirectory("../src/web/bootstrap/fonts", "./temp/web/fonts");
+  //CopyDirectory("../src/web/bootstrap/fonts", "./temp/web/fonts");
   CopyFileToDirectory("../src/web/toolbox.xml", Directory("./temp/web"));
+  
+  // Copy files for docs also
+  CopyDirectory("../src/web/blockly/media", "../bin/app_no_edit/blockly/media");
+  //CopyDirectory("../src/web/bootstrap/fonts", "../bin/app_no_edit/fonts");
   
   // JS files still go through some other process => see "MergeJSandHTML"
 });

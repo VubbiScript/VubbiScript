@@ -4,6 +4,7 @@
       "jquery": "lib/jquery-2.2.3.min",
       "bootstrap": "../bootstrap/js/bootstrap.min",
       "underscore": "lib/underscore-min",
+      "highlight": "lib/highlight.pack",
       "blockly": "../blockly/blockly_compressed",
       "blocks": "../blockly/blocks_compressed",
       "csharp": "../blockly/csharp_compressed",
@@ -18,6 +19,9 @@
       },
       'underscore': {
           exports: '_'
+      },
+      'highlight': {
+          exports: 'hljs'
       },
       'blockly': {
           deps: ['ace/ace', 'ace/mode/csharp', 'ace/theme/xcode'],
