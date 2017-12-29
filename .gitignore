@@ -44,9 +44,16 @@ Thumbs.db
 #
 # Ignore build output
 #
-/buildscripts/BuildCSharpCode/ScratchityBuild/bin
-/buildscripts/BuildCSharpCode/ScratchityBuild/obj
+/buildscripts/BuildCSharpCode/VubbiBuild/bin
+/buildscripts/BuildCSharpCode/VubbiBuild/obj
 /buildscripts/temp
 /buildscripts/tools
 /buildscripts/.dotnet
 /buildscripts/unity-project-auto-package-build/Assets
+
+#
+# Ignore additional folders used during testing & development
+#
+/other/
+/src/unity-project/Assets/Scripts.meta
+/src/unity-project/Assets/Scripts/
