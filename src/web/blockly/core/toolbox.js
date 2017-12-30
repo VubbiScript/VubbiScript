@@ -77,7 +77,7 @@ Blockly.Toolbox = function(workspace) {
    * @private
    */
   this.config_ = {
-    indentWidth: 12,
+    indentWidth: 0,// Don't use padding for identation
     cssRoot: 'blocklyTreeRoot',
     cssHideRoot: 'blocklyHidden',
     cssItem: '',
@@ -88,6 +88,7 @@ Blockly.Toolbox = function(workspace) {
     cssFileIcon: 'blocklyTreeIconNone',
     cssSelectedRow: 'blocklyTreeSelected'
   };
+  this.marginIndent_ = 9;
 
 
   /**
@@ -316,6 +317,7 @@ Blockly.Toolbox.prototype.populate_ = function(newTree) {
           childOut.name = catMsg;
           childOut.blocks = [];
           treeOut.add(childOut);
+          childOut.displaydepth = (treeOut.displaydepth || 0)+1;
           var custom = childIn.getAttribute('custom');
           if (custom) {
             // Variables and procedures are special dynamic categories.
@@ -408,7 +410,7 @@ Blockly.Toolbox.prototype.addColour_ = function(opt_tree, opt_sub) {
     var element = child.getRowElement();
     if (element) {
       if (child.hexColour === NOCOLOR) {
-        var border = '8px solid #FFFFFFFF';
+        var border = '8px solid #FFFFFF00';
       } else if (this.hasColours_) {
         var border = '8px solid ' + (child.hexColour || '#ddd'); 
       } else {
@@ -418,6 +420,11 @@ Blockly.Toolbox.prototype.addColour_ = function(opt_tree, opt_sub) {
         element.style.borderRight = border;
       } else {
         element.style.borderLeft = border;
+      }
+      if (this.workspace_.RTL) {
+        element.style.marginRight = (this.marginIndent_*(child.displaydepth-1))+"px";
+      } else {
+        element.style.marginLeft = (this.marginIndent_*(child.displaydepth-1))+"px";
       }
     }
     this.addColour_(child, true);
