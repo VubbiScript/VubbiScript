@@ -28,26 +28,80 @@ define([
         var xml = Blockly.Xml.textToDom(program);
         Blockly.Xml.domToWorkspace(xml, blocklyWorkspace);
         
+        // id can be a space separated string of different ids => all ids should be visible!
+        // FORMAT:
+        // xxxxxxxx xxxxxxxx -S xxxxxxx -N xxxxxx
+        // => will combine regions needed for first two ids, then remove south of third id and north of fourth.
+        var idsplit = id.split(" ");
+        
+        // range to show
+        var rx2 = 0;
+        var ry2 = 0;
+        var rx1 = 0;
+        var ry1 = 0;
+        
         // Find block to zoom into
-        var block = blocklyWorkspace.getBlockById(id);
-        if(block) {
-            var rect = block.getBoundingRectangle();
-            var x2 = rect.bottomRight.x+pad[1];
-            var y2 = rect.bottomRight.y+pad[2];
-            var x1 = rect.topLeft.x-pad[3];
-            var y1 = rect.topLeft.y-pad[0];
-            var w = x2-x1;
-            var h = y2-y1;
-
-            // Change size of surrounding div
-            $(div).css({
-              width: w+"px",
-              height: h+"px"
-            });
+        for(var i=0;i<idsplit.length;i++) {
+            var op = "add";
+            var curid = idsplit[i];
             
-            // Translate & resize workspace
-            blocklyWorkspace.translate(-x1, -y1);
+            if(curid === "-N" || curid === "-E" ||  curid === "-S" ||   curid === "-W") {
+                op = curid;
+                i++;
+                curid = idsplit[i];
+            }
+            
+            var block = blocklyWorkspace.getBlockById(curid);
+            if(block) {
+                var rect = block.getBoundingRectangle();
+                var x2 = rect.bottomRight.x;
+                var y2 = rect.bottomRight.y;
+                var x1 = rect.topLeft.x;
+                var y1 = rect.topLeft.y;
+                
+                if(op === "add") {
+                    if(i === 0 || rx1>x1) {
+                        rx1 = x1;
+                    }
+                    if(i === 0 || rx2<x2) {
+                        rx2 = x2;
+                    }
+                    if(i === 0 || ry1>y1) {
+                        ry1 = y1;
+                    }
+                    if(i === 0 || ry2<y2) {
+                        ry2 = y2;
+                    }
+                } else if (op === "-N" && ry1<y2) {
+                    ry1 = y2;
+                } else if (op === "-S" && ry2>y1) {
+                    ry2 = y1;
+                } else if (op === "-W" && rx1<x2) {
+                    rx1 = x2;
+                } else if (op === "-E" && rx2>x1) {
+                    rx2 = x1;
+                }
+            }
         }
+        
+        // Add padding...
+        rx2 = rx2+pad[1];
+        ry2 = ry2+pad[2];
+        rx1 = rx1-pad[3];
+        ry1 = ry1-pad[0];
+        
+        // Calculate width and height
+        var w = rx2-rx1;
+        var h = ry2-ry1;
+
+        // Change size of surrounding div
+        $(div).css({
+            width: w+"px",
+            height: h+"px"
+        });
+        
+        // Translate & resize workspace
+        blocklyWorkspace.translate(-rx1, -ry1);
     }
     
     $(".vubbiblock").each(function(i, vubbiblock) {
