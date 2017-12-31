@@ -44,6 +44,7 @@ goog.require('Blockly.FieldNumber');
 goog.require('Blockly.FieldVariable');
 goog.require('Blockly.FieldTypedVariable');
 goog.require('Blockly.FieldCodeInput');
+goog.require('Blockly.FieldToggleIcon');
 goog.require('Blockly.Generator');
 goog.require('Blockly.Msg');
 goog.require('Blockly.Procedures');

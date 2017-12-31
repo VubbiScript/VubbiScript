@@ -52,6 +52,10 @@ Blockly.CSharp['unityGlobalVariables_declare'] = function(block) {
   var type = block.getFieldValue('TYPE');
   var dataType = Blockly.CSharp.convertDataTypeName(type);
   var ispublic = true;
+  var visibility = block.getFieldValue('VISIBILITY');
+  if(visibility === 'PRIVATE') {
+    ispublic = false;
+  }
   var argument0;
   if (type === 'Number') {
     argument0 = parseFloat(block.getFieldValue('NUM'))+"f";

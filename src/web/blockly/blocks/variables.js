@@ -264,6 +264,7 @@ Blockly.Blocks['unityGlobalVariables_declare'] = {
     this.nameOld = name;
     var nameField = new Blockly.FieldTextInput(name, this.validateName);
     this.appendDummyInput("ENTRY").
+         appendField(new Blockly.FieldToggleIcon("PUBLIC", "PUBLIC", "PRIVATE", Blockly.FieldToggleIcon.ICON_EYE_VISIBLE, Blockly.FieldToggleIcon.ICON_EYE_HIDDEN), "VISIBILITY").
          appendField(Blockly.Msg.VARIABLES_TITLE).
          appendField(nameField, 'VAR').appendField(':').
          appendField(declType, 'TYPE');

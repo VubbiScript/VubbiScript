@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="16"
+   height="16"
+   viewBox="0 0 16 16"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="visibilityIconHidden.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#000000"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="22.4"
+     inkscape:cx="15.630274"
+     inkscape:cy="11.020416"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="2560"
+     inkscape:window-height="1027"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-1036.3622)">
+    <path
+       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;baseline-shift:baseline;text-anchor:start;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       d="M 13.626953 2.1386719 L 11.640625 4.125 L 10.642578 5.1230469 L 9.6347656 6.1308594 L 6.84375 8.921875 L 5.7695312 9.9960938 L 4.5976562 11.167969 L 3.2167969 12.548828 L 4.4296875 13.761719 L 6.375 11.816406 L 7.2753906 10.916016 L 8.6894531 9.5019531 L 10.210938 7.9804688 L 11.5625 6.6289062 L 13.064453 5.1269531 L 14.839844 3.3515625 L 13.626953 2.1386719 z M 7.9433594 3.2304688 C 6.2463524 3.2554687 4.9285279 3.8182063 3.8730469 4.6914062 C 2.8175659 5.5647062 2.013174 6.7261625 1.2167969 7.9765625 L 1 8.3164062 L 1.2871094 8.5996094 C 2.0683735 9.3740437 2.882231 10.106973 3.7929688 10.701172 L 5.2421875 9.2519531 C 4.9783808 8.7640123 4.8144531 8.2148737 4.8144531 7.6230469 C 4.8144531 5.7191469 6.3656837 4.1679688 8.2695312 4.1679688 C 8.8619838 4.1679688 9.4120902 4.3313943 9.9003906 4.5957031 L 10.773438 3.7226562 C 9.9445231 3.4035473 9.0228447 3.2145697 7.9453125 3.2304688 L 7.9433594 3.2304688 z M 8.28125 5.5898438 A 1.9777621 1.9777621 0 0 0 6.3027344 7.5664062 A 1.9777621 1.9777621 0 0 0 6.3808594 8.1132812 L 8.8261719 5.6679688 A 1.9777621 1.9777621 0 0 0 8.28125 5.5898438 z M 13.722656 5.7402344 L 11.714844 7.7480469 C 11.648803 9.5507296 10.197256 11.002315 8.3945312 11.068359 L 7.4804688 11.982422 C 7.6984337 11.999996 7.9105721 12.027344 8.140625 12.027344 C 11.244697 12.027344 13.406371 10.142122 15.132812 7.9199219 L 15.382812 7.5996094 L 15.121094 7.2910156 C 14.652686 6.7364797 14.195378 6.2160017 13.722656 5.7402344 z "
+       transform="translate(0,1036.3622)"
+       id="path4136" />
+  </g>
+</svg>
