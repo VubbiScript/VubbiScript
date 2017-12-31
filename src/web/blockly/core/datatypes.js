@@ -184,13 +184,11 @@ Blockly.DataTypes.removeDataTypeInputBlock = function(workspace, input, option, 
   if (option === 'Number') {
       input.removeField("NUM");
   } else if (option === 'String') {
-      input
-        .removeField('TEXTQ1')
-        .removeField('TEXT')
-        .removeField('TEXTQ2');
+      input.removeField('TEXTQ1');
+      input.removeField('TEXT');
+      input.removeField('TEXTQ2');
   } else if (option === 'Boolean') {
-      input
-        .removeField("BOOL");
+      input.removeField("BOOL");
   } else if (option === 'Vector3') {
       input.removeField("Xlabel");
       input.removeField("X");

@@ -42,7 +42,7 @@ Blockly.MutatorPlus.prototype.drawIcon_ = function(group) {
  * @override
  */
 Blockly.MutatorPlus.prototype.iconClick_ = function(e) {
-  if (this.block_.isEditable() && Blockly.dragMode_ != 2) {
+  if (this.block_.isEditable() && Blockly.dragMode_ != 2 && e.which === 1) {
     this.block_.updateShape_(1);
   }
 };
