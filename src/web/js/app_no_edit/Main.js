@@ -110,7 +110,7 @@ define([
     $.ajax({
       dataType : "script",
       cache : true,
-      url : "../blockly/msg/js/"+window.vubbilang+".js"
+      url : "/app_no_edit/msg/"+window.vubbilang+".js"
     }).then(function() {
       $(".vubbiblock").each(function(i, vubbiblock) {
         var scriptelem = $("script[type='text/vubbiscript']", vubbiblock);

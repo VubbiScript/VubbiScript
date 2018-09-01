@@ -24,9 +24,13 @@ Task("Clean")
     DeleteFiles("../bin/*.unitypackage");
     CleanDirectory(Directory("./temp"));
     CleanDirectory(Directory("./temp/web"));
+    CleanDirectory(Directory("./temp/web/blockly"));
+    CleanDirectory(Directory("./temp/web/blockly/msg"));
+    CleanDirectory(Directory("./temp/web/blockly/msg/js"));
     
     // Clean docs directories also
     CleanDirectory(Directory("../bin/app_no_edit"));
+    CleanDirectory(Directory("../bin/app_no_edit/msg"));
 });
 
 
@@ -61,10 +65,14 @@ Task("BuildJS")
   CopyDirectory("../src/web/blockly/media", "./temp/web/blockly/media");
   //CopyDirectory("../src/web/bootstrap/fonts", "./temp/web/fonts");
   CopyFileToDirectory("../src/web/toolbox.xml", Directory("./temp/web"));
+  CopyFileToDirectory("../src/web/blockly/msg/js/en.js", Directory("./temp/web/blockly/msg/js"));
+  CopyFileToDirectory("../src/web/blockly/msg/js/nl.js", Directory("./temp/web/blockly/msg/js"));
   
   // Copy files for docs also
   CopyDirectory("../src/web/blockly/media", "../bin/app_no_edit/blockly/media");
   //CopyDirectory("../src/web/bootstrap/fonts", "../bin/app_no_edit/fonts");
+  CopyFileToDirectory("../src/web/blockly/msg/js/en.js", Directory("../bin/app_no_edit/msg"));
+  CopyFileToDirectory("../src/web/blockly/msg/js/nl.js", Directory("../bin/app_no_edit/msg"));
   
   // JS files still go through some other process => see "MergeJSandHTML"
 });
