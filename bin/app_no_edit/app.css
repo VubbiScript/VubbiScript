@@ -1577,6 +1577,19 @@ a {
 body.blocklyMinimalBody {
   background-color: transparent;
 }
+
+.globeicon {
+  opacity: 0.5;
+}
+.globeicon:hover {
+  opacity: 1;
+}
+
+.languageselector {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
 /*!
  * Agate by Taufik Nurrohman <https://github.com/tovic>
  * ----------------------------------------------------
