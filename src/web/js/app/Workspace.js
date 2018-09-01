@@ -30,7 +30,7 @@ define([
             // Called before init()... Ok!
         }else{
             // Need to recreate to toolbox
-            alert("Not implemented yet...");
+            this.blocklyWorkspace.updateToolbox(this.toolboxconfig);
         }
     };
     
@@ -65,7 +65,7 @@ define([
             // New: function to allow custom toolbox header
             toolboxHeaderRenderFunc : _.bind(function(div) {
               var container = $("<div>", {"class":"vubbiscriptToolboxHeader"});
-              var header = $("<div>", {"text":"Blokken", "class":"title"});
+              var header = $("<div>", {"text":Blockly.Msg.UI_BLOCKS_HEADER, "class":"title"});
               container.append(header);
               // TODO JEPE => Add the global physics toggle!!
               //var togglePhysics = this.makePhysicsToggle_();

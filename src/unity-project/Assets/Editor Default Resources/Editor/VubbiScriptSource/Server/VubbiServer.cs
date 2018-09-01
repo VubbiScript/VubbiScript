@@ -128,6 +128,19 @@ namespace vubbiscript
 				SendApiOk (p, content);
 				return;
 			}
+			if (p.http_url.Equals ("/api/lang")) {
+				// Send back the language preference of the user...
+				SendApiOk (p, api.GetLanguagePreference());
+				return;
+			}
+			if (p.http_url.StartsWith ("/api/setlang/")) {
+				// Send back the language preference of the user...
+				api.SetLanguagePreference(p.http_url.Substring("/api/setlang/".Length));
+				SendApiOk (p, "");
+				return;
+			}
+
+
 
 
 			ServerLog.Log (p.http_url);

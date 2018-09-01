@@ -71,9 +71,10 @@ Blockly.Blocks['unityrotate_rotate'] = {
   init: function() {
     this.appendValueInput("WHO")
         .setCheck("GameObject")
-        .appendField(Blockly.Msg.UNITY_QUATERNION_ROTATE_TITLE);
+        .appendField(Blockly.Msg.UNITY_QUATERNION_ROTATE_TITLE_1);
     this.appendValueInput("QUATERNION")
-        .setCheck("Quaternion");
+        .setCheck("Quaternion")
+        .appendField(Blockly.Msg.UNITY_QUATERNION_ROTATE_TITLE_2);
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);

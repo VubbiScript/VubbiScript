@@ -6,7 +6,6 @@ define([
     "bootstrap",
     "blockly",
     "blocks",
-    "blockly_lang_nl",
     
     // load some other objects used in this application
     "./Workspace",
@@ -21,7 +20,6 @@ define([
         bootstrap,
         Blockly,
         Blocks,
-        lang,
         Workspace,
         Connection,
         Notifications,
@@ -69,7 +67,10 @@ define([
         
         // Load toolbox
         this.cs.loadToolbox(_.bind(function(xml) {
-            this.ws.setToolbox(xml);
+            this.toolboxxml_ = xml;
+          
+            var toolboxxml = this.getTranslatedToolboxXml_();
+            this.ws.setToolbox(toolboxxml);
             
             // Toolbox is loaded... Continue initialization
             this.ws.init();
@@ -93,11 +94,36 @@ define([
             this._onUpdateHash();
             
         }, this), _.bind(function(){
-            Notifications.notifyError("Kan toolbox niet laden.");
+            Notifications.notifyError("Failed to load toolbox.");
         }, this));
       
         // Code preview area
         this.codepreviewpre = $(".generatedcodepre");
+    };
+  
+    Main.prototype.getTranslatedToolboxXml_ = function() {
+      var xml = $(this.toolboxxml_).get(0);
+          
+      // Translation in the toolbox!
+      var fields = xml.getElementsByTagName("field");
+      for (var i = 0; i < fields.length; i++) {
+        var fieldtext = fields[i].getAttribute("i18n");
+        if(fieldtext) {
+          fields[i].removeChild(fields[i].firstChild);
+          fields[i].insertBefore(document.createTextNode(Blockly.Msg[fieldtext]), fields[i].firstChild);
+        }
+      }
+      
+      return xml;
+    };
+  
+    /**
+     * Called when the language changes. We should reload the view.
+     */
+    Main.prototype.reload = function() {
+      this.ws.initProgram(this.ws.getProgram());
+      var toolboxxml = this.getTranslatedToolboxXml_();
+      this.ws.setToolbox(toolboxxml);
     };
     
     /**
@@ -115,7 +141,7 @@ define([
      */
     Main.prototype._updateFilename = function() {
         if(!this._filename) {
-            $("#filenamedisplay")[0].textContent = "naamloos bestand";
+            $("#filenamedisplay")[0].textContent = Blockly.Msg.UI_UNNAMED_FILE;
         }else{
             var filenamesplit = this._filename.split(/[/\\]/);
             $("#filenamedisplay")[0].textContent = filenamesplit[filenamesplit.length-1];
@@ -144,6 +170,10 @@ define([
           var code = this.ws.generateCode(this._getClassName());
         } catch (e) {
           this.codepreviewpre.text("ERROR");
+          // KNOWN BUG in developer mode (does not happen in a build) 
+          // -> you get an error here because some code generation files got loaded in the wrong order...
+          // Just refresh the page and try again. ;)
+          // (I am too lazy too fix it - and I am currently the only developer)
           throw e;
         }
         this.codepreviewpre.text(code);
@@ -155,7 +185,7 @@ define([
      */
     Main.prototype.save = function() {
         if(!this._filename) {
-            var userinput = prompt("Gelieve een naam in te geven.", "Scripts/HelloWorld");
+            var userinput = prompt(Blockly.Msg.UI_NAME_FILE_MSG, "Scripts/HelloWorld");
             if(!userinput) {
                 return;
             }
@@ -164,12 +194,12 @@ define([
             this._filename = (path.length>0?path+"/":"")+toCamelCase(pieces[pieces.length-1]);
             this._updateFilename();
         }
-        Notifications.buzy("Opslaan...");
+        Notifications.buzy(Blockly.Msg.UI_SAVE);
         this.cs.save(this._filename, this.ws.getProgram(), this.ws.generateCode(this._getClassName()), _.bind(function(){
             Notifications.done();
         }, this), _.bind(function(){
             Notifications.done();
-            Notifications.notifyError("Oh! Er is iets mis gegaan tijdens het opslaan van het bestand...");
+            Notifications.notifyError(Blockly.Msg.UI_SAVE_FAILURE);
         }, this));
     };
   
@@ -199,7 +229,7 @@ define([
      */
     Main.prototype.load = function(file) {
         this.checkSaved(_.bind(function(){
-            Notifications.buzy("Laden...");
+            Notifications.buzy(Blockly.Msg.UI_LOAD);
             this.cs.load(file, _.bind(function(data) {
                 Notifications.done();
                 this._filename = file;
@@ -209,7 +239,7 @@ define([
                 //Notifications.notifySuccess("Bestand geladen!");
             }, this), _.bind(function() {
                 Notifications.done();
-                Notifications.notifyError("Oh! Er is iets mis gegaan tijdens het laden van het bestand...");
+                Notifications.notifyError(Blockly.Msg.UI_LOAD_FAILURE);
             }, this));
         }, this));
     };
@@ -222,8 +252,81 @@ define([
     };
     
     //
-    // When loading this file, remove the buzy indicator and immediatelly start the "Main" code!
+    // Load the language!
     //
-    Notifications.done();
-    new Main();
+    var loadLanguage = function (lang, next) {
+      if(lang !== curLanguage) {
+        $.ajax({
+          dataType : "script",
+          cache : true,
+          url : "../blockly/msg/js/"+lang+".js"
+        }).then(function() {
+          // set the new language preference
+          $.ajax("/api/setlang/"+lang, {
+            method:"POST"
+          });
+          
+          // update some places in the UI manually
+          $(".codecontent h5").text(Blockly.Msg.UI_GENERATED_CODE);
+          curLanguage = lang;
+          
+          // reload workspace if already loaded
+          if(window.main) {
+            window.main.reload();
+          }
+        
+          if(next) {
+            next();
+          }
+        });
+      }
+    };
+  
+    // All known languages
+    var availableLanguages = [];
+  
+    // Register language dropdown links
+    $(".languageitem").each(function(i, e) {
+      var lang = $(e).attr("data-lang");
+      availableLanguages.push(lang);
+      $(e).click(function() {
+        loadLanguage(lang);
+      });
+    })
+    
+    // Pick the language to load...
+    var curLanguage = "null";
+    var langToLoad = availableLanguages[0];
+    var lang = navigator.language || navigator.userLanguage;
+    for(var i=1;i<availableLanguages.length;i++) {
+      if (lang.indexOf(availableLanguages[i]) == 0) {
+        langToLoad = availableLanguages[i];
+        break;
+      }
+    }
+    
+    // Get the language preference for the user...
+    $.ajax("/api/lang", {
+      method:"POST",
+      data:{},
+      success:function(data){
+          if(data) {
+            langToLoad = data;
+          }
+          init();
+      }, 
+      error:function(){
+          init();
+      }
+    });
+    
+    var init = function() {
+      loadLanguage(langToLoad, function() {
+        //
+        // When loading this file, remove the buzy indicator and immediatelly start the "Main" code!
+        //
+        Notifications.done();
+        window.main = new Main();
+      });
+    };
 });

@@ -4,15 +4,13 @@ define([
     "underscore",
     "bootstrap",
     "blockly",
-    "blocks",
-    "blockly_lang_nl"
+    "blocks"
     ], function(
         $,
         _,
         bootstrap,
         Blockly,
-        Blocks,
-        lang
+        Blocks
 ){
     
     var makeWorkspace = function(div, program, id, pad) {
@@ -104,20 +102,31 @@ define([
         blocklyWorkspace.translate(-rx1, -ry1);
     }
     
-    $(".vubbiblock").each(function(i, vubbiblock) {
-      var scriptelem = $("script[type='text/vubbiscript']", vubbiblock);
-      var content = scriptelem.html();
-      scriptelem.detach();
-      var id = $(vubbiblock).attr("data-block");
-      var pad = $(vubbiblock).attr("data-pad");
-      if(pad){
-          pad = pad.split(";");
-          for(var i=0;i<4;i++) {
-              pad[i] = Number(pad[i]);
-          }
-      } else {
-          pad = [0, 0, 0, 0];
-      }
-      makeWorkspace(vubbiblock, content, id, pad);
+    if(!window.vubbilang) {
+      console.log("Please set window.vubbilang before loading a read-only vubbi editor!");
+      window.vubbilang = "en";
+    }
+    
+    $.ajax({
+      dataType : "script",
+      cache : true,
+      url : "../blockly/msg/js/"+window.vubbilang+".js"
+    }).then(function() {
+      $(".vubbiblock").each(function(i, vubbiblock) {
+        var scriptelem = $("script[type='text/vubbiscript']", vubbiblock);
+        var content = scriptelem.html();
+        scriptelem.detach();
+        var id = $(vubbiblock).attr("data-block");
+        var pad = $(vubbiblock).attr("data-pad");
+        if(pad){
+            pad = pad.split(";");
+            for(var i=0;i<4;i++) {
+                pad[i] = Number(pad[i]);
+            }
+        } else {
+            pad = [0, 0, 0, 0];
+        }
+        makeWorkspace(vubbiblock, content, id, pad);
+      });
     });
 });

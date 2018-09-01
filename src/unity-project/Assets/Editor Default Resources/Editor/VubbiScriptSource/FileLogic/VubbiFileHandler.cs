@@ -20,9 +20,9 @@ namespace vubbiscript
 		public static string GenerateHeader () {
 			return 
 @"/* 
- * Dit script was gemaakt met Vubbi.
+ * This script was created with Vubbi.
  * 
- * PAS OP: Aanpassingen aan deze code zullen verloren gaan als je opnieuw opslaat vanuit Vubbi.
+ * WATCH OUT: Changes to this file will be lost when you resaved from Vubbi.
  */
 
 ";
@@ -229,7 +229,7 @@ namespace vubbiscript
 		//
 		// Data migration v2 -> v3
 		//
-		[MenuItem("Help/Migrate Scratchity v0.1 & v0.2 Data", false, 500)]
+		// REMOVED FROM MENU!! => [MenuItem("Help/Migrate Scratchity v0.1 & v0.2 Data", false, 500)]
 		public static void MigrationData() {
 			string oldDataDir = Path.Combine (UnityEngine.Application.dataPath, "../BlockScriptData");
 			string scriptDir = Path.Combine (UnityEngine.Application.dataPath, "Scripts");

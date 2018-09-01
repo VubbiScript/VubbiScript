@@ -21,6 +21,9 @@ namespace vubbiscript
 		// Constructor... Getting settings...
 		public VubbiApi () {
 			scriptOutputDir = UnityEngine.Application.dataPath;
+			langPrefLoaded = false;
+			langPrefToSave = false;
+			langPref = "";
 		}
 
 		private struct SaveEntry {
@@ -40,6 +43,10 @@ namespace vubbiscript
 		private List<SaveEntry> specificAssetsToSave = new List<SaveEntry> ();
 		private List<LoadEntry> specificAssetsToLoad = new List<LoadEntry> ();
 		// --
+
+		private string langPref = "";
+		private bool langPrefLoaded = false;
+		private bool langPrefToSave = false;
 
 		/// <summary>
 		/// Called every update call of Unity
@@ -83,6 +90,20 @@ namespace vubbiscript
 					}
 				} finally {
 					specificAssetsToLoad.Clear ();
+				}
+
+				// CHECK Preferences...
+				if(langPrefToSave) {
+					langPrefToSave = false;
+					EditorPrefs.SetString ("VubbiScriptLanguagePreference", langPref);
+				}
+				if(!langPrefLoaded) {
+					langPrefLoaded = true;
+					string langPrefTemp = EditorPrefs.GetString ("VubbiScriptLanguagePreference");
+					if (langPrefTemp == null) {
+						langPrefTemp = "";
+					}
+					langPref = langPrefTemp;
 				}
 			}
 		}
@@ -145,6 +166,23 @@ namespace vubbiscript
 			loadEntry.waitHandle.WaitOne (10000);
 
 			return loadEntry.content;
+		}
+
+		/// <summary>
+		/// Gets the language preference.
+		/// </summary>
+		/// <returns>The language preference.</returns>
+		public string GetLanguagePreference() {
+			return langPref;
+		}
+
+		/// <summary>
+		/// Sets the language preference.
+		/// </summary>
+		/// <param name="newlang">the new language preference.</param>
+		public void SetLanguagePreference(string newlang) {
+			langPref = newlang;
+			langPrefToSave = true;
 		}
 	}
 }

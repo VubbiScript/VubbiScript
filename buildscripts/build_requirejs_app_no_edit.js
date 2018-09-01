@@ -6,9 +6,7 @@
       "underscore": "lib/underscore-min",
       "blockly": "../blockly/blockly_compressed",
       "blocks": "../blockly/blocks_compressed",
-      "csharp": "../blockly/csharp_compressed",
-      "blockly_lang_en": "../blockly/msg/js/en",
-      "blockly_lang_nl": "../blockly/msg/js/nl"
+      "csharp": "../blockly/csharp_compressed"
     },
     shim: {
       'bootstrap': {
@@ -20,14 +18,6 @@
       },
       'blockly': {
           exports: 'Blockly'
-      },
-      'blockly_lang_en': {
-          deps: ['blockly'],
-          exports: null
-      },
-      'blockly_lang_nl': {
-          deps: ['blockly'],
-          exports: null
       },
       'csharp': {
           deps: ['blockly'],

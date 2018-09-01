@@ -510,7 +510,7 @@
       <block type="unityObjects_findTag">
         <value name="TAG">
           <block type="text">
-            <field name="TEXT">scorebewaarder</field>
+            <field name="TEXT" i18n="TOOLBOX_CONTENT_FIND_TAG_EXAMPLE_TAG">xxxxx</field>
           </block>
         </value>
       </block>
@@ -521,7 +521,7 @@
         <value name="IF0">
           <block type="unityObjects_tagcompare">
             <value name="TAG">
-              <block type="text"><field name="TEXT">vijand</field></block>
+              <block type="text"><field name="TEXT" i18n="TOOLBOX_CONTENT_COMPARE_TAG_EXAMPLE_TAG">xxxxx</field></block>
             </value>
           </block>
         </value>
@@ -535,13 +535,9 @@
         <value name="WHO"><block type="unity_me"></block></value>
       </block>
       
-      <block type="unityGeneral_create">
-        <value name="WHO"><block type="unity_me"></block></value>
-      </block>
+      <block type="unityGeneral_create"></block>
       
-      <block type="unityGeneral_createGet">
-        <value name="WHO"><block type="unity_me"></block></value>
-      </block>
+      <block type="unityGeneral_createGet"></block>
       
       <sep gap="50"/>
       
@@ -593,12 +589,12 @@
         <!-- --- -->
       
         <block type="unityScene_toscene">
-          <value name="SCENE"><block type="text"><field name="TEXT">gameover</field></block></value>
+          <value name="SCENE"><block type="text"><field name="TEXT" i18n="TOOLBOX_CONTENT_SCENE_TO">xxxxx</field></block></value>
         </block>
           
         <block type="unityGeneral_log">
           <value name="WHAT">
-            <block type="text"><field name="TEXT">Dit werkt!</field></block>
+            <block type="text"><field name="TEXT" i18n="TOOLBOX_CONTENT_LOG_THIS_WORKS">xxxxx</field></block>
           </value>
         </block>
       

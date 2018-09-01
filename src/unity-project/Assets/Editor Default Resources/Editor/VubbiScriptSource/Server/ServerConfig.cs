@@ -19,6 +19,7 @@ namespace vubbiscript
 			MimeTypes.Add ("bmp", "image/bmp");
 			MimeTypes.Add ("png", "image/png");
 			MimeTypes.Add ("jpg", "image/jpeg");
+			MimeTypes.Add ("svg", "image/svg+xml");
 			MimeTypes.Add ("css", "text/css");
 			MimeTypes.Add ("ttf", "application/x-font-truetype");
 			MimeTypes.Add ("woff", "application/font-woff");
