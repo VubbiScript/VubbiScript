@@ -11,7 +11,7 @@ goog.require('Blockly.CSharp');
 Blockly.CSharp['unityControls_classConfig'] = function(block) {
   if(block.declare_) {
     var statementCode = Blockly.CSharp.statementToCode(block, 'ST');
-    Blockly.CSharp.tempGlobalsCode_ = statementCode;
+    Blockly.CSharp.tempGlobalsCode_ += statementCode;
     return null;
   }
   return null;
