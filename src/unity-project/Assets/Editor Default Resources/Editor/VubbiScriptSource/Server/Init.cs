@@ -57,7 +57,7 @@ namespace vubbiscript
 			// For released code, the HTML & JavaScript can be found in:
 			config.HostDirectory = System.IO.Path.Combine (UnityEngine.Application.dataPath, "../WebRoot");
 			#endif
-			config.Port = 8040;
+			config.Port = 48719;
 
 			//
 			// Update Web directory

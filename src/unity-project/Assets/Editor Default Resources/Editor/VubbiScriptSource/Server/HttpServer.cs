@@ -222,6 +222,10 @@ namespace vubbiscript
 			} catch(Exception e) {
 				ServerLog.Log ("Server Listening Exception!");
 				ServerLog.Log (e);
+			} finally {
+				listener.Stop();
+				listener.Server.Close();
+				ServerLog.LogInfo ("Listening stopped!");
 			}
 		}
 

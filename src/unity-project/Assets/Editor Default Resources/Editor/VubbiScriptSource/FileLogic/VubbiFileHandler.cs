@@ -218,7 +218,7 @@ namespace vubbiscript
 		public static void OpenFile(string file){
 			bool OPENINBROWSER = true;
 			if (OPENINBROWSER) {
-				Application.OpenURL ("http://localhost:8040/#"+file);
+				Application.OpenURL ("http://localhost:48719/#" + file);
 			} else {
 				// DID NOT WORK SO WELL - still here in case we decide to use it again...
 				// (Difficult to minimize and the window loses data when you start/stop a game)

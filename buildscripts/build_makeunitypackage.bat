@@ -10,7 +10,7 @@ CALL :normaliseUnityPackageFileName "%UnityPackageFileName%"
 echo Saving file to %UnityPackageFileName%
 
 REM It is possible to but -batchmode after -quit to run without generating any windows...
-"C:\Program Files\Unity\Editor\Unity.exe" -quit -projectPath "%ProjectDir%" +exportvubbiscriptunitypackage "%UnityPackageFileName%"
+"D:\Software\Program Files\Unity\2020.3.19f1\Editor\Unity.exe" -quit -projectPath "%ProjectDir%" +exportvubbiscriptunitypackage "%UnityPackageFileName%"
 
 GOTO :EOF
 

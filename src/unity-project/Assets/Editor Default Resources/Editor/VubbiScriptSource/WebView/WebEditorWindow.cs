@@ -39,7 +39,7 @@ public class WebEditorWindow : EditorWindow, IHasCustomMenu{
 	/// <summary>
 	/// The url on which Vubbi is hosted!
 	/// </summary>
-	string urlText = "http://localhost:8040";
+	string urlText = "http://localhost:48719";
 
 	/// <summary>
 	/// Opens a file in the editor.

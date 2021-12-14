@@ -24,7 +24,7 @@ namespace vubbiscript
 			MimeTypes.Add ("ttf", "application/x-font-truetype");
 			MimeTypes.Add ("woff", "application/font-woff");
 			MimeTypes.Add ("woff2", "application/font-woff2");
-			MimeTypes.Add ("js", "text/plain");
+			MimeTypes.Add ("js", "text/javascript");
 			DefaultMime = "text/html";
 
 			IP = IPAddress.Loopback;
